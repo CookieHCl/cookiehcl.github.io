@@ -24,6 +24,18 @@ creative_commons:
 
 
 # ---------------------------------------------------------------
+# Menu Settings
+# ---------------------------------------------------------------
+
+# Usage: `Key: /link/ || icon`
+menu:
+  about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+
+
+# ---------------------------------------------------------------
 # Sidebar Settings
 # See: https://theme-next.js.org/docs/theme-settings/sidebar
 # ---------------------------------------------------------------
@@ -62,6 +74,7 @@ post_meta:
 # Dependencies: https://github.com/next-theme/hexo-word-counter
 symbols_count_time:
   separated_meta: false
+
 
 # ---------------------------------------------------------------
 # Misc Theme Settings
