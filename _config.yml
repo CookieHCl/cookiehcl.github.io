@@ -8,13 +8,13 @@ subtitle: ''
 description: ''
 keywords:
 author: CookieHCl
-language: ko
+language: en # Since next is not good at korean
 timezone: Asia/Seoul
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://cookiehcl.github.io
-permalink: :year/:month/:day/:title/
+permalink: posts/:abbrlink/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -40,7 +40,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -81,7 +81,7 @@ meta_generator: true
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 ## updated_option supports 'mtime', 'date', 'empty'
-updated_option: 'mtime'
+updated_option: 'date'
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -95,9 +95,51 @@ exclude:
 ignore:
 
 # Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: landscape
+## https://github.com/next-theme/hexo-theme-next
+theme: next
+## https://github.com/rozbo/hexo-abbrlink2
+abbrlink:
+  start: 0
+## https://github.com/xu-song/hexo-auto-category
+auto_category:
+ enable: true
+## https://github.com/next-theme/hexo-generator-searchdb
+## https://github.com/next-theme/hexo-optimize
+filter_optimize:
+  enable: true
+## https://github.com/hexojs/hexo-generator-sitemap
+sitemap:
+  path: 
+    - sitemap.xml
+## https://github.com/chekun/hexo-excerpt
+excerpt:
+  depth: 5
+## https://github.com/next-theme/hexo-word-counter
+symbols_count_time:
+  symbols: false
+  total_symbols: false
+  total_time: false
+  exclude_codeblock: true
+## https://github.com/hexojs/hexo-renderer-markdown-it
+markdown:
+  render:
+    breaks: false
+    linkify: true
+    typographer: false
+  plugins:
+    - markdown-it-deflist
+    - markdown-it-footnote
+    - markdown-it-ins
+    - markdown-it-mark
+    - markdown-it-sub
+    - markdown-it-sup
+    - '@renbaoshuo/markdown-it-katex'
+  images:
+    prependRoot: true
+    postAsset: true
+## https://github.com/wayou/hexo-image-caption
+image_caption:
+  enable: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
