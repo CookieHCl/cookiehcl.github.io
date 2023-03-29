@@ -1,0 +1,6 @@
+{
+    // Line length
+    "MD013": false,
+    // Multiple top-level headings
+    "MD025": false
+}
