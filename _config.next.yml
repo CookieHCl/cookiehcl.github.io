@@ -10,6 +10,11 @@ cache:
 # Remove unnecessary files after hexo generate.
 minify: true
 
+# Define custom file paths.
+# Create your custom files in site directory `source/_data` and uncomment needed files below.
+custom_file_path:
+  style: source/_data/styles.styl
+
 
 # ---------------------------------------------------------------
 # Site Information Settings
@@ -65,11 +70,6 @@ footer:
 # See: https://theme-next.js.org/docs/theme-settings/posts
 # ---------------------------------------------------------------
 
-# Post meta display settings
-post_meta:
-  updated_at:
-    another_day: false
-
 # Post wordcount display settings
 # Dependencies: https://github.com/next-theme/hexo-word-counter
 symbols_count_time:
@@ -112,6 +112,27 @@ math:
     enable: true
     # See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex
     copy_tex: true
+
+
+# ---------------------------------------------------------------
+# Comments Settings
+# See: https://theme-next.js.org/docs/third-party-services/comments
+# ---------------------------------------------------------------
+
+# Multiple Comment System Support
+comments:
+  # Choose a comment system to be displayed by default.
+  # Available values: disqus | disqusjs | changyan | livere | gitalk | utterances
+  active: disqus
+  # Lazyload all comment systems.
+  lazyload: true
+
+# Disqus
+# For more information: https://disqus.com
+disqus:
+  enable: true
+  shortname: cookiehcl-github-io
+  count: false
 
 
 # ---------------------------------------------------------------
