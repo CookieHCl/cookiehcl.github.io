@@ -1,0 +1,29 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Create new post",
+      "type": "shell",
+      "command": "hexo new --path '${input:path}' '${input:title}' && rmdir 'source/_posts/${input:path}' && code 'source/_posts/${input:path}.md'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "close": false // vscode doesn't have a close only when successful option?!?!?!?!
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "path",
+      "type": "promptString",
+      "description": "Enter the path to the post",
+    },
+    {
+      "id": "title",
+      "type": "promptString",
+      "description": "Enter the title of the post",
+    }
+  ]
+}
