@@ -50,6 +50,8 @@ highlight:
   tab_replace: ''
   wrap: true
   hljs: false
+  exclude_languages:
+    - mermaid
 prismjs:
   enable: false
   preprocess: true
@@ -103,7 +105,6 @@ abbrlink:
 ## https://github.com/xu-song/hexo-auto-category
 auto_category:
  enable: true
-## https://github.com/next-theme/hexo-generator-searchdb
 ## https://github.com/next-theme/hexo-optimize
 filter_optimize:
   enable: true

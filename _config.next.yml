@@ -96,6 +96,20 @@ reading_progress:
 
 
 # ---------------------------------------------------------------
+# Tags Settings
+# See: https://theme-next.js.org/docs/tag-plugins/
+# ---------------------------------------------------------------
+
+# Note tag (bootstrap callout)
+note:
+  icons: true
+
+# Mermaid tag
+mermaid:
+  enable: true
+
+
+# ---------------------------------------------------------------
 # Math Formulas Render Support
 # See: https://theme-next.js.org/docs/third-party-services/math-equations
 # Warning: Please install / uninstall the relevant renderer according to the documentation.
