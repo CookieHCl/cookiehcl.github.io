@@ -12,6 +12,45 @@
         "reveal": "silent",
         "close": false // vscode doesn't have a close only when successful option?!?!?!?!
       }
+    },
+    {
+      "label": "Generate blog",
+      "type": "shell",
+      "command": "hexo generate -w",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "close": true,
+        "group": "hexo"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "Start blog",
+      "type": "shell",
+      "command": "browser-sync ./public -w --port 4000 --no-open",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "close": true,
+        "group": "hexo",
+      },
+      "isBackground": true
+    },
+    {
+      "label": "Open blog",
+      "type": "process",
+      "command": "${input:blog}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run blog",
+      "dependsOn": [
+        "Generate blog",
+        "Start blog",
+        "Open blog"
+      ],
+      "problemMatcher": []
     }
   ],
   "inputs": [
@@ -24,6 +63,12 @@
       "id": "title",
       "type": "promptString",
       "description": "Enter the title of the post",
+    },
+    {
+      "id": "blog",
+      "type": "command",
+      "command": "simpleBrowser.show",
+      "args": ["http://localhost:4000"]
     }
   ]
 }
