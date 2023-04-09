@@ -99,9 +99,6 @@ ignore:
 # Extensions
 ## https://github.com/next-theme/hexo-theme-next
 theme: next
-## https://github.com/rozbo/hexo-abbrlink2
-abbrlink:
-  start: 0
 ## https://github.com/xu-song/hexo-auto-category
 auto_category:
  enable: true
