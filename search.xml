@@ -249,6 +249,79 @@ secondary station의 response frame에선 1로 설정하면 command의 response�
       </categories>
   </entry>
   <entry>
+    <title>데통 Lec 13</title>
+    <url>/posts/44/</url>
+    <content><![CDATA[<h1>Multiplexing</h1>
+<dl>
+<dt>FDD(Frequency Division Duplexing)</dt>
+<dd>전송할 때와 수신할 때 다른 주파수를 사용하는 방식 (Full duplex 가능하도록)</dd>
+<dt>FDM(Frequency Division Multiplexing)</dt>
+<dd>여러 개의 신호를 다른 주파수를 가진 여러 개의 채널에 나누어 전송하는 방식</dd>
+<dt>FDMA(Frequency Division Multiple Access)</dt>
+<dd>여러 명의 사용자가 다른 주파수를 가진 여러 개의 채널을 나누어 사용하는 방식; 각 사용자는 정해진 채널으로만 통신</dd>
+</dl>
+<p>Time을 사용하는 TDD, TDM, TDMA도 있음</p>
+<p>TDD의 slot length = T<sub>p</sub> + T<sub>b</sub> + T<sub>g</sub><br>
+각각 Propagation delay (송신-&gt;수신 도달시간), Burst transmission time(데이터 전송 시간), Guard time(간섭 방지를 위해 데이터를 전송하지 않는 시간)</p>
+<h2 id="FDM">FDM</h2>
+<p>각 신호는 맞는 주파수가 되도록 frequency shift를 함 (modulation)<br>
+Receiver에선 bandpass filter를 통해 원하는 주파수의 신호만 추출한 후 demodulation을 거침</p>
+<dl>
+<dt>WDM(Wavelength Division Multiplexing)</dt>
+<dd>광케이블에선 빛으로 통신 -&gt; 주파수 대신 파장을 사용함</dd>
+</dl>
+<h2 id="TDM">TDM</h2>
+<h3 id="Synchronous-TDM">Synchronous TDM</h3>
+<p>Round-robin 방식으로 전송; N개 신호를 1회 보내는걸 frame이라고 함</p>
+<p>frame을 T초마다 보낸다면 각 N개 신호들도 T초바다 sample을 만들어야 함</p>
+<dl>
+<dt>framing bit</dt>
+<dd>frame을 구분하기 위해 0, 1이 반복되는 1bit를 frame 처음에 추가함</dd>
+</dl>
+<p>ex) 북미 표준 DS-1</p>
+<p>PCM으로 1 sample(8bit)/125μs추출; 이런 voice channel이 24개<br>
+-&gt; 1 frame에 24 * 8 + 1 = 193 bit가 들어가므로 Data rate는 193bit/125μs = 1.544Mbps</p>
+<p>voice channel을 보내는 경우 6 channel마다 PCM은 7bit만 샘플링;<br>
+8번째 비트는 signaling bit로 사용 (signal setup 같은 일을 담당함)</p>
+<p>시간이 지나고 voice 대신 digital data를 보내기도 함</p>
+<ul>
+<li>1~23 channel은 7bit data, 8번째 비트는 user data인지 system control data인지 표기</li>
+<li>24 channel은 frame sync를 더 잘 맞추기 위한 sync byte</li>
+</ul>
+<h3 id="Statistical-TDM">Statistical TDM</h3>
+<p>Asynchronous TDM, Intelligent TDM이라고도 함</p>
+<p>voice를 보낼 때는 데이터가 계속 나왔음<br>
+but digital의 경우는 burst data도 있고 유저들이 생겼다가 사라짐;</p>
+<p>Synchronous TDM는 항상 N개의 채널을 사용하므로 채널이 비어있는 경우가 생김<br>
+Statistical TDM은 보낼 데이터가 있는 경우에만 채널을 사용함 -&gt; bandwidth 낭비가 없음!</p>
+<h2 id="DSL-Broadband-Access">DSL Broadband Access</h2>
+<p>집에서 digital + voice 신호를 FDM 방식으로 DSLAM(DSL access multiplexer)에 전송<br>
+DSLAM이 telephone network랑 ISP에 신호들을 나눠서 전송</p>
+<dl>
+<dt>ADSL(Asymmetrical Digital Subscriber Line)</dt>
+<dd>downstream capacity가 훨씬 커서 asymmetric; FDM인데 downstream에 더 많이 할당하거나 echo cancellation(downstream이 upstream 주파수를 포함; 받을 때는 내가 보낸 주파수를 알고 있으니까 계산해서 빼줌)을 씀</dd>
+</dl>
+<h2 id="DMT-Discrete-Multitone">(DMT)Discrete Multitone</h2>
+<p>각 채널마다 보낼 신호의 bit수를 다르게 함; 좋은 channel은 bit 많이 보냄</p>
+<p>Adaptive Rate Control by Adaptive Modulation!</p>
+<p>현재 사용되고 있는 기술임</p>
+<h2 id="xDSL">xDSL</h2>
+<dl>
+<dt>HDSL(High Data Rate Digital Subscriber Line)</dt>
+<dd>Twisted pair cable을 사용해서 하나로 통신</dd>
+<dt>SDSL (Single-Line Digital Subscriber Line)</dt>
+<dd>echo cancellation으로 성능 개선</dd>
+<dt>VDSL (Very High Data Rate Digital Subscriber Line)</dt>
+<dd>ADSL + DMT</dd>
+</dl>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>데이터통신</category>
+      </categories>
+  </entry>
+  <entry>
     <title>데통 Lec 8</title>
     <url>/posts/13/</url>
     <content><![CDATA[<h1>Digitization</h1>
@@ -1761,6 +1834,76 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
       </categories>
   </entry>
   <entry>
+    <title>양자 Lec 15</title>
+    <url>/posts/45/</url>
+    <content><![CDATA[<h1>Quantum Cryptography</h1>
+<p>Quantum communication? 양자 암호, 양자 암호 통신, 양자 통신이 서로 섞여서 불리고 있음;</p>
+<dl>
+<dt>Public key system(공개키)</dt>
+<dd>RSA 같은거, 소인수분해가 어려운 사실을 이용함. 암호화 말고도 인증할 때도 사용</dd>
+<dt>Symmetric key system(대칭키)</dt>
+<dd>QKD 같은거, 암호화와 복호화에 같은 암호키를 사용함</dd>
+</dl>
+<h1>Post-Quantum Cryptography (PQC)</h1>
+<p>사실 현재 양자컴퓨터는 수십개 양자밖에 못 돌림</p>
+<p>양자컴퓨터가 실제로 개발된 이후에도 현재 암호화 시스템이 유효할 것인가?</p>
+<p>lattice-based cryptography처럼 양자컴퓨터로도 못 뚫는 암호화 시스템 만드는 중</p>
+<h1>Quantum Key Distribution (QKD)</h1>
+<ul>
+<li>One-time pad(OTP): secret key는 0, 1로 이루어진 무작위 문자열로 매번 새로 생성됨</li>
+<li>No-cloning property에 의해서 secret key는 복사될 수 없음</li>
+<li>모든 secret key를 전송할 필요도 없음!</li>
+<li>도청이 의심되면 도청된 부분을 버리고 일부만 사용해도 됨</li>
+</ul>
+<p>근데 secret key 전송은 어떻게 함?</p>
+<p>고전적 마인드: HV로 0, 1 보내고 HV로 측정! (or DA 사용할 수도 있음)<br>
+근데 HV로 보내고 DA로 측정한다면? 측정 불가 (0, 1 랜덤)</p>
+<p>그럼 Alice가 HV, DA를 섞어가면서 보내면 Bob에서 HV, DA를 순서를 정확하게 알아야만 정보를 받을 수 있음! (Alice, Bob는 암호에서 Sender, Receiver 지칭할 때 씀)<br>
+문제점) HV, DA sequence를 보내면 애초에 private key를 보낸거랑 똑같음 -&gt; 순서를 먼저 전송할 수는 없음</p>
+<ol>
+<li>Alice가 0, 1을 랜덤하게 선택해서 랜덤하게 HV, DA 중 한 basis로 보냄</li>
+<li>먼저 Bob이 매번 랜덤하게 HV, DA 중 한 basis로 측정(?!?!?!?!??!?)</li>
+<li>이후 Alice, Bob가 서로 사용한 HV, DA sequence를 공개 (정보가 아니라 basis만 공개)</li>
+<li>서로 언제 전송한 데이터가 올바른지 알 수 있으므로 올바르게 받은 데이터만 사용해서 secret key를 만듦</li>
+</ol>
+<p>근데 Eve가 중간에 도청하면 어떻게 됨?<br>
+Eve가 100% basis를 맞춘다면 Bob이 모르겠지만 Eve가 basis 틀리면 도청으로 인해 상태가 변하게 됨</p>
+<ol>
+<li>Alice랑 Bob이 서로 secret key의 일부만 골라내서 같은지 검증함 (public하게 해도 됨)</li>
+<li>같다면 도청한 것이 아니라고 판단하고 검증에 사용하지 않았던 부분만 진짜 secret key로 사용함</li>
+<li>추가) 혹시 모르니 parity bit 같은 검증용 데이터를 보내서 진짜 secret key도 검증과정을 거침</li>
+<li>Privacy amplification) parity bit를 공개하면서 secret key에 대한 정보가 일부 공개됐으므로(ex: 1은 홀수개임) 완전 무작위가 되도록 더 bit가 적은 secret key를 만듦</li>
+</ol>
+<h2 id="Quantum-Random-Number-Generator-QRNG">Quantum Random Number Generator (QRNG)</h2>
+<p>사실 양자 암호랑 관련 X</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mpadded><mi mathvariant="normal">∣</mi><mi>ψ</mi><mo stretchy="false">⟩</mo></mpadded><mo>=</mo><mfrac><mrow><mpadded><mi mathvariant="normal">∣</mi><mi>H</mi><mo stretchy="false">⟩</mo></mpadded><mo>+</mo><mpadded><mi mathvariant="normal">∣</mi><mi>V</mi><mo stretchy="false">⟩</mo></mpadded></mrow><msqrt><mn>2</mn></msqrt></mfrac></mrow><annotation encoding="application/x-tex">\ket{\psi} = \frac{\ket{H} + \ket{V}}{\sqrt{2}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">ψ</span></span><span class="mclose">⟩</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.548em;vertical-align:-0.538em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.551em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord sqrt mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9128em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mtight" style="padding-left:0.833em;"><span class="mord mtight">2</span></span></span><span style="top:-2.8728em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail mtight" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1272em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="minner mtight"><span class="mord mtight">∣</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span></span><span class="mclose mtight">⟩</span></span><span class="mbin mtight">+</span><span class="minner mtight"><span class="mord mtight">∣</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span></span><span class="mclose mtight">⟩</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.538em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>를 측정하면 0 또는 1 -&gt; RNG!</p>
+<p>ex) 인증에서 사용</p>
+<ol>
+<li>Alice랑 Bob이랑 서로 패스워드 공유</li>
+<li>Alice가 QRNG로 랜덤 숫자 생성해서 패스워드로 암호화</li>
+<li>Bob이 패스워드로 복호화해서 숫자 얻어냄</li>
+<li>Bob이 그 숫자에 1 더해서 패스워드로 암호화</li>
+<li>Alice가 패스워드로 복호화해서 숫자 맞는지 확인</li>
+</ol>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>양자 컴퓨팅 및 정보의 기초</category>
+      </categories>
+  </entry>
+  <entry>
     <title>양자 Lec 2</title>
     <url>/posts/2/</url>
     <content><![CDATA[<h1>Vector space</h1>
@@ -2368,6 +2511,39 @@ ex) Speech -&gt; Transcript (Speech Recognition)</p>
       </categories>
   </entry>
   <entry>
+    <title>자연언어처리 Lec 11</title>
+    <url>/posts/46/</url>
+    <content><![CDATA[<h1>Beam search</h1>
+<p>beam size만큼 가장 확률이 높은 문장들을 저장하고, beam에 있는 문장마다 뒤에 단어를 덧붙임</p>
+<p>END 토큰이 나올 경우 완성된걸로 치고 따로 빼둠</p>
+<p>timestamp T까지 계속하거나(최대 단어 수) 완성된 문장들이 n개가 될 때까지 계속함</p>
+<h1>BLEU (Bilingual Evaluation Understudy)</h1>
+<p>기계번역을 여러 휴ㅡ먼 번역과 비교해서 n-gram으로 similarity score를 줌</p>
+<h1>Attention</h1>
+<ul>
+<li>NMT 성능 개사기</li>
+<li>bottleneck 문제 해결 (기존 RNN에서 문장을 1개의 vector로 나타내니까 마지막 단어만 너무 중요해짐)</li>
+<li>vanishing gradient 문제 해결 (비슷한 문제, 비슷한 해결책)</li>
+<li>interpretability (attention distribution을 보고 alignment 분석 가능)</li>
+</ul>
+<p>Translate 말고도 vector value들이 있을 때 query에 따라 weighted sum of value를 얻고 싶을 때 사용</p>
+<h1>GPT</h1>
+<p>그냥 계속 다음 단어를 예측하도록 만듦; 문장이나 단락이 끝나면 거기서 끝</p>
+<p>근데 왜 이렇게 좋아짐? 그냥 parameter를 무지막지하게 박음....</p>
+<p>but user instruction 지키는건 잘 못 함</p>
+<h2 id="Supervised-Fine-Tuning-SFT">Supervised Fine Tuning(SFT)</h2>
+<p>사람들이 직접 좋은 답변들만 적어주고 그걸로 훈련</p>
+<h2 id="Reinforcement-Learning-from-Human-Feedback">Reinforcement Learning from Human Feedback</h2>
+<p>전부 SFT로 훈련시키기엔 너무 비쌈</p>
+<p>SFT로 훈련된 GPT가 여러 답변들을 생성하게 하고 랭킹을 매기자!</p>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>자연언어처리개론</category>
+      </categories>
+  </entry>
+  <entry>
     <title>자연언어처리 Lec 7</title>
     <url>/posts/16/</url>
     <content><![CDATA[<h1>Word meanings</h1>
@@ -2895,7 +3071,7 @@ slip system 수는 1 plane * 3 direction = 3개</p>
 <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span>: grain 크기</li>
 </ul>
 <h3 id="Solid-solutions-hardening">Solid solutions hardening</h3>
-<p>더 작은 원소나 더 큰 원소를 이용해 Solid solution을 만들면 slip plane이 조금 비틀림</p>
+<p>약간 작은 원소나 약간 큰 원소를 이용해 Solid solution을 만들면 크기 차이 때문에 slip plane이 조금 비틀림</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>σ</mi><mi>y</mi></msub><mo>∝</mo><msup><mi>C</mi><mn>0.5</mn></msup></mrow><annotation encoding="application/x-tex">\sigma_{y} \propto C^{0.5}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∝</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8641em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0.5</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
 <h3 id="Precipitation-strengthening">Precipitation strengthening</h3>
@@ -2908,6 +3084,209 @@ slip system 수는 1 plane * 3 direction = 3개</p>
 <p>Cold work 이후 열처리</p>
 <p>열처리하면 다시 tensile strength 줄어들고 ductility 늘어남, dislocation 다시 줄어들어서 새 grain이 생김 (recrystallization)</p>
 <p>시간이 길면 grain 크기가 커짐!</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>d</mi><mi>n</mi></msup><mo>−</mo><msubsup><mi>d</mi><mn>0</mn><mi>n</mi></msubsup><mo>=</mo><mi>K</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">d^n - d_0^n = Kt
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7977em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9614em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord mathnormal">t</span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span>: t초일 때 grain 지름</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">d_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: 0초일 때 grain 지름</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span></span></span></span>: 온도나 물질에 따라서 달라지는 상수</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>: 보통 2</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>재료공학개론</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>재공개 Lec 13</title>
+    <url>/posts/42/</url>
+    <content><![CDATA[<h1>Fracture</h1>
+<p>Brittle(취성) fracture랑 Ductile(연성) fracture가 있음</p>
+<p>온도에 따라서 Brittle/Ductile이 바뀔 수 있음</p>
+<h2 id="Ductile-fracture">Ductile fracture</h2>
+<p><img src="ductile_fracture.png" alt=""></p>
+<p>plastic deformation + fracture가 일어나기 위해서 아주 많은 에너지가 필요함 (Stress-Strain Curve 아래 면적이 넓음)</p>
+<ul>
+<li>늘리면서 microvoid가 생기기 시작하다가 void끼리 뭉쳐진 후 끊어짐</li>
+<li>void 때문에 타원 모양이 surface에 나타남</li>
+<li>한쪽은 cup모양, 한쪽은 cone모양으로 끊어짐</li>
+</ul>
+<h2 id="Brittle-fracture">Brittle fracture</h2>
+<p>거의 없는 plastic deformation + fracture가 일어날 때 에너지가 덜 필요함 (Stress-Strain Curve 아래 면적이 좁음)</p>
+<ul>
+<li>crack이 생긴 후 crack 전파</li>
+<li>crack이 퍼져나가는 V 모양이 surface에 나타남</li>
+<li>Ductile에 비하면 비교적 flat한 모양으로 끊어짐</li>
+</ul>
+<dl>
+<dt>Intergranular crack propagation</dt>
+<dd>grain 경계를 통해서 crack 전파</dd>
+<dt>Transgranular crack propagation</dt>
+<dd>여러 grain들을 통과하면서 crack 전파</dd>
+</dl>
+<h2 id="Fracture-mechanics">Fracture mechanics</h2>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>σ</mi><mi>m</mi></msub><mo>=</mo><mn>2</mn><mi>σ</mi><msqrt><mfrac><mi>a</mi><msub><mi>ρ</mi><mi>t</mi></msub></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\sigma_m = 2\sigma\sqrt{\frac{a}{\rho_t}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.44em;vertical-align:-0.9926em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4474em;"><span class="svg-align" style="top:-4.4em;"><span class="pstrut" style="height:4.4em;"></span><span class="mord" style="padding-left:1em;"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">ρ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-3.4074em;"><span class="pstrut" style="height:4.4em;"></span><span class="hide-tail" style="min-width:1.02em;height:2.48em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='2.48em' viewBox='0 0 400000 2592' preserveAspectRatio='xMinYMin slice'><path d='M424,2478
+c-1.3,-0.7,-38.5,-172,-111.5,-514c-73,-342,-109.8,-513.3,-110.5,-514
+c0,-2,-10.7,14.3,-32,49c-4.7,7.3,-9.8,15.7,-15.5,25c-5.7,9.3,-9.8,16,-12.5,20
+s-5,7,-5,7c-4,-3.3,-8.3,-7.7,-13,-13s-13,-13,-13,-13s76,-122,76,-122s77,-121,77,-121
+s209,968,209,968c0,-2,84.7,-361.7,254,-1079c169.3,-717.3,254.7,-1077.7,256,-1081
+l0 -0c4,-6.7,10,-10,18,-10 H400000
+v40H1014.6
+s-87.3,378.7,-272.6,1166c-185.3,787.3,-279.3,1182.3,-282,1185
+c-2,6,-10,9,-24,9
+c-8,0,-12,-0.7,-12,-2z M1001 80
+h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9926em;"><span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: maximum stress at crack tip</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>: stress</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>: crack 길이</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\rho_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">ρ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: radius of curvature; crack이 얼마나 뾰족한지</li>
+</ul>
+<p>보통 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>m</mi></msub><mo>&gt;</mo><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma_m &gt; \sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>라서 crack이 생긴 이후부턴 전파가 쉬움</p>
+<dl>
+<dt>Toughening</dt>
+<dd>일부러 microcrack을 안에 무작위 방향으로 만들어둠; 재료가 약해지는 대신 microcrack을 따라 crack이 지그재그 방향으로 전파되므로 한번에 물질이 깨지지 않음</dd>
+</dl>
+<h3 id="Griffith-Theory">Griffith Theory</h3>
+<p>균열이 전파되려면 균열의 전파로 인한 탄성변형에너지의 감소가 새로운 균열면을 만드는데 필요한 에너지와 같아야 한다는 이론</p>
+<p>이론이 맞는지는 모르겠지만 결과는 잘 맞아서 사용</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>σ</mi><mi>c</mi></msub><mo>=</mo><msqrt><mfrac><mrow><mn>2</mn><mi>E</mi><msub><mi>γ</mi><mi>s</mi></msub></mrow><mrow><mi>π</mi><mi>a</mi></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\sigma_c = \sqrt{\frac{2E\gamma_s}{\pi a}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.44em;vertical-align:-0.769em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.671em;"><span class="svg-align" style="top:-4.4em;"><span class="pstrut" style="height:4.4em;"></span><span class="mord" style="padding-left:1em;"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">πa</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0556em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-3.631em;"><span class="pstrut" style="height:4.4em;"></span><span class="hide-tail" style="min-width:1.02em;height:2.48em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='2.48em' viewBox='0 0 400000 2592' preserveAspectRatio='xMinYMin slice'><path d='M424,2478
+c-1.3,-0.7,-38.5,-172,-111.5,-514c-73,-342,-109.8,-513.3,-110.5,-514
+c0,-2,-10.7,14.3,-32,49c-4.7,7.3,-9.8,15.7,-15.5,25c-5.7,9.3,-9.8,16,-12.5,20
+s-5,7,-5,7c-4,-3.3,-8.3,-7.7,-13,-13s-13,-13,-13,-13s76,-122,76,-122s77,-121,77,-121
+s209,968,209,968c0,-2,84.7,-361.7,254,-1079c169.3,-717.3,254.7,-1077.7,256,-1081
+l0 -0c4,-6.7,10,-10,18,-10 H400000
+v40H1014.6
+s-87.3,378.7,-272.6,1166c-185.3,787.3,-279.3,1182.3,-282,1185
+c-2,6,-10,9,-24,9
+c-8,0,-12,-0.7,-12,-2z M1001 80
+h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.769em;"><span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: crack 전파를 위한 stress</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span>: Young's modulus</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">\gamma_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0556em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: surface energy density</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>: crack 반지름 (crack은 길이 2a인 무한평면으로 가정)</li>
+</ul>
+<p>Orowan이 plastic deformation을 고려하도록 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>e</mi></msub><mo>=</mo><msub><mi>γ</mi><mi>s</mi></msub><mo>+</mo><msub><mi>γ</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\gamma_e = \gamma_s + \gamma_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0556em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">e</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0556em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0556em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>으로 약간 식 수정함</p>
+<h4 id="Stress-intensity-factor">Stress intensity factor</h4>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>K</mi><mo>=</mo><mi>Y</mi><mi>σ</mi><msqrt><mrow><mi>π</mi><mi>a</mi></mrow></msqrt></mrow><annotation encoding="application/x-tex">K = Y\sigma\sqrt{\pi a}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.1908em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">Yσ</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8492em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal">πa</span></span></span><span style="top:-2.8092em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1908em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>사실 위에꺼 분모 이항한거; Y는 균열 종류에 따른 보정값 (단위 없는 상수임)</p>
+<p>ex) 중심에 2a 크기 균열? 표면에 a 크기 균열? 위아래로? 앞뒤로? 좌우로?</p>
+<dl>
+<dt>Fracture toughness <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">K_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></dt>
+<dd>균열이 생기기 위한 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span></span></span></span> 최소값; 두께가 너무 얇으면 두께에 영향을 받지만 일정 두께보다 두꺼워지면 두께와 관련 없는 상수값이 된다 (plane strain condition)</dd>
+</dl>
+<h2 id="Impact-Testing">Impact Testing</h2>
+<p><img src="impact_testing.png" alt=""></p>
+<dl>
+<dt>Charpy impact test</dt>
+<dd>그냥 해머를 높은 위치에서 떨어뜨림; 물질 부수기 전후 높이 차이로 물질이 흡수한 에너지를 측정</dd>
+</dl>
+<h1>Fatigue</h1>
+<p>Tensile strength에 도달하지도 않았는데 깨지는 현상;</p>
+<p>Tensile strength보다 작은 힘을 가했다 안 가했다 주기적으로 반복하다보면 깨짐</p>
+<dl>
+<dt>mean strength</dt>
+<dd><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>m</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>σ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>+</mo><msub><mi>σ</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\sigma_m = \frac{\sigma_{max} + \sigma_{min}}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1634em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8184em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4101em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></dd>
+<dt>stress range</dt>
+<dd><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>r</mi></msub><mo>=</mo><msub><mi>σ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>−</mo><msub><mi>σ</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sigma_r = \sigma_{max} - \sigma_{min}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></dd>
+<dt>stress amplitude</dt>
+<dd><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>a</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>σ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>−</mo><msub><mi>σ</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\sigma_a = \frac{\sigma_{max} - \sigma_{min}}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1634em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8184em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4101em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></dd>
+<dt>Fatigue strength/endurance limit</dt>
+<dd>Fatigue가 일어날 수 있는 가장 작은 힘의 크기; 이거보다 작으면 Fatigue가 일어나지 않음</dd>
+</dl>
+<h2 id="S-N-curve">S-N curve</h2>
+<p><img src="s-n_curve.png" alt=""></p>
+<p>Stree amplitude와 fatigue까지 필요한 사이클 수의 관계를 나타낸 그래프</p>
+<h1>Creep</h1>
+<p>elastic한 region에서 일정한 힘을 준 상태로 유지하면 이론상 평형 상태에서 멈춰야 하는데 계속해서 strain이 늘어나다가 fracture가 일어나는 현상</p>
+<p>고온에서 주로 일어나고 방향에 따라서도 다름;</p>
+<ul>
+<li>Primary stage: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϵ</mi><mo>=</mo><mi>A</mi><msup><mi>t</mi><mfrac><mn>1</mn><mn>3</mn></mfrac></msup></mrow><annotation encoding="application/x-tex">\epsilon = At^{\frac{1}{3}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">ϵ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.954em;"></span><span class="mord mathnormal">A</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.954em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8443em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.2255em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li>Secondary stage: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϵ</mi><mo>=</mo><msub><mi>ϵ</mi><mn>0</mn></msub><mo>+</mo><mi>B</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\epsilon = \epsilon_0 + Bt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">ϵ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">Bt</span></span></span></span></li>
+<li>Final stage: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϵ</mi><mo>=</mo><mi>B</mi><mo>+</mo><mi>C</mi><msup><mi>e</mi><mrow><mi>γ</mi><mi>t</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\epsilon = B + Ce^{\gamma t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">ϵ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7936em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7936em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05556em;">γ</span><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>ϵ</mi><mo>˙</mo></mover><mo>=</mo><mi>K</mi><msup><mi>σ</mi><mi>n</mi></msup><mi>exp</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mo>−</mo><mfrac><msub><mi>Q</mi><mi>C</mi></msub><mrow><mi>R</mi><mi>T</mi></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\dot{\epsilon} = K\sigma^n \exp\left( -\frac{Q_C}{RT} \right)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6679em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">ϵ</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0833em;"><span class="mord">˙</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">exp</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord">−</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">RT</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>ϵ</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">\dot{\epsilon}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6679em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">ϵ</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0833em;"><span class="mord">˙</span></span></span></span></span></span></span></span></span></span>: creep rate; creep이 빨리 일어나는 정도</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>: 가하는 stress</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span>: 온도</li>
+</ul>
+<h2 id="Creep-Mechanism">Creep Mechanism</h2>
+<p>Creep이 왜 일어나는가?</p>
+<dl>
+<dt>Dislocation climb</dt>
+<dd>Vacancy를 원자들이 이동하면서 채우는 과정에서 길어짐</dd>
+<dt>Grain boundary sliding</dt>
+<dd>grain들이 boundary를 따라 이동하면서 crack이 생김</dd>
+</dl>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>재료공학개론</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>재공개 Lec 14</title>
+    <url>/posts/47/</url>
+    <content><![CDATA[<h1>Phase diagram</h1>
+<dl>
+<dt>Phase(상)</dt>
+<dd>고체 액체 기체 같은거</dd>
+<dt>Solubility(용해도)</dt>
+<dd>얼마나 섞이는가; Completely soluble, Limited soluble(소금물처럼 일정 양까지만 섞임), Insoluble</dd>
+</dl>
+<p>용해도는 고체에서도 성립하는 개념임<br>
+ex) 소금물처럼 Limited soluble인 경우 고체도 온도 올리면 더 많이 녹음</p>
+<h2 id="Phase-diagram-상평형도">Phase diagram(상평형도)</h2>
+<p>온도, 압력에 따른 상을 나타낸 그래프<br>
+근데 여러 component가 같이 나와있는 경우도 있음; 이럴땐 보통 압력을 1기압 상수로 두고 온도, 조성에 따른 상을 나타냄</p>
+<p>조성은 보통 mole fraction <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>=</mo><mfrac><msub><mi>n</mi><mi>A</mi></msub><mrow><msub><mi>n</mi><mi>A</mi></msub><mo>+</mo><msub><mi>n</mi><mi>B</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">x_A=\frac{n_A}{n_A+n_B}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.157em;vertical-align:-0.4453em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7117em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3567em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1433em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3567em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1433em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4103em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3567em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1433em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4453em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> 씀 but weight을 쓸 때도 있음</p>
+<p>상평형도에 나와있다고 그 상태로 항상 변하는건 아님!!!</p>
+<p>ex) diamond는 사실 상평형도 상으로는 graphite가 제일 안정함<br>
+but 활성화에너지가 너무 크기 때문에 graphite가 안정한데도 diamond가 graphite로 바뀌지 않음 <s>다이아몬드 사도 안전합니다</s></p>
+<p>물은 고체-액체 기울기가 음수 -&gt; 고체가 액체보다 밀도가 낮아서 얼음이 물에 뜸!</p>
+<h3 id="Gibbs-phase-rule">Gibbs phase rule</h3>
+<p>F = C - P + 2<br>
+F = C - P + 1 (압력이 상수인 경우)</p>
+<ul>
+<li>F: degree of freedom</li>
+<li>C: number of components</li>
+<li>P: number of phases in equilibrium</li>
+</ul>
+<p>ex) 물의 삼중점은 C = 1, P = 3이므로 F = 0 (즉, 삼중점인 온도 &amp; 압력은 상수)<br>
+ex) 물이 고체와 액체가 평형인 곳은 C = 1, P = 2이므로 F = 1 (즉, 상평형도에서 선으로 나타남)</p>
+<h3 id="Isomorphous-Phase-Diagram">Isomorphous Phase Diagram</h3>
+<p><img src="isomorphous_phase_diagram.png" alt=""></p>
+<p>서로 다른 두 물질이 섞일 때 상평형도; 기압은 1기압으로 가정</p>
+<p>Q. Gibbs phase rule에 따르면 L+SS의 degree of freedom은 1인데 2 아님?<br>
+A. L+SS라고 다 같은게 아니고 L의 조성, SS의 조성 등까지 같아야 완전히 같아짐</p>
+<p>A-B bond energy가 A-A bond energy랑 B-B bond energy의 평균보다 높은지 낮은지에 따라 잘 섞이는지 안 섞이는지가 나뉨</p>
+<h4 id="Lever-rule">Lever rule</h4>
+<p><img src="lever_rule.png" alt=""></p>
+<p>L+SS 상에서 L의 조성은 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>L</mi></msub></mrow><annotation encoding="application/x-tex">X_L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, SS의 조성은 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>S</mi></msub></mrow><annotation encoding="application/x-tex">X_S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>Liquid/Solid Solution의 비율은 선분 비율 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>O</mi></msub><mo>−</mo><msub><mi>X</mi><mi>L</mi></msub><mo>:</mo><msub><mi>X</mi><mi>S</mi></msub><mo>−</mo><msub><mi>X</mi><mi>O</mi></msub></mrow><annotation encoding="application/x-tex">X_O-X_L : X_S-X_O</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>!</p>
+<p>왜? 전체 질량을 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>O</mi></msub><mo>=</mo><msub><mi>m</mi><mi>L</mi></msub><mo>+</mo><msub><mi>m</mi><mi>S</mi></msub></mrow><annotation encoding="application/x-tex">m_O = m_L + m_S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>라고 하면 B의 질량은 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>O</mi></msub><msub><mi>m</mi><mi>O</mi></msub><mo>=</mo><msub><mi>X</mi><mi>L</mi></msub><msub><mi>m</mi><mi>L</mi></msub><mo>+</mo><msub><mi>X</mi><mi>S</mi></msub><msub><mi>m</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">X_Om_O = X_Lm_L + X_Sm_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo>∴</mo><mfrac><msub><mi>m</mi><mi>L</mi></msub><msub><mi>m</mi><mi>O</mi></msub></mfrac><mo>=</mo><mfrac><mrow><msub><mi>X</mi><mi>S</mi></msub><mo>−</mo><msub><mi>X</mi><mi>O</mi></msub></mrow><mrow><msub><mi>X</mi><mi>S</mi></msub><mo>−</mo><msub><mi>X</mi><mi>L</mi></msub></mrow></mfrac><mo separator="true">,</mo><mfrac><msub><mi>m</mi><mi>S</mi></msub><msub><mi>m</mi><mi>O</mi></msub></mfrac><mo>=</mo><mfrac><mrow><msub><mi>X</mi><mi>O</mi></msub><mo>−</mo><msub><mi>X</mi><mi>L</mi></msub></mrow><mrow><msub><mi>X</mi><mi>S</mi></msub><mo>−</mo><msub><mi>X</mi><mi>L</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\therefore \frac{m_L}{m_O} = \frac{X_S-X_O}{X_S-X_L}, \frac{m_S}{m_O} = \frac{X_O-X_L}{X_S-X_L}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6922em;"></span><span class="mrel amsrm">∴</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.9436em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1963em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1963em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 ]]></content>
       <categories>
         <category>SNU</category>
@@ -3482,6 +3861,185 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <dt>아슐리안 석기 (Mode 2)</dt>
 <dd>돌을 계획적으로 쪼개기 시작함; 제작기술이 있어야만 만들 수 있는 석기들</dd>
 </dl>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>진화와 인간사회</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>진인사 Lec 13</title>
+    <url>/posts/43/</url>
+    <content><![CDATA[<h1>고인류 화석과 석기 화석</h1>
+<p><img src="%EA%B3%A0%EC%9D%B8%EB%A5%98_%ED%99%94%EC%84%9D.jpg" alt=""></p>
+<p><img src="%EC%84%9D%EA%B8%B0_%ED%99%94%EC%84%9D.jpg" alt=""></p>
+<ol>
+<li>Taung child(A. Africanus)</li>
+<li>A. afarensis</li>
+<li>P. robustus (오스트랄로피테쿠스의 방계)</li>
+<li>H. habilis (올도완 석기 만듦)</li>
+<li>H. erectus</li>
+<li>H. Heidelbergensis</li>
+<li>H. Neanderthalensis</li>
+<li>H. sapiens</li>
+<li>올도완 석기 표본</li>
+<li>아슐리안 석기 표본</li>
+</ol>
+<h1>호모 사피엔스의 분기</h1>
+<dl>
+<dt>H. Heidelbergensis</dt>
+<dd>이후 H. Neanderthalensis랑 호모 사피엔스로 분기됨</dd>
+<dt>H. Neanderthalensis</dt>
+<dd>석기 제작, 불 사용, 매장 흔적 보임; 특이사항으로 유라시아로 건너간 일부 호모 사피엔스와 교배가 일어난 흔적이 있음 but 아프리카에 남아있떤 호모 사피엔스들과는 교배가 일어나지 않음</dd>
+<dt>H. Sapiens</dt>
+<dd>유일하게 현존하는 호모 속</dd>
+</dl>
+<h2 id="다지역기원설">다지역기원설</h2>
+<ul>
+<li>약 200만년 전에 호모 에렉투스가 아프리카를 떠나서 아시아와 유럽에 정착</li>
+<li>지역 개체군 간의 유전자 전달을 통해 현재의 호모 사피엔스로 진화했음</li>
+<li>사실 호모 에렉투스와 호모 사피엔스 간의 분명한 차이가 없으며, 동일 종의 연장선상에 있음</li>
+</ul>
+<p>핵심 예측)</p>
+<ul>
+<li>호모 에렉투스와 현생인류 간의 이행형 화석이 전세계에서 발굴될 것이다</li>
+<li>호모 에렉투스와 현생인류 간의 형태학적 유사성이 관찰될 것이다</li>
+<li>현생인류는 긴 시기 동안 구세계에서 발견될 것이다</li>
+</ul>
+<h2 id="아웃-오브-아프리카-가설">아웃 오브 아프리카 가설</h2>
+<ul>
+<li>호모 에렉투스는 전부 아프리카에 있었음 (약 180만년~70만년 전에 아프리카를 나와서 이동하긴 했지만 멸종했음)</li>
+<li>호모 사피엔스도 약 20만년 전에 아프리카에서 기원했고, 13만년 ~ 3만년 전 사이에 아프리카를 떠나 다른 곳으로 이동했음</li>
+<li>호모 사피엔스는 종간 교배 없이 다른 종을 대치했음</li>
+</ul>
+<p>핵심 예측)</p>
+<ul>
+<li>호모 에렉투스와 현생인류 간의 이행형 화석은 아프리카에서만 발견될 것이다</li>
+<li>호모 에렉투스와 현생인류 간의 교배는 없었다</li>
+<li>각 지역에 현생인류가 거주했던 시기는 상이할 것이다 (이동하는데 시간이 걸림)</li>
+</ul>
+<p>현재는 이행 화석이 아프리카에서만 발견됐고, 현생 인류의 DNA가 동질적이라 아웃 오브 아프리카 가설이 유력한 상황 (but 종간 교배가 없진 않았음)</p>
+<h1>호미닌 진화의 특징</h1>
+<ol>
+<li>두발 걷기</li>
+<li>호모 속으로 진화할 수록 대체로 체구 증가</li>
+<li>호모 속으로 진화하면서 뇌의 크기가 급격히 증가</li>
+<li>호모 속으로 진화하면서 대체로 성적 이형성 감소</li>
+<li>육식 증가: 석기 사용과 치열, 동물의 유해 화석, 불 사용</li>
+</ol>
+<p>불을 사용하면서 요리를 시작 -&gt; 다른 동물들과 달리 짧은 시간에 더 많은 에너지를 먹을 수 있었음 -&gt; 다른 영장류와 달리 더 큰 뇌를 유지할 수 있었음 -&gt; 뇌의 크기가 증가한 원인?</p>
+<h1>언어의 기원</h1>
+<p>1866년 파리언어학회: 언어의 기원에 대한 논문은 받아들이지 않겠다!<br>
+1872년 런던문헌학회: 우리도 받아들이지 않겠다!</p>
+<p>1990년대까지 이 ㅄ들 때문에 언어의 기원과 진화에 대한 연구를 발표할 저널이 없었음 그래서 언어의 기원은 제대로 연구가 안 됐음</p>
+<ol>
+<li>언어는 뇌의 진화와 관련 있음 (브로카 영역/베르니케 영역)</li>
+<li>인간의 성도는 발화를 위해 적합한 물리적 구조를 갖고 있음</li>
+<li>인간의 귀는 유입되는 청각 신호를 발화 신호로 분리하는데 특화되어 있음</li>
+</ol>
+<dl>
+<dt>브로카 영역(Broca's area)</dt>
+<dd>폴 브로카가 발견한 좌측 전두엽 아랫부분; 손상되면 말하기에 장애를 겪지만 타인의 말은 이해함</dd>
+<dt>베르니케 영역(Wernicke's area)</dt>
+<dd>칼 베르니케가 발견한 좌측 측두엽 뒷부분; 손상되면 타인의 말을 이해하는데 장애를 겪지만 말은 유창하게 함</dd>
+<dt>궁상속(arcuate fasciculus)</dt>
+<dd>두 부위를 연결함; 손상되면 따라 말하기를 못 함</dd>
+</dl>
+<h1>대뇌화</h1>
+<p>인간의 뇌는 고비용의 조직! 체중의 2.5%를 차지하지만 기초 대사량의 22%를 소모함</p>
+<p>(아마도 두발걷기 -&gt; 대뇌화?)<br>
+대뇌화로 인해 난산 및 조기출산 발생<br>
+-&gt; 출생 후 13개월 이상 뇌 성장이 지속됨<br>
+-&gt; 양육 투자 필요, 영아 의존성이 증가<br>
+-&gt; 모성 투자의 증가, 성적 분업의 발생<br>
+-&gt; 양육동맹의 결성(일부일처), 짝 충실성<br>
+-&gt; 성적 이형 선택압의 감소<br>
+-&gt; 성적 이형성 감소</p>
+<p>가족 제도, 즉 사회 구조의 형성을 가장 기초적인 단계가 시작됨!</p>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>진화와 인간사회</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>진인사 Lec 14</title>
+    <url>/posts/48/</url>
+    <content><![CDATA[<h1>인간의 생각과 행동</h1>
+<p>인간의 생각이나 행동은 본성(Nature)인가 육성(Nurture)의 결과인가?</p>
+<p>다른 의견: 문화(Culture)의 영향인가? <s>라임 지린다</s></p>
+<h2 id="표준-사회과학-모델-SSSM-Standard-Social-Science-Model">표준 사회과학 모델 (SSSM; Standard Social Science Model)</h2>
+<ol>
+<li>인간의 본성은 백지상태(blank slate/tabula rasa)로 태어난다.</li>
+<li>두뇌는 범용성 컴퓨터와 같다.</li>
+<li>문화와 사회화가 인간의 행동을 프로그래밍한다.</li>
+<li>인간의 생각과 행동은 무한히 다양하게 전개될 수 있다.</li>
+<li>인간은 다른 생물들과 다르며 예외적인 가치를 지닌다.</li>
+</ol>
+<p>인간의 독특함을 강조??? &lt;&lt; 이러다가 개판날 확률 99.99% 제발 이러지 말자</p>
+<p>진화심리학자 Steven Pinker도 비판했음</p>
+<h2 id="진화심리학에서-인간의-생각과-행동">진화심리학에서 인간의 생각과 행동</h2>
+<ol>
+<li>모든 표현형은 유전자와 환경이 상호작용한 결과다.</li>
+<li>인간의 생각과 행동에서 나타나는 특징도 마찬가지다.</li>
+<li>Nature – Nurture, Nature – Culture 논쟁은 유전자와 환경의 영향 사이에 분명한 구분이 있다는 잘못된 전제를 갖고 있다.</li>
+</ol>
+<h1>생각의 연구</h1>
+<dl>
+<dt>내성심리학</dt>
+<dd>내가 어떻게 생각했는지 생각하는거임(???) but 남의 생각을 연구할 수 없었음</dd>
+<dt>행동주의</dt>
+<dd>생각은 볼 수가 없지만 행동은 볼 수가 있음 -&gt; 행동을 분석하면 생각을 분석할 수 있음</dd>
+<dt>인지주의</dt>
+<dd>인간은 사고하는 프로세스가 있음(순서도 같은거) -&gt; 정보가 뇌속에서 어떻게 처리되는지 연구함</dd>
+</dl>
+<p>행동주의는 생각 -&gt; 행동 과정을 블랙박스로 표현함</p>
+<p>인지주의는 이 블랙박스를 연구하면 화이트박스로 만들 수 있다고 생각!<br>
+but 생각 자체는 아직도 모름; 생각 -&gt; 행동 과정만 알 수 있다는 뜻</p>
+<p>사냥개와 도우미개 -&gt; 행동 패턴의 인공선택을 통해 품종 개량을 한 예시<br>
+행동의 진화와 몸의 진화를 분리할 수 없다 (물론 진화 = 개체군 단위 = 개체들의 행동 분포임; 개체 단위로는 당연히 행동이 달라짐)</p>
+<h1>설명</h1>
+<dl>
+<dt>역공학</dt>
+<dd>현재 알려진 신체에 관련된 사실들 -&gt; 신체 메커니즘이 어떤 문제를 해결하려고 만들어진건지 추측 -&gt; 과거 선조들이 겪었던 문제들 밝힘</dd>
+<dt>적응 사고</dt>
+<dd>과거 선조들이 겪었던 문제들 밝힘 -&gt; 어떻게 해야 문제를 해결할 수 있을지 추측 -&gt; 현재 알려진 신체에 관련된 사실들</dd>
+</dl>
+<h2 id="근연설명">근연설명</h2>
+<p>기전: 언어의 이해는 베르니케 영역에 의해 이루어진다</p>
+<p>개체발달: 베르니케 영역의 활성화를 위해서는 환경의 언어자극이 결정적 시기
+(critical period)에 주어져야 한다</p>
+<h2 id="궁극설명">궁극설명</h2>
+<p>적응: 베르니케 영역은 효과적 정보교환을 통해 적합도를 높인다</p>
+<p>계통발생: 베르니케 영역은 대뇌 편측화로 나타난 형질이다</p>
+<h3 id="추가질문">추가질문</h3>
+<p>현대의 모든 문화권에서 상당수의 여성이 임신 첫 3개월 중에
+구토, 구역질, 음식 거부 등의 증상이나 행동, 즉 ‘임신성 오심(pregnancy sickness)’을 보인다.</p>
+<p>프로펫의 가설: 임신성 오심은 독성 물질을 섭취할 위험을 줄이는 적응이다
+-&gt; 예측: 임신성 오심을 겪는 여성은 낮은 자연 유산율을 겪음</p>
+<p>임신성 오심을 경험하지 않는 임산부의 자연 유산율과 태아 사마률이 의미있게 높았음</p>
+<p>임신성 오심을 경험하는 산모는 육류, 가금류, 알코올, 일부 채소 등 독성 물질을 포함할 가능성이 높은 음식들만 거부; 빵이나 곡류 같은 음식은 거부하지 않음</p>
+<h1>진화행동과학</h1>
+<p>Affect(정서) / Behavior(행동) / Cognition(인지)</p>
+<p>but 이들 사이의 엄격한 경계 설정이나 정의는 어려움</p>
+<p>진화행동과학은 근연설명(어떤 기능이 있는가) + 궁극설명(어떤 진화적 흐름으로 인해 생겨난건가)을 전부 다룸</p>
+<h2 id="진화심리학">진화심리학</h2>
+<p>영역특수적 심적 모듈(domain-specific mental modules)</p>
+<p>적응 때문에 환경에 적합한 행동을 한다!</p>
+<p>but 과거의 진화적 적응환경에서 반복적으로 겪었던 적응문제를 해결하는 데 특화된 기능들로 이루어져 있음 -&gt; 현재의 행동은 과거에 설계된 심리적 하드웨어가 현 시대의 환경적
+자극에 반응한 결과</p>
+<p>행동의 번식 적합도 대신 심적 기전을 연구함</p>
+<p>행동의 심적 기전은 현대인이 아니라 조상들에게 작용했던 선택압에 의해 만들어진 것이라는 가정에 따름</p>
+<p>문제점: 진화적 적응환경의 시기와 특징을 확정하기 어려움 (언제부터 구시대 하드웨어 버리고 최신 하드웨어 쓰는거임?)</p>
+<dl>
+<dt>고유 영역</dt>
+<dd>EEA에서 그 모듈이 처리하는 대상영역</dd>
+<dt>현실 영역</dt>
+<dd>현재의 환경조건에서 모듈을 활성화하는 대상영역</dd>
+</dl>
+<p>고유 영역과 현실 영역이 차이나면 모듈의 현재 기능이 부적응적일 수도 있음</p>
 ]]></content>
       <categories>
         <category>SNU</category>
