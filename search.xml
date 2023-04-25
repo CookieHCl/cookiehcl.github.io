@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>데통 Lec 1</title>
+    <url>/posts/3/</url>
+    <content><![CDATA[<h1>Internet의 역할</h1>
+<ul>
+<li>network of networks</li>
+<li>infrastructure that provides services to applications (email, game 등)</li>
+<li>provides programming interface to apps</li>
+</ul>
+<h1>Protocol</h1>
+<p>Protocol controls sending, receiving messages</p>
+<p>message의 format, order 등을 정함</p>
+<dl>
+<dt>syntax</dt>
+<dd>format, size, content of message</dd>
+<dt>semantics</dt>
+<dd>meaning of message</dd>
+<dt>timing</dt>
+<dd>when to send, discard, retransmit message</dd>
+</dl>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>데이터통신</category>
+      </categories>
+  </entry>
+  <entry>
     <title>데통 Lec 10</title>
-    <url>/posts/33/</url>
+    <url>/posts/40/</url>
     <content><![CDATA[<h1>Convolutional Encoder</h1>
 <p>m bit input에 대해 n bit codeword를 생성함</p>
 <p>stage K개 마다 m개의 비트가 있는 shift register가 있음<br>
@@ -70,7 +97,7 @@ PRE DATA POST PRE DATA POST -&gt; PRE DATA POST(PRE) DATA POST 처럼 데이터 
   </entry>
   <entry>
     <title>데통 Lec 11</title>
-    <url>/posts/39/</url>
+    <url>/posts/46/</url>
     <content><![CDATA[<h1>Stop and Wait</h1>
 <p>Receiver가 frame 받은 후 문제없는지 확인해서 ACK/NAK 보냄</p>
 <p>Sender는 ACK/NAK가 들어오거나 timeout이 발생한 후에만 다음 frame 보냄</p>
@@ -175,7 +202,7 @@ End-to-End (source host와 destination host 사이) Transmission Control은 Laye
   </entry>
   <entry>
     <title>데통 Lec 12</title>
-    <url>/posts/45/</url>
+    <url>/posts/52/</url>
     <content><![CDATA[<h1>High-Level Data Link Control(HDLC)</h1>
 <p>1대1 통신인 point-to-point과 여러 대의 통신인 multipoint(multidrop)으로 나뉨</p>
 <dl>
@@ -231,8 +258,8 @@ secondary station의 response frame에선 1로 설정하면 command의 response�
 10(RNR, Receive Not Ready): ACK, 다음 프래임 받을 수 없음<br>
 11(SREJ, Selective Reject): NAK, Selective Repeat에서</dd>
 </dl>
-<p>ex) 받는 측에서 RNR을 보냈음 -&gt; 보내는 측 뇌정지???? 언제 다시 보내야함??? -&gt; RR,P를 보내서 받을 수 있는지 물어봄 -&gt; 받는 측에서 RNR, F를 보내면 반복, RR, F를 보내면 다시 데이터 전송<br>
-보내는 측에서 상황 확인을 위해 RR, 0, P를 보낼 수도 있음</p>
+<p>보내는 측에서 상황 확인을 위해 RR, 0, P를 보낼 수도 있음!!<br>
+ex) 받는 측에서 RNR을 보냈음 -&gt; 보내는 측 뇌정지???? 언제 다시 보내야함??? -&gt; RR,P를 보내서 받을 수 있는지 물어봄 -&gt; 받는 측에서 RNR, F를 보내면 반복, RR, F를 보내면 다시 데이터 전송</p>
 <dl>
 <dt>M</dt>
 <dd>Unnumbered frame type (링크 type을 NRM ARM ABM으로 정해라, 링크를 끊어라, 다시 연결해라 등등...)</dd>
@@ -250,7 +277,7 @@ secondary station의 response frame에선 1로 설정하면 command의 response�
   </entry>
   <entry>
     <title>데통 Lec 13</title>
-    <url>/posts/51/</url>
+    <url>/posts/58/</url>
     <content><![CDATA[<h1>Multiplexing</h1>
 <dl>
 <dt>FDD(Frequency Division Duplexing)</dt>
@@ -322,8 +349,377 @@ DSLAM이 telephone network랑 ISP에 신호들을 나눠서 전송</p>
       </categories>
   </entry>
   <entry>
+    <title>데통 Lec 2</title>
+    <url>/posts/6/</url>
+    <content><![CDATA[<h1>Network edge</h1>
+<dl>
+<dt>host(end sytem)</dt>
+<dd>client &amp; server</dd>
+<dt>physical media</dt>
+<dd>wired, wireless communication links</dd>
+<dt>access networks</dt>
+<dd>end system과 edge router 연결</dd>
+</dl>
+<h2 id="Access-networks">Access networks</h2>
+<p>end system에서 edge router까지 어떻게 연결?</p>
+<h3 id="DSL">DSL</h3>
+<p>존재하는 telephone line 사용; voice, data를 다른 주파수로 전송</p>
+<p>central ofice에서 DSLAM이 다른 네트워크로 전송</p>
+<h3 id="Cable-network">Cable network</h3>
+<p>voice, data를 다른 주파수로 전송하지만 집마다 central office에 연결되는 다른 cable을 사용</p>
+<h3 id="FTTH-Fiber-to-the-Home">FTTH(Fiber to the Home)</h3>
+<p>집까지 광케이블을 연결</p>
+<dl>
+<dt>Passive Optical Network</dt>
+<dd>OLT에서 ONT에 정보들 전송하고 ONT가 선별</dd>
+<dt>Active Optical Network</dt>
+<dd>OLT에서 ONT에 정보들 걸러서 전달하고 ONT가 전송</dd>
+</dl>
+<h3 id="Home-network">Home network</h3>
+<p>집에서 공유기가 휴대폰 노트북 등등 다 연결해줌</p>
+<h3 id="Enterprise-access-networks-Ethernet">Enterprise access networks (Ethernet)</h3>
+<p>회사 대학 등에서 쓰라고 만들었지만 집에서도 쓰는 중</p>
+<p>Home network의 큰 버전, 100Gbps까지도 가능</p>
+<h3 id="Wireless-access-networks">Wireless access networks</h3>
+<dl>
+<dt>wireless LAN</dt>
+<dd>Wi-Fi 등 집, 회사 정도의 작은 범위</dd>
+<dt>wide-area wireless access</dt>
+<dd>5G 등 수십km 정도의 큰 범위</dd>
+</dl>
+<h2 id="Packet">Packet</h2>
+<p>Host는 data를 packet 형태로 보냄</p>
+<p>application message를 packet(L bits) 크기의 chunk로 나눔</p>
+<p>transmission rate를 R(bits/sec)라고 하면 packet transmission delay = L/R</p>
+<h2 id="Physical-media">Physical media</h2>
+<p>transmitter에서 receiver까지 전달함</p>
+<dl>
+<dt>guided media</dt>
+<dd>구리 등 전선으로 직접 전달</dd>
+<dt>unguided media</dt>
+<dd>radio 등 자유롭게 전달</dd>
+<dt>twisted pair(TP)</dt>
+<dd>꼬여있는 두 구리 전선</dd>
+<dt>coaxial cable</dt>
+<dd>중심과 테두리로 양방향 전달하는 구리전설</dd>
+<dt>fiber optic cable(광섬유)</dt>
+<dd>아주 빠르고 에러 거의 X</dd>
+</dl>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>데이터통신</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>데통 Lec 3</title>
+    <url>/posts/9/</url>
+    <content><![CDATA[<h1>Network core</h1>
+<p>router들의 그물망</p>
+<dl>
+<dt>routing</dt>
+<dd>packet의 destination을 보고 destination까지 가는 경로를 정함</dd>
+<dt>forwarding</dt>
+<dd>packet을 받은 router가 적절한 router로 packet을 보냄</dd>
+</dl>
+<h2 id="Packet-switching">Packet-switching</h2>
+<p>수많은 host들로부터 오는 packet들을 목표 router로 전송해야 됨</p>
+<p>그래서 router들이 packet을 받은 다음 다른 router로 전송함</p>
+<dl>
+<dt>store-and-forward</dt>
+<dd>packet이 완전히 router에 온 다음 router로 전송함; end-end delay 2L/R</dd>
+<dt>queueing delay, loss</dt>
+<dd>packet을 queue에 저장, queue가 꽉 차면 packet을 버림!!!! (그래서 모든 connection의 bandwidth 보장 불가)</dd>
+<dt>circuit switching</dt>
+<dd>source-dest까지의 모든 경로를 확보한 후 전달; but 데이터가 없는 상태에서도 자원을 갖고 있어서 안 씀</dd>
+</dl>
+<h1>Internet Service Providers(ISP)</h1>
+<dl>
+<dt>access ISP</dt>
+<dd>학교, 집, 회사 등의 ISP</dd>
+<dt>Tier 1 ISP/Global ISP</dt>
+<dd>access ISP들을 연결하는 ISP, Tier 1 ISP끼린 돈을 안 냄</dd>
+<dt>Regional ISP</dt>
+<dd>국가별로 Tier 1 ISP에 대신 연결해주는 ISP</dd>
+<dt>Content provider network</dt>
+<dd>구글 같은 애들은 따로 본인이 network를 만듦</dd>
+<dt>IXP(Internet exchange point)</dt>
+<dd>ISP들을 연결함</dd>
+</dl>
+<h1>Packet delay</h1>
+<ul>
+<li>nodal processing delay: bit error 체크하고 output link 정함</li>
+<li>queueing delay: packet이 queue에 들어가서 transmission 될때까지 기다림</li>
+<li>transmission delay: packet이 link를 통해 전송되는데 걸리는 시간, packet length/link bandwidth</li>
+<li>propagation delay: packet이 link를 통해 전송되는데 걸리는 시간, link length/propagation speed</li>
+</ul>
+<dl>
+<dt>throughput</dt>
+<dd>sender/receiver 사이 전송되는 속도, 각 경로마다 throughput의 최솟값</dd>
+<dt>bottleneck link</dt>
+<dd>가장 느려서 throughput을 결정하는 link</dd>
+</dl>
+<h1>Internet protocol layer</h1>
+<ul>
+<li>application: FTP, SMTP, HTTP</li>
+<li>transport: TCP, UDP</li>
+<li>network: IP, routing protocols</li>
+<li>link: Ethernet, 802.11 (WiFi), Cellular</li>
+<li>physical: bits “on the wire”</li>
+</ul>
+<p>왜 layer 씀?</p>
+<dl>
+<dt>Modularization</dt>
+<dd>network는 너무 커서 모듈로 나눔, 일부만 고쳐도 되기 때문에 maintenance, update 좋음</dd>
+<dt>Layering</dt>
+<dd>한 layer의 implementation은 다른 layer가 몰라도 됨</dd>
+</dl>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>데이터통신</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>데통 Lec 4</title>
+    <url>/posts/12/</url>
+    <content><![CDATA[<h1>TCP/IP</h1>
+<ul>
+<li>IP: computer마다 유일</li>
+<li>port: process/program마다 유일</li>
+</ul>
+<p>IP:port로 socket을 정하면 특정 computer의 특정 process가 정해짐!</p>
+<p><img src="tcp_ip.png" alt=""></p>
+<h1>Layering의 단점</h1>
+<ul>
+<li>Inefficiency: layer마다 overhead 생김</li>
+<li>Restrictive: 일부 layer만 사용할 수 없고 모든 layer를 하나하나 다 거쳐야 함</li>
+<li>Redundancy: error handling, packetizing, encapsulation 등을 layer마다 해줘야 함 (같은 일을 여러번 함)</li>
+</ul>
+<h1>Standard</h1>
+<p>장점: 서로 다른 회사에서 만들어도 통신 가능</p>
+<p>단점: 기술 발전을 늦추고 같은 일에 여러 standard가 생기게 됨</p>
+<h1>Network security</h1>
+<p>사실 network는 군대에서 믿을 수 있는 사람끼리 통신한다는 가정 하에 만들어짐; 보안은 신경쓰지 않고 만들었기 때문에 네트워크 보안은 땜빵처리인게 많음</p>
+<dl>
+<dt>virus</dt>
+<dd>파일을 받아서 실행하면 터짐</dd>
+<dt>worm</dt>
+<dd>받기만 해도 실행되면서 터짐 (user interaction 없이 알아서 실행 가능)</dd>
+<dt>spyware</dt>
+<dd>비밀번호 등 유저 정보를 가져감</dd>
+<dt>botnet</dt>
+<dd>감염된 컴퓨터로 스팸 이메일 같은거 보내거나 DDoS 공격함</dd>
+<dt>Denial of Service(DoS)</dt>
+<dd>서버에 트래픽을 엄청 보내서 서버를 마비시킴</dd>
+<dt>packet sniffing</dt>
+<dd>네트워크에 돌아다니는 packet 읽음</dd>
+<dt>IP spoofing</dt>
+<dd>다른 사람이 보낸 것처럼 packet을 수정해서 보냄</dd>
+</dl>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>데이터통신</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>데통 Lec 5</title>
+    <url>/posts/16/</url>
+    <content><![CDATA[<h1>Socket programming</h1>
+<p>application은 socket만 알면 웹 프로그래밍 가능!</p>
+<p>socket은 IP:port로 이루어진 file descriptor, 파일 읽는 것처럼 read/write하면 됨!</p>
+<p>server는 응답하러 항상 TCP/UDP port 열어둠<br>
+client는 통신 시작하러 server의 socket에 연결함</p>
+<dl>
+<dt>TCP(stream sockets)</dt>
+<dd>reliable service, connection-oriented, ordered, error-checked</dd>
+</dl>
+<p><img src="tcp.png" alt=""></p>
+<dl>
+<dt>UDP(datagram sockets)</dt>
+<dd>unreliable service, connectionless, unordered, no error-checking</dd>
+</dl>
+<p><img src="udp.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>데이터통신</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>데통 Lec 6</title>
+    <url>/posts/19/</url>
+    <content><![CDATA[<h1>Encoding</h1>
+<p>Analog/Digital data를 Analog/Digital signal로 바꾸는 과정</p>
+<p>보통 Analog data의 경우 Digital data로 바꾼 다음 Analog/Digital signal로 만듦</p>
+<p>Analog signal은 보통 주파수 차이로 신호를 보냄 (주파수가 높으면 1, 낮으면 0)</p>
+<h2 id="Digital-Data-Digital-Signal">Digital Data -&gt; Digital Signal</h2>
+<p><img src="digital_signals.png" alt=""></p>
+<p>좋은 digital signal</p>
+<ul>
+<li>less bandwidth, no dc component</li>
+<li>ceneters in the middle of bandwidth</li>
+<li>self-clocking (for synchronization)</li>
+<li>error detection capability</li>
+<li>cost &amp; complexity</li>
+<li>noise immunity</li>
+</ul>
+<h3 id="RZ-Return-to-Zero">RZ(Return to Zero)</h3>
+<p>0이면 +V 후 0, 1이면 -V 후 0</p>
+<h3 id="NRZ-Nonreturn-to-Zero">NRZ(Nonreturn to Zero)</h3>
+<p>0으로 돌아오는 과정 없앰;</p>
+<dl>
+<dt>NRZ-L(Level)</dt>
+<dd>0이면 +V, 1이면 -V</dd>
+<dt>NRZ-I</dt>
+<dd>0이면 +V/-V 안 바꿈, 1이면 바꿈</dd>
+</dl>
+<p>간단하지만 DC회로가 필요하고, synchronization 불가능</p>
+<h3 id="Bipolar-AMI-Alternate-Mark-Inversion">Bipolar-AMI(Alternate Mark Inversion)</h3>
+<p>0이면 0, 1이면 +V/-V를 번갈아서 씀</p>
+<p>1이 적당히 나와주면 NRZ보다 synchronization이 좋고 DC회로가 필요 없지만 0만 계속 나오면 답 없는건 똑같음</p>
+<p>+V/-V가 번갈아 나와야 해서 error detection도 가능</p>
+<h3 id="Pseudoternary">Pseudoternary</h3>
+<p>0이면 +V/-V를 번갈아서 씀, 1이면 0</p>
+<p>Bipolar-AMI와 장단점 비슷</p>
+<h3 id="Manchester">Manchester</h3>
+<dl>
+<dt>Manchester</dt>
+<dd>0이면 +V 후 -V, 1이면 -V 후 +V</dd>
+<dt>Differential Manchester</dt>
+<dd>평소에 +V 후 -V를 반복해서 보내는데 0이면 보내던 신호를 뒤집음, 1이면 안 뒤집음</dd>
+</dl>
+<p>synchronization, error detection 가능, DC회로 필요 없음</p>
+<p>하지만 보내는 놈의 clock이 받는 놈 clock의 두 배여야 하고, 남들보다 주파수가 약 2배 필요해서 bandwidth가 약 2배 필요함</p>
+<h2 id="Bandwidth">Bandwidth</h2>
+<p>모든 sin파를 진폭, 진동수, 위상으로 유일하게 정할 수 있음</p>
+<p>근데 Fourier analysis에 의하면 모든 신호는 sin파를 합쳐서 만들 수 있음!</p>
+<dl>
+<dt>Frequency Domain</dt>
+<dd>신호를 sin파들의 합으로 나타낼 때, 진동수에 따른 진폭 그래프</dd>
+</dl>
+<p>이론상 Digital data같은 사각파는 무한개의 진동수 신호를 보내야 구현할 수 있지만, 진동수가 낮은 신호만 보내도 대략적인 구현 가능</p>
+<p>Shannon Capacity <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>B</mi><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>S</mi><mi>N</mi><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C=B\log_2(1+SNR)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.207em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">SNR</span><span class="mclose">)</span></span></span></span></p>
+<ul>
+<li>C: maximum data rate</li>
+<li>B: bandwidth</li>
+<li>SNR: signal-to-noise ratio</li>
+</ul>
+<p>진동수가 0인 경우 보낼 때 DC component 필요함, but DC component를 지원하려면 각종 회로를 추가해야 해서 안 좋음</p>
+<dl>
+<dt>modulation</dt>
+<dd>frequency shift를 통해 모든 신호에 진동수 f<sub>c</sub>를 더해서 DC component를 없애버림</dd>
+</dl>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>데이터통신</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>데통 Lec 7</title>
+    <url>/posts/22/</url>
+    <content><![CDATA[<h1>Scrambling Techniques</h1>
+<p>DC component를 없애고 synchronization, error detection을 위해 일부러 신호를 다르게 보냄</p>
+<h2 id="B8ZS-Bipolar-with-8-Zeros-Substitution">B8ZS(Bipolar with 8-Zeros Substitution)</h2>
+<p>bipolar-AMI인데 0 8개는 000+-0-+나 000-+0+-로 보냄</p>
+<p>--나 ++가 겹치기 때문에 실제로는 violation(불가능한 신호); 이런 신호가 들어오면 0 8개로 해석해야 함</p>
+<h2 id="HDB3-High-Density-Bipolar-3-Zeros">HDB3(High Density Bipolar 3-Zeros)</h2>
+<p>bipolar-AMI인데 0 4개를 000-, 000+, +00+, -00- 중 하나로 보냄</p>
+<p>4번째 비트가 반드시 앞 신호와 부호가 바뀐 violation이 되도록 신호를 보냄</p>
+<ul>
+<li>0000 직전 신호가 -인데 violation 이후 1이 홀수개면 (즉, 마지막 violation이 +면) 000-</li>
+<li>0000 직전 신호가 -인데 violation 이후 1이 짝수개면 (즉, 마지막 violation이 -면) +00+</li>
+<li>0000 직전 신호가 +인데 violation 이후 1이 홀수개면 (즉, 마지막 violation이 -면) 000+</li>
+<li>0000 직전 신호가 +인데 violation 이후 1이 짝수개면 (즉, 마지막 violation이 +면) -00-</li>
+</ul>
+<h1>Digital Data -&gt; Analog Signal</h1>
+<p>진폭 A, 진동수 f, 위상 θ만 정해지면 신호 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo>+</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">A\cos(2\pi ft + \theta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span>가 특정됨</p>
+<dl>
+<dt>Modulation rate(baud)</dt>
+<dd>신호를 보내는 속도</dd>
+</dl>
+<p>Data rate = Modulation rate * 신호당 비트 수</p>
+<h2 id="ASK">ASK</h2>
+<p>0이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo>+</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">A\cos(2\pi ft + \theta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span>, 1이면 0</p>
+<h2 id="FSK">FSK</h2>
+<p>0이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo>+</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">A\cos(2\pi ft + \theta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span>, 1이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><msup><mi>f</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi>t</mi><mo>+</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">A\cos(2\pi f&#x27;t + \theta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span></p>
+<h2 id="PSK">PSK</h2>
+<p>0이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">A\cos(2\pi ft)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span>, 1이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo>+</mo><mn>180</mn><mi mathvariant="normal">°</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">A\cos(2\pi ft + 180\degree)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">180°</span><span class="mclose">)</span></span></span></span></p>
+<h2 id="QPSK-Quadrature-PSK">QPSK (Quadrature PSK)</h2>
+<p>11이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo>+</mo><mfrac><mi>π</mi><mn>4</mn></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sqrt{2}\cos(2\pi ft + \frac{\pi}{4})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1572em;vertical-align:-0.25em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1328em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.095em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6954em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">π</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span>,<br>
+01이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo>+</mo><mfrac><mrow><mn>3</mn><mi>π</mi></mrow><mn>4</mn></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sqrt{2}\cos(2\pi ft + \frac{3\pi}{4})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1572em;vertical-align:-0.25em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1328em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">π</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span>,<br>
+00이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo>+</mo><mfrac><mrow><mo>−</mo><mn>3</mn><mi>π</mi></mrow><mn>4</mn></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sqrt{2}\cos(2\pi ft + \frac{-3\pi}{4})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1572em;vertical-align:-0.25em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1328em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">3</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">π</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span><br>
+10이면 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo>+</mo><mfrac><mrow><mo>−</mo><mi>π</mi></mrow><mn>4</mn></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sqrt{2}\cos(2\pi ft + \frac{-\pi}{4})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1572em;vertical-align:-0.25em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1328em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1473em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8023em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">π</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></p>
+<p>실제 구현) 앞 비트를 I, 뒷 비트를 Q라고 했을 때 0이면 -1, 1이면 1로 매핑한 다음 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo stretchy="false">)</mo><mo>−</mo><mi>Q</mi><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">I\cos(2\pi ft) - Q\sin(2\pi ft)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">Q</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span>로 보냄</p>
+<p>받을 때는 주어진 신호에 각각 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\cos(2\pi ft)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span>랑 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">-\sin(2\pi ft)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span>를 곱하고 Low pass filter를 통과시키면(즉, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>0</mn><mi>T</mi></msubsup></mrow><annotation encoding="application/x-tex">\int_0^T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.3921em;vertical-align:-0.3558em;"></span><span class="mop"><span class="mop op-symbol small-op" style="margin-right:0.19445em;position:relative;top:-0.0006em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0362em;"><span style="top:-2.3442em;margin-left:-0.1945em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.2579em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3558em;"><span></span></span></span></span></span></span></span></span></span> 적분을 하면) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>T</mi><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{T}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2173em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>가 나왔을 때 I/Q는 1, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>T</mi><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">-\frac{T}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2173em;vertical-align:-0.345em;"></span><span class="mord">−</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>가 나왔을 때 I/Q는 0임</p>
+<h3 id="Offset-QPSK-modulation">Offset-QPSK modulation</h3>
+<p>원래 위 과정대로 받으면 IQ가 동시에 나옴;</p>
+<p>Q 부분만 (즉, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">-\sin(2\pi ft)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span> 곱한 부분만) delay를 줘서 clock 2배로 IQ신호가 번갈아서 나오게 함</p>
+<h2 id="Constellation-Pattern">Constellation Pattern</h2>
+<p><img src="constellation_pattern.png" alt=""></p>
+<p>QPSK랑 비슷한데 4비트를 사용해서 12가지 위상 + 3가지 진폭을 사용한 16가지 신호를 보냄</p>
+<p>64개 버전, 128개 버전도 있음</p>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>데이터통신</category>
+      </categories>
+  </entry>
+  <entry>
     <title>데통 Lec 8</title>
-    <url>/posts/20/</url>
+    <url>/posts/27/</url>
     <content><![CDATA[<h1>Digitization</h1>
 <p>Analog Data면 Digital Data로 변환해야 함<br>
 요즘 세상에선 통신할 때보단 애초에 컴퓨터에 저장할 때부터 Digital Data로 변환 후 저장</p>
@@ -407,7 +803,7 @@ style Y fill-opacity:0, stroke-opacity:0;</code></pre>
   </entry>
   <entry>
     <title>데통 Lec 9</title>
-    <url>/posts/27/</url>
+    <url>/posts/34/</url>
     <content><![CDATA[<h1>Cyclic Redundancy Check</h1>
 <ul>
 <li>Frame T (n bits)</li>
@@ -509,7 +905,7 @@ but BCH code에선 error correction도 가능!</p>
   </entry>
   <entry>
     <title>딥기 Lec 10</title>
-    <url>/posts/29/</url>
+    <url>/posts/36/</url>
     <content><![CDATA[<h1>CNN 역사</h1>
 <h2 id="AlexNet">AlexNet</h2>
 <p><img src="alexnet_layers.png" alt=""></p>
@@ -594,7 +990,7 @@ x -&gt; F(x) + x가 나와서 identity function 훈련하기가 더 쉬움</p>
   </entry>
   <entry>
     <title>딥기 Lec 11</title>
-    <url>/posts/35/</url>
+    <url>/posts/42/</url>
     <content><![CDATA[<h1>Recurrent Neural Networks</h1>
 <p>Feedfoward Neural Network와 달리 one-to-one 말고도 many-to-one, one-to-many, many-to-many 등의 구조를 가질 수 있다!</p>
 <p>참고) seq to seq는 many-to-one 이후 one-to-many</p>
@@ -740,7 +1136,7 @@ softmax하면 합이 1이므로 masking 효과가 있음</p>
   </entry>
   <entry>
     <title>딥기 Lec 12</title>
-    <url>/posts/41/</url>
+    <url>/posts/48/</url>
     <content><![CDATA[<h1>Unsupervised learning</h1>
 <dl>
 <dt>Supervised learning</dt>
@@ -848,7 +1244,7 @@ M1001 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>딥기 Lec 13</title>
-    <url>/posts/47/</url>
+    <url>/posts/54/</url>
     <content><![CDATA[<h1>Generative model</h1>
 <p>low dimensional vector z로부터 meaningful sample x를 만들어냄</p>
 <p>즉, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="double-struck">E</mi><mrow><mi>x</mi><mo>∼</mo><mi mathvariant="script">D</mi></mrow></msub><mo stretchy="false">[</mo><mi>log</mi><mo>⁡</mo><msub><mi>p</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\mathbb{E}_{x \sim \mathcal{D}}[\log p_\theta(x)]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathbb">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="mrel mtight">∼</span><span class="mord mathcal mtight" style="margin-right:0.02778em;">D</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)]</span></span></span></span>를 최대화해야 함 (𝓓는 data sample의 distribution)</p>
@@ -901,7 +1297,7 @@ M1001 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>딥기 Lec 9</title>
-    <url>/posts/22/</url>
+    <url>/posts/29/</url>
     <content><![CDATA[<h1>Batch Normalization(BN)</h1>
 <p>Normalize output of layer so they have zero mean and unit variance.</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>x</mi><mo>^</mo></mover><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mi>E</mi><mo stretchy="false">[</mo><mi>x</mi><mo stretchy="false">]</mo></mrow><msqrt><mrow><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow></msqrt></mfrac></mrow><annotation encoding="application/x-tex">\hat{x}=\frac{x-E[x]}{\sqrt{Var(X)}}
@@ -1088,7 +1484,7 @@ ex) language model에서 문장에서 단어를 가리고 학습</p>
   </entry>
   <entry>
     <title>양자 Lec 10</title>
-    <url>/posts/21/</url>
+    <url>/posts/28/</url>
     <content><![CDATA[<h1>양자얽힘 현상</h1>
 <p>중국이 또 해냈다<br>
 위성에서 수천km 떨어진 서로 다른 두 곳의 과학기지에 얽힘 상태의 양자 전송 성공</p>
@@ -1191,7 +1587,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>양자 Lec 11</title>
-    <url>/posts/28/</url>
+    <url>/posts/35/</url>
     <content><![CDATA[<h1>Quantum teleportation</h1>
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mpadded><mi mathvariant="normal">∣</mi><mi mathvariant="normal">Ψ</mi><mo stretchy="false">⟩</mo></mpadded><mi>C</mi></msub><mo>=</mo><mi>α</mi><msub><mpadded><mi mathvariant="normal">∣</mi><mn>0</mn><mo stretchy="false">⟩</mo></mpadded><mi>C</mi></msub><mo>+</mo><mi>β</mi><msub><mpadded><mi mathvariant="normal">∣</mi><mn>1</mn><mo stretchy="false">⟩</mo></mpadded><mi>C</mi></msub></mrow><annotation encoding="application/x-tex">\ket{\Psi}_C = \alpha\ket{0}_C + \beta\ket{1}_C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0497em;vertical-align:-0.2997em;"></span><span class="minner"><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord">Ψ</span></span><span class="mclose">⟩</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0497em;vertical-align:-0.2997em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord">0</span></span><span class="mclose">⟩</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0497em;vertical-align:-0.2997em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord">1</span></span><span class="mclose">⟩</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span></span></span></span>를 보내고 싶음!</p>
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mpadded><mi mathvariant="normal">∣</mi><msup><mi>ψ</mi><mo>−</mo></msup><mo stretchy="false">⟩</mo></mpadded><mrow><mi>A</mi><mi>B</mi></mrow></msub><mo>=</mo><mo stretchy="false">(</mo><msub><mpadded><mi mathvariant="normal">∣</mi><mn>0</mn><mo stretchy="false">⟩</mo></mpadded><mi>A</mi></msub><msub><mpadded><mi mathvariant="normal">∣</mi><mn>1</mn><mo stretchy="false">⟩</mo></mpadded><mi>B</mi></msub><mo>−</mo><msub><mpadded><mi mathvariant="normal">∣</mi><mn>1</mn><mo stretchy="false">⟩</mo></mpadded><mi>A</mi></msub><msub><mpadded><mi mathvariant="normal">∣</mi><mn>0</mn><mo stretchy="false">⟩</mo></mpadded><mi>B</mi></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">\ket{\psi^-}_{AB} = (\ket{0}_A\ket{1}_B - \ket{1}_A\ket{0}_B)/\sqrt{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.071em;vertical-align:-0.2997em;"></span><span class="minner"><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">ψ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">−</span></span></span></span></span></span></span></span></span><span class="mclose">⟩</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0497em;vertical-align:-0.2997em;"></span><span class="mopen">(</span><span class="minner"><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord">0</span></span><span class="mclose">⟩</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord">1</span></span><span class="mclose">⟩</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2069em;vertical-align:-0.2997em;"></span><span class="minner"><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord">1</span></span><span class="mclose">⟩</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord">0</span></span><span class="mclose">⟩</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1786em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
@@ -1366,7 +1762,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>양자 Lec 12</title>
-    <url>/posts/34/</url>
+    <url>/posts/41/</url>
     <content><![CDATA[<h1>Fredkin gate</h1>
 <p><img src="fredkin_gate.png" alt=""></p>
 <p>x가 1이면 y, z swap</p>
@@ -1433,7 +1829,7 @@ x 따라서 y 범위 잡아주기!</p>
   </entry>
   <entry>
     <title>양자 Lec 13</title>
-    <url>/posts/40/</url>
+    <url>/posts/47/</url>
     <content><![CDATA[<h1>Continuous Time Fourier Transform</h1>
 <p>주기 T를 가지는 랜덤한 신호를 주기가 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>T</mi><mi>n</mi></mfrac></mrow><annotation encoding="application/x-tex">\frac{T}{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2173em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>인 sin &amp; cos파의 합으로 표현할 수 있음</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi mathvariant="normal">∞</mi></munderover><mrow><mo fence="true">[</mo><msub><mi>a</mi><mi>n</mi></msub><mi>sin</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mfrac><mrow><mn>2</mn><mi>π</mi><mi>n</mi></mrow><mi>T</mi></mfrac><mi>x</mi><mo fence="true">)</mo></mrow><mo>+</mo><msub><mi>b</mi><mi>n</mi></msub><mi>cos</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mfrac><mrow><mn>2</mn><mi>π</mi><mi>n</mi></mrow><mi>T</mi></mfrac><mi>x</mi><mo fence="true">)</mo></mrow><mo fence="true">]</mo></mrow><mo>+</mo><msub><mi>b</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">f(x) = \sum_{n=1}^{\infty} \left[ a_n \sin \left( \frac{2\pi n}{T} x \right) + b_n \cos \left( \frac{2\pi n}{T} x \right) \right] + b_0
@@ -1495,7 +1891,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>양자 Lec 14</title>
-    <url>/posts/46/</url>
+    <url>/posts/53/</url>
     <content><![CDATA[<h1>QFT circuit</h1>
 <p>Recall: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mpadded><mi mathvariant="normal">∣</mi><mi>j</mi><mo stretchy="false">⟩</mo></mpadded><mo>→</mo><mfrac><mn>1</mn><msqrt><mi>N</mi></msqrt></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msup><mi>e</mi><mrow><mn>2</mn><mi>π</mi><mi>i</mi><mfrac><mrow><mi>k</mi><mo>⋅</mo><mi>j</mi></mrow><mi>N</mi></mfrac></mrow></msup><mpadded><mi mathvariant="normal">∣</mi><mi>k</mi><mo stretchy="false">⟩</mo></mpadded></mrow><annotation encoding="application/x-tex">\ket{j} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{2\pi i \frac{k \cdot j}{N}} \ket{k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span><span class="mclose">⟩</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.5719em;vertical-align:-0.538em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.5374em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord sqrt mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9323em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mtight" style="padding-left:0.833em;"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span><span style="top:-2.8923em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail mtight" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
 c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
@@ -1845,7 +2241,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>양자 Lec 15</title>
-    <url>/posts/52/</url>
+    <url>/posts/59/</url>
     <content><![CDATA[<h1>Quantum Cryptography</h1>
 <p>Quantum communication? 양자 암호, 양자 암호 통신, 양자 통신이 서로 섞여서 불리고 있음;</p>
 <dl>
@@ -1915,7 +2311,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>양자 Lec 2</title>
-    <url>/posts/3/</url>
+    <url>/posts/4/</url>
     <content><![CDATA[<h1>Vector space</h1>
 <p>양자역학에선 복소수를 사용함</p>
 <p>vector addition <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mpadded><mi mathvariant="normal">∣</mi><mi>V</mi><mo stretchy="false">⟩</mo></mpadded><mo>+</mo><mpadded><mi mathvariant="normal">∣</mi><mi>W</mi><mo stretchy="false">⟩</mo></mpadded></mrow><annotation encoding="application/x-tex">\ket{V} + \ket{W}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span><span class="mclose">⟩</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span></span><span class="mclose">⟩</span></span></span></span></span>와 multiplication by scalar <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mpadded><mi mathvariant="normal">∣</mi><mi>V</mi><mo stretchy="false">⟩</mo></mpadded></mrow><annotation encoding="application/x-tex">a\ket{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span><span class="mclose">⟩</span></span></span></span></span> 연산이 있고, 아래 조건들을 만족하는 공간을 vector space라고 함</p>
@@ -2025,7 +2421,7 @@ M347 1759 V0 H263 V1759 v2400 v1759 h84z'/></svg></span></span></span><span clas
   </entry>
   <entry>
     <title>양자 Lec 3</title>
-    <url>/posts/5/</url>
+    <url>/posts/7/</url>
     <content><![CDATA[<h1>Linear operators</h1>
 <dl>
 <dt>Identity operator</dt>
@@ -2086,7 +2482,7 @@ M347 1759 V0 H263 V1759 v2400 v1759 h84z'/></svg></span></span></span><span clas
   </entry>
   <entry>
     <title>양자 Lec 4</title>
-    <url>/posts/7/</url>
+    <url>/posts/10/</url>
     <content><![CDATA[<h1>Function of Operators</h1>
 <p>테일러 전개 후 operator를 끼워넣음</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msup><mi>e</mi><mi mathvariant="normal">Ω</mi></msup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>1</mn><mo>+</mo><mi mathvariant="normal">Ω</mi><mo>+</mo><mfrac><msup><mi mathvariant="normal">Ω</mi><mn>2</mn></msup><mrow><mn>2</mn><mo stretchy="false">!</mo></mrow></mfrac><mo>+</mo><mfrac><msup><mi mathvariant="normal">Ω</mi><mn>3</mn></msup><mrow><mn>3</mn><mo stretchy="false">!</mo></mrow></mfrac><mo>+</mo><mo>⋯</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>sin</mi><mo>⁡</mo><mi mathvariant="normal">Ω</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">Ω</mi><mo>−</mo><mfrac><msup><mi mathvariant="normal">Ω</mi><mn>3</mn></msup><mrow><mn>3</mn><mo stretchy="false">!</mo></mrow></mfrac><mo>+</mo><mfrac><msup><mi mathvariant="normal">Ω</mi><mn>5</mn></msup><mrow><mn>5</mn><mo stretchy="false">!</mo></mrow></mfrac><mo>−</mo><mo>⋯</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>cos</mi><mo>⁡</mo><mi mathvariant="normal">Ω</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><msup><mi mathvariant="normal">Ω</mi><mn>2</mn></msup><mrow><mn>2</mn><mo stretchy="false">!</mo></mrow></mfrac><mo>+</mo><mfrac><msup><mi mathvariant="normal">Ω</mi><mn>4</mn></msup><mrow><mn>4</mn><mo stretchy="false">!</mo></mrow></mfrac><mo>−</mo><mo>⋯</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}
@@ -2109,7 +2505,7 @@ M347 1759 V0 H263 V1759 v2400 v1759 h84z'/></svg></span></span></span><span clas
   </entry>
   <entry>
     <title>양자 Lec 5</title>
-    <url>/posts/9/</url>
+    <url>/posts/13/</url>
     <content><![CDATA[<h1>양자역학 공리 1</h1>
 <p>The state of the particle is represented by a vector <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mpadded><mi mathvariant="normal">∣</mi><mrow><mi>ψ</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo stretchy="false">⟩</mo></mpadded></mrow><annotation encoding="application/x-tex">\ket{\psi(t)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">ψ</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span><span class="mclose">⟩</span></span></span></span></span> in a Hilbert space.</p>
 <p>Hilbert space는 inner product space + metric 존재</p>
@@ -2180,7 +2576,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>양자 Lec 6</title>
-    <url>/posts/10/</url>
+    <url>/posts/14/</url>
     <content><![CDATA[<h1>양자역학 공리 2</h1>
 <p>The evolution of a closed quantum system is described by a unitary transformation.</p>
 <h2 id="참고-슈뢰딩거-방정식">참고) 슈뢰딩거 방정식</h2>
@@ -2205,7 +2601,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>양자 Lec 7</title>
-    <url>/posts/12/</url>
+    <url>/posts/17/</url>
     <content><![CDATA[<h1>불확정성 원리</h1>
 <p>Operator끼리 commute하지 않으면 두 operator로 측정했을 때 결과값의 분산을 둘 다 0으로 만들 수 없음 (즉, 둘 다 정확하게 측정할 수 없음)</p>
 <p>Operator끼리 commute하다면 각 측정은 다른 측정에 영향을 미치지 않음</p>
@@ -2266,7 +2662,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>양자 Lec 8</title>
-    <url>/posts/14/</url>
+    <url>/posts/20/</url>
     <content><![CDATA[<h1>Multiple qubits</h1>
 <p>여러 qubit의 경우 각 qubit의 상태를 합성한 하나의 vector로 나타냄</p>
 <p>물론 얘도 Hilbert space but where?</p>
@@ -2332,7 +2728,7 @@ M347 1759 V0 H263 V1759 v1200 v1759 h84z'/></svg></span></span></span><span clas
   </entry>
   <entry>
     <title>양자 Lec 9</title>
-    <url>/posts/16/</url>
+    <url>/posts/23/</url>
     <content><![CDATA[<h1>Swap gate</h1>
 <p><img src="swap_gate.png" alt=""></p>
 <h1>Controlled Z gate</h1>
@@ -2418,7 +2814,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>자연언어처리 Lec 10</title>
-    <url>/posts/48/</url>
+    <url>/posts/55/</url>
     <content><![CDATA[<h1>Information extraction (IE)</h1>
 <p>텍스트에서 중요한 정보들을 추출</p>
 <p>사람이 잘 알아볼 수 있도록 &amp; 컴퓨터 알고리즘 돌리기 쉽도록</p>
@@ -2522,7 +2918,7 @@ ex) Speech -&gt; Transcript (Speech Recognition)</p>
   </entry>
   <entry>
     <title>자연언어처리 Lec 11</title>
-    <url>/posts/53/</url>
+    <url>/posts/60/</url>
     <content><![CDATA[<h1>Beam search</h1>
 <p>beam size만큼 가장 확률이 높은 문장들을 저장하고, beam에 있는 문장마다 뒤에 단어를 덧붙임</p>
 <p>END 토큰이 나올 경우 완성된걸로 치고 따로 빼둠</p>
@@ -2555,7 +2951,7 @@ ex) Speech -&gt; Transcript (Speech Recognition)</p>
   </entry>
   <entry>
     <title>자연언어처리 Lec 7</title>
-    <url>/posts/23/</url>
+    <url>/posts/30/</url>
     <content><![CDATA[<h1>Word meanings</h1>
 <dl>
 <dt>Lemma</dt>
@@ -2650,7 +3046,7 @@ Word2Vec: 단어 w가 이 단어 주변에서 나올 것 같음?</p>
   </entry>
   <entry>
     <title>자연언어처리 Lec 8</title>
-    <url>/posts/36/</url>
+    <url>/posts/43/</url>
     <content><![CDATA[<h1>ELMo</h1>
 <p>Forward LSTM이랑 Backward LSTM이 있음</p>
 <p>John [] a paper를 훈련 중이라면 John은 Forward LSTM, a paper는 Backward LSTM으로 들어가서 [] 단어 맞춤</p>
@@ -2715,7 +3111,7 @@ Word2Vec: 단어 w가 이 단어 주변에서 나올 것 같음?</p>
   </entry>
   <entry>
     <title>자연언어처리 Lec 9</title>
-    <url>/posts/42/</url>
+    <url>/posts/49/</url>
     <content><![CDATA[<h1>cos similarity</h1>
 <p>Document &amp; Query를 모두 vector로 나타낼 수 있음<br>
 Document과 Query vector 사이의 각도로 similiarity를 나타낼 수 있음!</p>
@@ -2890,7 +3286,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
   </entry>
   <entry>
     <title>재공개 Lec 10</title>
-    <url>/posts/30/</url>
+    <url>/posts/37/</url>
     <content><![CDATA[<h1>Planar Defects</h1>
 <ul>
 <li>surface</li>
@@ -2971,7 +3367,7 @@ P는 압력, V는 부피</dd>
   </entry>
   <entry>
     <title>재공개 Lec 11</title>
-    <url>/posts/37/</url>
+    <url>/posts/44/</url>
     <content><![CDATA[<h1>Stress-Strain Curve</h1>
 <p><img src="stress_strain_curve.png" alt=""></p>
 <p>Stress/Strain은 원래 area/length으로 normalize했을 때를 기준으로 함</p>
@@ -3058,7 +3454,7 @@ P는 압력, V는 부피</dd>
   </entry>
   <entry>
     <title>재공개 Lec 12</title>
-    <url>/posts/43/</url>
+    <url>/posts/50/</url>
     <content><![CDATA[<h1>Slip</h1>
 <p>위아래로 당겼는데 특정한 방향을 따라서 밀리는 현상</p>
 <h2 id="Slip-system">Slip system</h2>
@@ -3131,7 +3527,7 @@ slip system 수는 1 plane * 3 direction = 3개</p>
   </entry>
   <entry>
     <title>재공개 Lec 13</title>
-    <url>/posts/49/</url>
+    <url>/posts/56/</url>
     <content><![CDATA[<h1>Fracture</h1>
 <p>Brittle(취성) fracture랑 Ductile(연성) fracture가 있음</p>
 <p>온도에 따라서 Brittle/Ductile이 바뀔 수 있음</p>
@@ -3243,7 +3639,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
 </dl>
 <h2 id="S-N-curve">S-N curve</h2>
 <p><img src="s-n_curve.png" alt=""></p>
-<p>Stree amplitude와 fatigue까지 필요한 사이클 수의 관계를 나타낸 그래프</p>
+<p>Stress amplitude와 fatigue까지 필요한 사이클 수의 관계를 나타낸 그래프</p>
 <h1>Creep</h1>
 <p>elastic한 region에서 일정한 힘을 준 상태로 유지하면 이론상 평형 상태에서 멈춰야 하는데 계속해서 strain이 늘어나다가 fracture가 일어나는 현상</p>
 <p>고온에서 주로 일어나고 방향에 따라서도 다름;</p>
@@ -3276,7 +3672,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>재공개 Lec 14</title>
-    <url>/posts/54/</url>
+    <url>/posts/61/</url>
     <content><![CDATA[<h1>Phase diagram</h1>
 <dl>
 <dt>Phase(상)</dt>
@@ -3326,7 +3722,7 @@ A. L+SS라고 다 같은게 아니고 L의 조성, SS의 조성 등까지 같아
   </entry>
   <entry>
     <title>재공개 Lec 2</title>
-    <url>/posts/4/</url>
+    <url>/posts/5/</url>
     <content><![CDATA[<h1>원자의 보어모델</h1>
 <p>양성자 Z개 중성자 N개</p>
 <dl>
@@ -3399,7 +3795,7 @@ A. L+SS라고 다 같은게 아니고 L의 조성, SS의 조성 등까지 같아
   </entry>
   <entry>
     <title>재공개 Lec 3</title>
-    <url>/posts/6/</url>
+    <url>/posts/8/</url>
     <content><![CDATA[<h1>Metallic Bonding(금속 결합)</h1>
 <dl>
 <dt>delocalized electron</dt>
@@ -3450,7 +3846,7 @@ A. L+SS라고 다 같은게 아니고 L의 조성, SS의 조성 등까지 같아
   </entry>
   <entry>
     <title>재공개 Lec 4</title>
-    <url>/posts/8/</url>
+    <url>/posts/11/</url>
     <content><![CDATA[<h1>Crystalline(결정질)</h1>
 <dl>
 <dt>Crystalline</dt>
@@ -3486,7 +3882,7 @@ A. L+SS라고 다 같은게 아니고 L의 조성, SS의 조성 등까지 같아
   </entry>
   <entry>
     <title>재공개 Lec 5</title>
-    <url>/posts/11/</url>
+    <url>/posts/15/</url>
     <content><![CDATA[<h1>Crystallographic Coordinates</h1>
 <p><img src="crystallographic_coordinates.png" alt=""></p>
 <p>cubic에선 같지만 실제 결정에선 a, b, c가 다를 수 있음</p>
@@ -3511,7 +3907,7 @@ A. L+SS라고 다 같은게 아니고 L의 조성, SS의 조성 등까지 같아
   </entry>
   <entry>
     <title>재공개 Lec 6</title>
-    <url>/posts/13/</url>
+    <url>/posts/18/</url>
     <content><![CDATA[<h1>Metallic Structure</h1>
 <p>Simple cubic, Body-centered cubic, Face-centered cubic, Hexagonal closed-packed만 살펴볼 예정</p>
 <ul>
@@ -3605,7 +4001,7 @@ M1001 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>재공개 Lec 7</title>
-    <url>/posts/15/</url>
+    <url>/posts/21/</url>
     <content><![CDATA[<h1>Polycrystals</h1>
 <p>대부분 재료는 polycrystal, 각 crystal을 grain이라고 부름</p>
 <p>single crystal은 이방성(anisotropic)하지만, polycrystal은 grain이 무작위로 배치되기 때문에 등방성(isotropic)을 가짐</p>
@@ -3636,7 +4032,7 @@ M1001 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
   </entry>
   <entry>
     <title>재공개 Lec 8</title>
-    <url>/posts/17/</url>
+    <url>/posts/24/</url>
     <content><![CDATA[<h1>Defects</h1>
 <ul>
 <li>
@@ -3700,7 +4096,7 @@ Fe<sup>2+</sup>가 Fe<sup>3+</sup>로 2개 바뀌고 Fe<sup>2+</sup> 1개가 빠
 <h2 id="Diffusion">Diffusion</h2>
 <p>고체도 확산이 존재한다 다만 겁나 느릴뿐</p>
 <div class="group-picture"><div class="group-picture-row"><div class="group-picture-column"><img src="deform.png" alt=""></div><div class="group-picture-column"><img src="crack.png" alt=""></div></div></div>
-<p>ex) C 원자 첨가해서 Interstitial alloy 만듦 -&gt; C 원자 때문에 deform/crack 힘듦 (안 움직임)
+<p>ex) C 원자 첨가해서 Interstitial alloy 만듦 -&gt; C 원자 때문에 deform/crack 힘듦 (안 움직임)<br>
 ex) 예전엔 p-n 반도체는 실리콘 위에 Al 뿌리고 열 가해서 만들었음</p>
 <div class="group-picture"><div class="group-picture-row"><div class="group-picture-column"><img src="interdiffusion.png" alt=""></div><div class="group-picture-column"><img src="self_diffusion.png" alt=""></div></div></div>
 <dl>
@@ -3725,7 +4121,7 @@ ex) 예전엔 p-n 반도체는 실리콘 위에 Al 뿌리고 열 가해서 만�
   </entry>
   <entry>
     <title>재공개 Lec 9</title>
-    <url>/posts/24/</url>
+    <url>/posts/31/</url>
     <content><![CDATA[<p>지난 시간 얘기</p>
 <dl>
 <dt>Vacancy diffusion</dt>
@@ -3859,7 +4255,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
   </entry>
   <entry>
     <title>진인사 Lec 10</title>
-    <url>/posts/31/</url>
+    <url>/posts/38/</url>
     <content><![CDATA[<h1>생애사 이론</h1>
 <p>Life History Theory(LHT)</p>
 <p>일생 동안 한정된 자원을 언제, 어디에, 어떤 식으로, 얼마만큼 투입할 것인가?</p>
@@ -4012,7 +4408,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
   </entry>
   <entry>
     <title>진인사 Lec 11</title>
-    <url>/posts/38/</url>
+    <url>/posts/45/</url>
     <content><![CDATA[<h1>세포 분열</h1>
 <p>체세포 분열은 같은거 2개,<br>
 생식세포 분열은 절반짜리 4개!</p>
@@ -4103,7 +4499,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
   </entry>
   <entry>
     <title>진인사 Lec 12</title>
-    <url>/posts/44/</url>
+    <url>/posts/51/</url>
     <content><![CDATA[<h1>영장목의 분류</h1>
 <dl>
 <dt>젖은 코(곡비원아목)</dt>
@@ -4210,7 +4606,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
   </entry>
   <entry>
     <title>진인사 Lec 13</title>
-    <url>/posts/50/</url>
+    <url>/posts/57/</url>
     <content><![CDATA[<h1>고인류 화석과 석기 화석</h1>
 <p><img src="%EA%B3%A0%EC%9D%B8%EB%A5%98_%ED%99%94%EC%84%9D.jpg" alt=""></p>
 <p><img src="%EC%84%9D%EA%B8%B0_%ED%99%94%EC%84%9D.jpg" alt=""></p>
@@ -4306,7 +4702,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
   </entry>
   <entry>
     <title>진인사 Lec 14</title>
-    <url>/posts/55/</url>
+    <url>/posts/62/</url>
     <content><![CDATA[<h1>인간의 생각과 행동</h1>
 <p>인간의 생각이나 행동은 본성(Nature)인가 육성(Nurture)의 결과인가?</p>
 <p>다른 의견: 문화(Culture)의 영향인가? <s>라임 지린다</s></p>
@@ -4389,7 +4785,7 @@ but 생각 자체는 아직도 모름; 생각 -&gt; 행동 과정만 알 수 있
   </entry>
   <entry>
     <title>진인사 Lec 8</title>
-    <url>/posts/18/</url>
+    <url>/posts/25/</url>
     <content><![CDATA[<h1>지난 시간</h1>
 <p>자연선택 이론의 난제</p>
 <ol>
@@ -4485,7 +4881,7 @@ ex: (물진 않더라도) 송곳니가 크면 상대방 쫓아냄</p>
   </entry>
   <entry>
     <title>진인사 Lec 9</title>
-    <url>/posts/25/</url>
+    <url>/posts/32/</url>
     <content><![CDATA[<p>나는 과학이 말하는 성차별이 불편합니다 - 진화심리학이 퍼뜨리는 젠더 불평등?????</p>
 <dl>
 <dt>Naturalistic fallacy (자연주의적 오류)</dt>
@@ -4618,7 +5014,7 @@ M/F나 M:F로 나타냄 (연구 목적에 따라 F/M으로 나타내는 경우�
   </entry>
   <entry>
     <title>한맞이실 Lec 10</title>
-    <url>/posts/32/</url>
+    <url>/posts/39/</url>
     <content><![CDATA[<h1>경음화</h1>
 <p>장애음 중 평음이 일정한 조건에서 경음(ㄲ,ㄸ,ㅃ,ㅆ,ㅉ)으로 나타나는 음운 현상</p>
 <dl>
@@ -4662,7 +5058,7 @@ M/F나 M:F로 나타냄 (연구 목적에 따라 F/M으로 나타내는 경우�
   </entry>
   <entry>
     <title>한맞이실 Lec 8</title>
-    <url>/posts/19/</url>
+    <url>/posts/26/</url>
     <content><![CDATA[<h1>안내면 진거/안내문 진거</h1>
 <p>원순모음화 현상: 양순음(ㅁ, ㅂ) 뒤에서 원순모음이 아닌 소리들이 원순모음(ㅗ, ㅜ)이 되는 현상</p>
 <p>wa랑 ma도 비슷하게 들림 (카와이 카마이??)</p>
@@ -4714,7 +5110,7 @@ ex) 회사 신입의 앗네의 일기 (비음화)</p>
   </entry>
   <entry>
     <title>한맞이실 Lec 9</title>
-    <url>/posts/26/</url>
+    <url>/posts/33/</url>
     <content><![CDATA[<h1>사이시옷</h1>
 <p>한글 맞춤법 제30항 사이시옷은 다음과 같은 경우에 받치어 적는다.</p>
 <ol>
