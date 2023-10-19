@@ -14,7 +14,7 @@
   "dependencies": {
     "@renbaoshuo/markdown-it-katex": "^2.0.2",
     "hexo": "^6.3.0",
-    "hexo-auto-category": "^0.2.1",
+    "hexo-auto-category": "^0.2.2",
     "hexo-excerpt": "^1.3.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
@@ -26,11 +26,11 @@
     "hexo-optimize": "^3.3.0",
     "hexo-post-link": "^1.0.0",
     "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-markdown-it": "^7.0.0",
+    "hexo-renderer-markdown-it": "^7.1.0",
     "hexo-renderer-stylus": "^3.0.0",
     "hexo-server": "^3.0.0",
-    "hexo-theme-next": "^8.17.0",
+    "hexo-theme-next": "^8.18.0",
     "hexo-word-counter": "^0.1.0",
-    "katex": "^0.16.7"
+    "katex": "^0.16.9"
   }
 }
