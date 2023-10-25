@@ -28,7 +28,7 @@
     {
       "label": "Start blog",
       "type": "shell",
-      "command": "browser-sync ./public -w --port 4000 --no-open",
+      "command": "npx browser-sync ./public -w --port 4000 --no-open",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",

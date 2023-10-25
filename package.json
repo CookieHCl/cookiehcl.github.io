@@ -32,5 +32,8 @@
     "hexo-theme-next": "^8.18.2",
     "hexo-word-counter": "^0.1.0",
     "katex": "^0.16.9"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.29.3"
   }
 }
