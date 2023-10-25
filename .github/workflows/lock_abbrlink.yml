@@ -1,0 +1,32 @@
+name: Lock abbrlink
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  modify-readme:
+    if : github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup LTS Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+
+    - name: Lock abbrlink
+      run: node .\lock_abbrlink.js
+
+    - name: Commit changes
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git commit -a -m "Lock abbrlink after #${{ github.event.number }}"
+        git push

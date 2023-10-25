@@ -1,9 +1,15 @@
-let abbrlinks = {};
+var Hexo = require('hexo');
+var hexo = new Hexo(process.cwd(), {});
 
-hexo.extend.filter.register('before_generate', () => {
+var front = require('hexo-front-matter');
+var fs = require('hexo-fs');
+
+hexo.init().then(() => {
+  hexo.load().then(() => {
     const posts = hexo.locals.get('posts').data;
     let undefined_posts = [];
     let max_abbrlink = 0;
+    let abbrlinks = {};
 
     // get max abbrlink
     for (const post of posts) {
@@ -21,19 +27,16 @@ hexo.extend.filter.register('before_generate', () => {
     for (const post of undefined_posts) {
         abbrlinks[post._id] = ++max_abbrlink;
     }
+
+    // update posts
+    for (const post of posts) {
+      var tmpPost = front.parse(post.raw);
+      tmpPost.abbrlink = abbrlinks[post._id];
+
+      var newPost = '---\n' + front.stringify(tmpPost);
+      fs.writeFile(post.full_source, newPost);
+    }
+
+    hexo.exit();
+  });
 });
-
-hexo.extend.filter.register('post_permalink', (data) => {
-    // if abbrlink is already set, do nothing
-    if (data.abbrlink) {
-        return data;
-    }
-
-    // set abbrlink if abbrlink is generated
-    const abbrlink = abbrlinks[data._id];
-    if (abbrlink) {
-        data.abbrlink = abbrlink;
-    }
-
-    return data;
-}, 1);
