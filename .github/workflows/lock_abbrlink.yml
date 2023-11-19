@@ -6,7 +6,7 @@ on:
       - closed
 
 jobs:
-  modify-readme:
+  lock-abbrlink:
     if : github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
@@ -22,7 +22,7 @@ jobs:
         node-version: 'lts/*'
 
     - name: Lock abbrlink
-      run: node .\lock_abbrlink.js
+      run: node ./lock_abbrlink.js
 
     - name: Commit changes
       run: |
