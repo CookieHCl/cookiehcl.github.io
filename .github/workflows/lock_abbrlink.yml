@@ -36,7 +36,13 @@ jobs:
     - name: Lock abbrlink
       run: node ./lock_abbrlink.js
 
+    - name: Check if there are changes
+      id: diff
+      run: git diff --quiet
+      continue-on-error: true
+
     - name: Commit changes
+      if: ${{ failure() && steps.diff.outcome == 'failure' }}
       run: |
         git config user.name "GitHub Actions"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
