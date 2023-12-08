@@ -12,30 +12,30 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup LTS Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/*'
+    - name: Setup LTS Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
 
-      - name: Cache NPM dependencies
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: npm-cache-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            npm-cache-${{ runner.os }}
-            npm-cache
+    - name: Cache NPM dependencies
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: npm-cache-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          npm-cache-${{ runner.os }}
+          npm-cache
 
-      - name: Build
-        run: |
-          npm install
-          hexo generate
+    - name: Build
+      run: |
+        npm install
+        npx hexo generate
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
