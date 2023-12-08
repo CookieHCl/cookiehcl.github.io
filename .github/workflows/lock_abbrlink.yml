@@ -1,13 +1,12 @@
 name: Lock abbrlink
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - main
 
 jobs:
   lock-abbrlink:
-    if : github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -30,11 +29,10 @@ jobs:
           npm-cache-${{ runner.os }}
           npm-cache
 
-    - name: Install Dependencies
-      run: npm install
-
     - name: Lock abbrlink
-      run: node ./lock_abbrlink.js
+      run: |
+        npm install
+        node ./lock_abbrlink.js
 
     - name: Check if there are changes
       id: diff
@@ -46,5 +44,5 @@ jobs:
       run: |
         git config user.name "GitHub Actions"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git commit -a -m "Lock abbrlink after #${{ github.event.number }}"
+        git commit -a -m "Lock abbrlink after #${{ github.event.after }}"
         git push
