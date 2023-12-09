@@ -45,6 +45,7 @@ relative_link: false
 future: true
 syntax_highlighter: highlight.js
 highlight:
+  enable: true # Remove this when NexT support Hexo 7.0.0
   line_number: true
   auto_detect: false
   tab_replace: ''
