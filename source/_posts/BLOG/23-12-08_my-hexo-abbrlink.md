@@ -2,6 +2,7 @@
 title: Hexo permalink 숫자로 나오게 하기
 categories:
   - BLOG
+abbrlink: 3
 date: 2023-12-08 14:10:06
 tags:
 ---

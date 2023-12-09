@@ -2,6 +2,7 @@
 title: 굳이굳이 Hexo로 블로그 시작한 이유
 categories:
   - BLOG
+abbrlink: 1
 date: 2023-11-30 13:34:03
 tags:
 ---

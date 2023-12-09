@@ -2,6 +2,7 @@
 title: Hexo로 블로그 시작하기
 categories:
   - BLOG
+abbrlink: 2
 date: 2023-12-01 23:24:06
 tags:
 ---
