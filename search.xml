@@ -90,7 +90,7 @@
   </entry>
   <entry>
     <title>Hexo permalink 숫자로 나오게 하기</title>
-    <url>/posts/undefined/</url>
+    <url>/posts/3/</url>
     <content><![CDATA[<h1>문제점</h1>
 <p>분명 Hexo에는 이걸 지원하는 <a href="https://github.com/rozbo/hexo-abbrlink2">plugin</a>이 있고, 이것 때문에 Hexo로 블로그 만들기를 시작했는데, 정작 이 plugin이 작동하질 않았다...</p>
 <p>아직 Hexo 작동원리를 정확히 아는 것은 아니라 모르겠지만, 대충 이유를 추측하자면 저 plugin은 <a href="https://hexo.io/api/filter_post-permalink">post_permalink</a> filter에서 주소를 계산하는데, 게시글 주소가 여러 곳에서 쓰이다 보니 (메인화면, 이전/다음 글, 카테고리 등...) post_permalink filter가 여러 번 불린다.</p>
