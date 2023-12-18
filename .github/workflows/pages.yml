@@ -29,9 +29,28 @@ jobs:
           npm-cache-${{ runner.os }}
           npm-cache
 
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Lock abbrlink
+      run: node ./lock_abbrlink.js
+
+    - name: Check if there are changes
+      id: diff
+      run: git diff --quiet
+      continue-on-error: true
+
+    - name: Commit changes
+      if: ${{ steps.diff.outcome == 'failure' }}
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git commit -a -m "Lock abbrlink after ${{ github.event.after }}"
+        git push
+
     - name: Build
       run: |
-        npm install
+        npx hexo clean
         npx hexo generate
 
     - name: Deploy
