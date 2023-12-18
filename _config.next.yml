@@ -86,6 +86,11 @@ symbols_count_time:
 preconnect: true
 
 codeblock:
+  # Code Highlight theme
+  # All available themes: https://theme-next.js.org/highlight/
+  theme:
+    light: agate
+    dark: agate
   # Add copy button on codeblock
   copy_button:
     enable: true
