@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cookiehcl.github.io/posts/7/</loc>
+    
+    <lastmod>2023-12-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/6/</loc>
+    
+    <lastmod>2023-12-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/5/</loc>
+    
+    <lastmod>2023-12-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/4/</loc>
+    
+    <lastmod>2023-12-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cookiehcl.github.io/posts/3/</loc>
     
     <lastmod>2023-12-08</lastmod>
@@ -67,7 +103,7 @@
 
   <url>
     <loc>https://cookiehcl.github.io/</loc>
-    <lastmod>2023-12-18</lastmod>
+    <lastmod>2023-12-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -77,7 +113,28 @@
   
   <url>
     <loc>https://cookiehcl.github.io/categories/BLOG/</loc>
-    <lastmod>2023-12-18</lastmod>
+    <lastmod>2023-12-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/BOOK/</loc>
+    <lastmod>2023-12-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/BOOK/%EC%86%8C%EC%84%A4/</loc>
+    <lastmod>2023-12-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/BOOK/%EC%9E%90%EA%B8%B0%EA%B3%84%EB%B0%9C/</loc>
+    <lastmod>2023-12-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
