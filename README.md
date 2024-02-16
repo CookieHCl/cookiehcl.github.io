@@ -26,4 +26,4 @@ hexo server
 - [REPO] REPO 관련 커밋
 - [BLOG] BLOG 관련 커밋 글 작성, 수정, 삭제 등등
 
-블로그 글들은 날짜-이름 형식임. `yy.mm.dd-my_post.md`
+블로그 글들은 날짜-이름 형식임. `yymmdd-my_post.md`
