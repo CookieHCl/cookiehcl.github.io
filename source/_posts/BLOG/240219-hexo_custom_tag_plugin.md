@@ -2,6 +2,7 @@
 title: Hexo tag plugin 만들기
 categories:
   - BLOG
+abbrlink: 10
 date: 2024-02-19 07:50:19
 tags:
 ---
