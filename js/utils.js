@@ -6,7 +6,9 @@ t.href=decodeURIComponent(atob(e.dataset.url).split("").map((e=>"%"+("00"+e.char
 t=e.querySelectorAll("code.highlight span")),t.forEach((e=>{e.classList.forEach((t=>{e.classList.replace(t,`hljs-${t}`)}))}))}const n=parseInt(window.getComputedStyle(e).height.replace("px",""),10),i=CONFIG.fold.enable&&n>CONFIG.fold.height;if(!i&&!CONFIG.copycode.enable)return;let c;if(o&&"mac"===CONFIG.copycode.style)c=e;else{let t=e.querySelector(".code-container");if(!t){
 // https://github.com/next-theme/hexo-theme-next/issues/98
 // https://github.com/next-theme/hexo-theme-next/pull/508
-const n=e.querySelector(".table-container")||e;t=document.createElement("div"),t.className="code-container",n.wrap(t)}c=t}if(i&&!c.classList.contains("unfold")&&(c.classList.add("highlight-fold"),c.insertAdjacentHTML("beforeend",'<div class="fold-cover"></div><div class="expand-btn"><i class="fa fa-angle-down fa-fw"></i></div>'),c.querySelector(".expand-btn").addEventListener("click",(()=>{c.classList.remove("highlight-fold"),c.classList.add("unfold")}))),t||!CONFIG.copycode.enable)return;
+const n=e.querySelector(".table-container")||e;t=document.createElement("div"),t.className="code-container",n.wrap(t),
+// add "notranslate" to prevent Google Translate from translating it, which also completely messes up the layout
+t.classList.add("notranslate")}c=t}if(i&&!c.classList.contains("unfold")&&(c.classList.add("highlight-fold"),c.insertAdjacentHTML("beforeend",'<div class="fold-cover"></div><div class="expand-btn"><i class="fa fa-angle-down fa-fw"></i></div>'),c.querySelector(".expand-btn").addEventListener("click",(()=>{c.classList.remove("highlight-fold"),c.classList.add("unfold")}))),t||!CONFIG.copycode.enable)return;
 // One-click copy code support.
 c.insertAdjacentHTML("beforeend",'<div class="copy-btn"><i class="fa fa-copy fa-fw"></i></div>');const r=c.querySelector(".copy-btn");r.addEventListener("click",(()=>{const t=(e.querySelector(".code")||e.querySelector("code")).innerText;if(navigator.clipboard)
 // https://caniuse.com/mdn-api_clipboard_writetext

@@ -108,29 +108,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Hexo tag plugin 만들기</title>
-    <url>/posts/10/</url>
-    <content><![CDATA[<h1>Tag Plugin이란?</h1>
-<p>Hexo에는 <a href="https://hexo.io/docs/tag-plugins">Tag Plugin</a>이라는 개념이 있는데, Markdown으로 작성하지 못 하는 내용들을 작성할 때 사용한다. 쉽게 말하면 임의의 html 태그를 삽입할 수 있는 기능이다. Hexo에도 다양한 <a href="https://hexo.io/docs/tag-plugins">Tag Plugin</a>들이 있지만, Next Theme에서도 버튼, 그래프 등 다양한 <a href="https://theme-next.js.org/docs/tag-plugins">Tag Plugin</a>들을 제공한다.</p>
-<h1>Tag Plugin 만들기</h1>
-<p>다행히도 Hexo에서 Tag Plugin 만드는 방법을 지원한다. <code>sciprts/</code> 폴더에 아래 두 코드 중 하나가 있는 파일을 저장하면 된다.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;name&#x27;</span>, <span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;hello&quot;&gt;hi&lt;/div&gt;`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>이렇게 하면 게시글에 <code>&#123;% name args %&#125;</code>라고 쓰면 <code>&lt;div class=&quot;hello&quot;&gt;hi&lt;/div&gt;</code>로 렌더링된다.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;name&#x27;</span>, <span class="keyword">function</span>(<span class="params">args, content</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;hello&quot;&gt;<span class="subst">$&#123;content&#125;</span>&lt;/div&gt;`</span>;</span><br><span class="line">&#125;, &#123;<span class="attr">ends</span>: <span class="literal">true</span>&#125;);</span><br></pre></td></tr></table></figure>
-<p>이렇게 하면 게시글에</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">&#123;% name args %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endname %&#125;</span><br></pre></td></tr></table></figure>
-<p>라고 쓰면 <code>&lt;div class=&quot;hello&quot;&gt;content&lt;/div&gt;</code>로 렌더링된다.</p>
-<h1>CSS 입히기</h1>
-<p>불행히도 이렇게 하면 원하는 html 태그를 넣을 수는 있지만 CSS가 없기 때문에 원하는 대로 꾸미지는 못 한다. 다행이도 Next Theme에서 <a href="https://theme-next.js.org/docs/advanced-settings/custom-files">CSS를 삽입하는 방법</a>을 지원한다.</p>
-<p>먼저 Next Config File인 <code>_config.next.yml</code>에 아래 설정을 추가한다.</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-<p>이후 <code>source/_data/styles.styl</code>에 <a href="https://stylus-lang.com/">Stylus</a> 문법으로 원하는대로 스타일을 지정해주면 된다.</p>
-]]></content>
-      <categories>
-        <category>BLOG</category>
-      </categories>
-  </entry>
-  <entry>
     <title>경제 읽어주는 남자의 15분 경제 특강</title>
     <url>/posts/8/</url>
     <content><![CDATA[<div class="image-link-container">
@@ -537,6 +514,29 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       </categories>
   </entry>
   <entry>
+    <title>Hexo tag plugin 만들기</title>
+    <url>/posts/10/</url>
+    <content><![CDATA[<h1>Tag Plugin이란?</h1>
+<p>Hexo에는 <a href="https://hexo.io/docs/tag-plugins">Tag Plugin</a>이라는 개념이 있는데, Markdown으로 작성하지 못 하는 내용들을 작성할 때 사용한다. 쉽게 말하면 임의의 html 태그를 삽입할 수 있는 기능이다. Hexo에도 다양한 <a href="https://hexo.io/docs/tag-plugins">Tag Plugin</a>들이 있지만, Next Theme에서도 버튼, 그래프 등 다양한 <a href="https://theme-next.js.org/docs/tag-plugins">Tag Plugin</a>들을 제공한다.</p>
+<h1>Tag Plugin 만들기</h1>
+<p>다행히도 Hexo에서 Tag Plugin 만드는 방법을 지원한다. <code>sciprts/</code> 폴더에 아래 두 코드 중 하나가 있는 파일을 저장하면 된다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;name&#x27;</span>, <span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;hello&quot;&gt;hi&lt;/div&gt;`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>이렇게 하면 게시글에 <code>&#123;% name args %&#125;</code>라고 쓰면 <code>&lt;div class=&quot;hello&quot;&gt;hi&lt;/div&gt;</code>로 렌더링된다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;name&#x27;</span>, <span class="keyword">function</span>(<span class="params">args, content</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;hello&quot;&gt;<span class="subst">$&#123;content&#125;</span>&lt;/div&gt;`</span>;</span><br><span class="line">&#125;, &#123;<span class="attr">ends</span>: <span class="literal">true</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p>이렇게 하면 게시글에</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">&#123;% name args %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endname %&#125;</span><br></pre></td></tr></table></figure>
+<p>라고 쓰면 <code>&lt;div class=&quot;hello&quot;&gt;content&lt;/div&gt;</code>로 렌더링된다.</p>
+<h1>CSS 입히기</h1>
+<p>불행히도 이렇게 하면 원하는 html 태그를 넣을 수는 있지만 CSS가 없기 때문에 원하는 대로 꾸미지는 못 한다. 다행이도 Next Theme에서 <a href="https://theme-next.js.org/docs/advanced-settings/custom-files">CSS를 삽입하는 방법</a>을 지원한다.</p>
+<p>먼저 Next Config File인 <code>_config.next.yml</code>에 아래 설정을 추가한다.</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+<p>이후 <code>source/_data/styles.styl</code>에 <a href="https://stylus-lang.com/">Stylus</a> 문법으로 원하는대로 스타일을 지정해주면 된다.</p>
+]]></content>
+      <categories>
+        <category>BLOG</category>
+      </categories>
+  </entry>
+  <entry>
     <title>로봇은 감정을 느낄 수 있을까?</title>
     <url>/posts/4/</url>
     <content><![CDATA[<div class="image-link-container">
@@ -555,24 +555,6 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       </categories>
   </entry>
   <entry>
-    <title>사랑을 SF적으로 표현하는 방법</title>
-    <url>/posts/6/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/내게_남은_사랑을_드릴게요.jpg"></object>
-    <p>내게 남은 사랑을 드릴게요</p><p>이유리, 김서해, 김초엽, 설재인, 천선란</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000200755350"></a>
-  </div>
-<p>이 책을 처음 봤을 때는 ‘내게 남은 사랑을 드릴게요’라는 제목과 하트로 가득 찬 표지 때문에 로맨스 소설인 줄 알았지만, 읽어보니 이 책은 사실 SF 소설 앤솔러지였다. 그런데 SF 소설 앤솔러지라고는 하지만 ‘SF 소설’은 ‘판타지 소설’처럼 너무 광범위하고 다양한 작품들을 지칭하는 말이다. 장르의 방대함을 증명하듯 이 책을 이루는 5개의 소설에서도 명확한 공통점을 찾기는 쉽지 않다. 굳이 따지자면 이 책의 제목에서도 나타나듯, ‘사랑’ 자체가 이 책을 관통하는 공통점일 것이다. 5명의 작가가 ‘SF 소설’만큼이나 정의하기 어려운 ‘사랑’을 나름의 방식대로 SF 소설로 표현한 모습을 볼 수 있었다.</p>
-<p>5개의 소설 중 인상 깊었던 2개의 소설이 있는데, 먼저 김초엽 작가의 &lt;수브다니의 여름휴가&gt;가 있다. 인공장기를 배양하는 회사에서 일하던 주인공이 인공피부를 배양하는 곳에서 일한다는 내용인데, 역사가 깊은 SF 장르에서도 언급되지 않은 주제인 인공피부를 찾아내서 소설로 쓴 것을 보고 작가가 매우 똑똑하다는 생각을 했다. 또한, 인공장기는 단순히 심장을 다치면 교체하고, 눈을 다치면 교체하는 등 단순히 수술을 대체해줄 의료적인 목적만 달성한다면, 인공피부는 곰, 고양이, 용, 늑대 등 인간과 완전히 다른 종이 되고 싶은 사람들을 위해 만들어진다. 물론 피부만이 인간의 본질을 나타내는 요소는 아니겠지만, 이를 통해 ‘피부가 달라지면 우리도 인간이 아니게 되는 걸까?’라는 생각을 하도록 만든다. 이 외에도 인간과 안드로이드의 사랑과, 금속 피부를 이식받은 후 스스로 녹슬어가는 작품의 일부가 되는 결말까지, 짧은 소설임에도 불구하고 생각해볼 점이 많았다. 읽으면서도 쏟아져 내리는 새로운 설정들 때문에 이야기가 어떻게 흘러갈지 열심히 기대하면서 읽었다.</p>
-<p>다음으로는 천선란 작가의 &lt;뼈의 기록&gt;이 있다. 소설 배경은 미래시대로, 안드로이드가 보급되면서 장의사 대신 장례를 치르는 장의사 안드로이드가 생겼다는 설정이다. 장의사 안드로이드인 로비스는 고독사한 노인, 자살한 여자, 사고사한 아이 등 여러 시체들의 장례를 치르며, 마지막에는 자신과 같이 말동무를 해주던 청소부 모미의 장례를 치러준다. 같은 작가의 &lt;랑과 나의 사막&gt;에서도 느낀 거지만 천선란 작가는 안드로이드 같은 기계적인 생각으로 인간의 마음을 표현하는 것을 잘하는 것 같다. 과학적인 사실인 적혈구의 기능을 얘기하면서 유가족들을 위로해주거나, 아름다움의 정의를 듣고 나서 뼈가 아름답다고 정의를 내리는 등의 모습을 보고 느꼈다. 또한, 이 소설은 발단-전개-위기-절정-결말로 이루어진 소설의 구성단계를 완벽하게 지킨 소설이기도 하다. 45페이지의 짧은 소설에 복선들도 넣어가며 우주선에서 장례를 치르는 클라이맥스로 달려가는 모습은 읽은 사람들에게 말 그대로 ‘절정’을 느끼게 해준다. 너무 짧아서 아쉬웠던 다른 소설들과 달리 짧은 글임에도 탄탄한 구성으로 이루어져 있어 수백 페이지의 소설을 다 읽은 느낌을 얻을 수 있었다.</p>
-<p>이 책에서 말하는 ‘사랑’은 남녀 사이의 사랑도 있긴 하지만, 그것보다 보편적인 인간성에 관한 이야기다. 혼자서만 지내는 학우한테 먼저 다가가 친구가 돼주는 일, 가정폭력을 당하고 있는 아이한테 다가가서 안아주는 일, 애인과 만들었던 마지막 작품을 스스로 완성하는 일, 평생 볼일 없을 유가족들을 위로해주고, 함께 일하다 죽은 동료를 위해 그 마음을 헤아리고 평생 내본 적 없던 용기를 내본 일. 이 모든 것들은 인간만이 가능한 비논리적인 행동이고, 그러므로 ‘사랑’으로 밖에 표현할 말이 없다. 5명의 작가는 서로 다른 세상의 모습을 그렸지만, 그 속에서도 여전히 ‘사랑’이 존재할 것이다.</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>소설</category>
-      </categories>
-  </entry>
-  <entry>
     <title>무엇이든 빌려드립니다</title>
     <url>/posts/5/</url>
     <content><![CDATA[<div class="image-link-container">
@@ -584,6 +566,24 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
 <p>하지만 외모 대여점에서 자신이 가장 가지고 싶었던 외모를 빌려본 10명의 손님들은 ‘외모가 중요하지 않다’는 결론을 얻고 돌아간다. 공공장소에서 시끄럽게 떠드는 여자애들한테 조용히 하라고 말하려고 하거나, 자신이 좋아하는 남자한테 고백하려고 하거나, 혼자 있는 직장 동료에게 하고 싶은 말을 하려고 하는 등 10명의 손님들은 다양한 이유로 외모를 빌려봤지만, 정작 알아낸 것은 사람들이 ‘원하는 외모’를 빌린 자기 자신보다, 외모가 뒤바뀌어서 ‘원래 자신의 외모’를 가지고 있는 변신여우의 말을 더 잘 듣는다는 사실을 알아낸다. 외모를 빌리려고 한 손님들은 자신의 외모로는 다른 사람들한테 얘기할 수 없을 것 같아, 다른 사람들이 더 잘 들어줄 것 같은 외모를 빌려보지만, 가장 중요한 것은 자신감이 있는 외모가 아니라 자신감이 있는 내면의 모습 그 자체임을 알게 된다.</p>
 <p>다만 교육적인 내용과는 별개로 소설 자체는 아쉬운 편이다. 외모 대여점은 옴니버스 형식을 사용한 소설로, 손님마다 1개의 챕터를 맡아 총 10개의 챕터로 나누어져 있는데, 책 자체가 300쪽도 안 되는 짧은 분량이기 때문에 각 손님의 이야기가 몇십 쪽 만에 끝나버려 깊은 이야기를 다루지 못 한 것 같다. 책 내용도 매번 등장인물 소개 후 외모를 바꿔본 뒤에 생각처럼 안 된다는 결론이 계속 반복되니 같은 내용만 보고 있다는 느낌도 받았다. 가장 아쉬운 점은 주인공의 얘기가 소설에 잘 안 나타난다는 점이다. 여우술사와 변신여우라는 특이한 설정을 채용했음에도 불구하고, 정작 소설 내에서의 활용도는 원하는 외모를 바꿔주는 도구로만 쓰이는 것이 대부분이다. 주인공들의 설정은 정말 매력적임에도 불구하고 그에 걸맞은 뒷이야기가 풀리지 않은 것 같아 매우 아쉽다. 아무래도 소설이 옴니버스 형식이다 보니 주인공의 이야기를 우선적으로 풀기보단, 각 챕터마다 등장하는 손님들의 이야기를 먼저 얘기하다 보니 정작 주인공에 대해 할 이야기가 줄어들어 소설에 묻힌 감이 있다. 막상 각 손님의 이야기도 손님마다 감정이입 하기에는 너무 짧아서 주인공한테도, 손님들한테도 감정을 이입할 수가 없었다. 챕터 수를 좀 더 줄이고 각 챕터를 조금 늘리면 더 나은 소설이 될 것 같다.</p>
 <p>그럼에도 불구하고 워낙 소설 설정 자체가 매력적이다보니 재밌게 읽은 것 같다. 깊이 있는 소설을 원하는 사람한테는 별로지만 간단하게 읽을 수 있는 책으로는 나쁘지 않다. 몇몇 챕터는 여장남자에 관한 얘기가 나오는 등 생각해볼 만한 주제가 있는 챕터도 있었고, 전체적으로 책이 주는 교훈이 나쁘지 않다. 내가 무슨 짓을 해도 바꿀 수 없는 외모에 대해 집착하는 것보단, 내 노력으로 바꿀 수 있는 마음가짐을 바꾸는 것이 더 중요하다. 결국, 사람의 본질은 외모에 있는 것이 아니라 마음에 있다는 사실을 알게 된다.</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>소설</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>사랑을 SF적으로 표현하는 방법</title>
+    <url>/posts/6/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/내게_남은_사랑을_드릴게요.jpg"></object>
+    <p>내게 남은 사랑을 드릴게요</p><p>이유리, 김서해, 김초엽, 설재인, 천선란</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000200755350"></a>
+  </div>
+<p>이 책을 처음 봤을 때는 ‘내게 남은 사랑을 드릴게요’라는 제목과 하트로 가득 찬 표지 때문에 로맨스 소설인 줄 알았지만, 읽어보니 이 책은 사실 SF 소설 앤솔러지였다. 그런데 SF 소설 앤솔러지라고는 하지만 ‘SF 소설’은 ‘판타지 소설’처럼 너무 광범위하고 다양한 작품들을 지칭하는 말이다. 장르의 방대함을 증명하듯 이 책을 이루는 5개의 소설에서도 명확한 공통점을 찾기는 쉽지 않다. 굳이 따지자면 이 책의 제목에서도 나타나듯, ‘사랑’ 자체가 이 책을 관통하는 공통점일 것이다. 5명의 작가가 ‘SF 소설’만큼이나 정의하기 어려운 ‘사랑’을 나름의 방식대로 SF 소설로 표현한 모습을 볼 수 있었다.</p>
+<p>5개의 소설 중 인상 깊었던 2개의 소설이 있는데, 먼저 김초엽 작가의 &lt;수브다니의 여름휴가&gt;가 있다. 인공장기를 배양하는 회사에서 일하던 주인공이 인공피부를 배양하는 곳에서 일한다는 내용인데, 역사가 깊은 SF 장르에서도 언급되지 않은 주제인 인공피부를 찾아내서 소설로 쓴 것을 보고 작가가 매우 똑똑하다는 생각을 했다. 또한, 인공장기는 단순히 심장을 다치면 교체하고, 눈을 다치면 교체하는 등 단순히 수술을 대체해줄 의료적인 목적만 달성한다면, 인공피부는 곰, 고양이, 용, 늑대 등 인간과 완전히 다른 종이 되고 싶은 사람들을 위해 만들어진다. 물론 피부만이 인간의 본질을 나타내는 요소는 아니겠지만, 이를 통해 ‘피부가 달라지면 우리도 인간이 아니게 되는 걸까?’라는 생각을 하도록 만든다. 이 외에도 인간과 안드로이드의 사랑과, 금속 피부를 이식받은 후 스스로 녹슬어가는 작품의 일부가 되는 결말까지, 짧은 소설임에도 불구하고 생각해볼 점이 많았다. 읽으면서도 쏟아져 내리는 새로운 설정들 때문에 이야기가 어떻게 흘러갈지 열심히 기대하면서 읽었다.</p>
+<p>다음으로는 천선란 작가의 &lt;뼈의 기록&gt;이 있다. 소설 배경은 미래시대로, 안드로이드가 보급되면서 장의사 대신 장례를 치르는 장의사 안드로이드가 생겼다는 설정이다. 장의사 안드로이드인 로비스는 고독사한 노인, 자살한 여자, 사고사한 아이 등 여러 시체들의 장례를 치르며, 마지막에는 자신과 같이 말동무를 해주던 청소부 모미의 장례를 치러준다. 같은 작가의 &lt;랑과 나의 사막&gt;에서도 느낀 거지만 천선란 작가는 안드로이드 같은 기계적인 생각으로 인간의 마음을 표현하는 것을 잘하는 것 같다. 과학적인 사실인 적혈구의 기능을 얘기하면서 유가족들을 위로해주거나, 아름다움의 정의를 듣고 나서 뼈가 아름답다고 정의를 내리는 등의 모습을 보고 느꼈다. 또한, 이 소설은 발단-전개-위기-절정-결말로 이루어진 소설의 구성단계를 완벽하게 지킨 소설이기도 하다. 45페이지의 짧은 소설에 복선들도 넣어가며 우주선에서 장례를 치르는 클라이맥스로 달려가는 모습은 읽은 사람들에게 말 그대로 ‘절정’을 느끼게 해준다. 너무 짧아서 아쉬웠던 다른 소설들과 달리 짧은 글임에도 탄탄한 구성으로 이루어져 있어 수백 페이지의 소설을 다 읽은 느낌을 얻을 수 있었다.</p>
+<p>이 책에서 말하는 ‘사랑’은 남녀 사이의 사랑도 있긴 하지만, 그것보다 보편적인 인간성에 관한 이야기다. 혼자서만 지내는 학우한테 먼저 다가가 친구가 돼주는 일, 가정폭력을 당하고 있는 아이한테 다가가서 안아주는 일, 애인과 만들었던 마지막 작품을 스스로 완성하는 일, 평생 볼일 없을 유가족들을 위로해주고, 함께 일하다 죽은 동료를 위해 그 마음을 헤아리고 평생 내본 적 없던 용기를 내본 일. 이 모든 것들은 인간만이 가능한 비논리적인 행동이고, 그러므로 ‘사랑’으로 밖에 표현할 말이 없다. 5명의 작가는 서로 다른 세상의 모습을 그렸지만, 그 속에서도 여전히 ‘사랑’이 존재할 것이다.</p>
 ]]></content>
       <categories>
         <category>BOOK</category>
