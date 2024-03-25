@@ -89,6 +89,25 @@
       </categories>
   </entry>
   <entry>
+    <title>Hexo permalink 숫자로 나오게 하기</title>
+    <url>/posts/3/</url>
+    <content><![CDATA[<h1>문제점</h1>
+<p>분명 Hexo에는 이걸 지원하는 <a href="https://github.com/rozbo/hexo-abbrlink2">plugin</a>이 있고, 이것 때문에 Hexo로 블로그 만들기를 시작했는데, 정작 이 plugin이 작동하질 않았다...</p>
+<p>아직 Hexo 작동원리를 정확히 아는 것은 아니라 모르겠지만, 대충 이유를 추측하자면 저 plugin은 <a href="https://hexo.io/api/filter_post-permalink">post_permalink</a> filter에서 주소를 계산하는데, 게시글 주소가 여러 곳에서 쓰이다 보니 (메인화면, 이전/다음 글, 카테고리 등...) post_permalink filter가 여러 번 불린다.</p>
+<p>근데 plugin 제작자가 이럴거라고 생각을 못 했는지, 아니면 post_permalink가 불릴때마다 순서가 뒤죽박죽이라던지, 여러가지 이유로 게시글 주소를 계산할 때마다 permalink를 다르게 계산하고, 결국 링크가 제대로 작동하지 않는 문제가 생겼다.</p>
+<h1>해결책</h1>
+<p>결국 plugin을 직접 만들기로 했다... 아래 파일을 <code>scripts/abbrlink.js</code>로 저장한다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> abbrlinks = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;before_generate&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> posts = hexo.<span class="property">locals</span>.<span class="title function_">get</span>(<span class="string">&#x27;posts&#x27;</span>).<span class="property">data</span>;</span><br><span class="line">    <span class="keyword">let</span> undefined_posts = [];</span><br><span class="line">    <span class="keyword">let</span> max_abbrlink = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get max abbrlink</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> posts) &#123;</span><br><span class="line">        <span class="keyword">if</span> (post.<span class="property">abbrlink</span>) &#123;</span><br><span class="line">            abbrlinks[post.<span class="property">_id</span>] = post.<span class="property">abbrlink</span>;</span><br><span class="line">            max_abbrlink = <span class="title class_">Math</span>.<span class="title function_">max</span>(max_abbrlink, post.<span class="property">abbrlink</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            undefined_posts.<span class="title function_">push</span>(post);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// generate abbrlink for undefined posts</span></span><br><span class="line">    undefined_posts.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.<span class="property">date</span> - b.<span class="property">date</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> undefined_posts) &#123;</span><br><span class="line">        abbrlinks[post.<span class="property">_id</span>] = ++max_abbrlink;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;post_permalink&#x27;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// if abbrlink is already set, do nothing</span></span><br><span class="line">    <span class="keyword">if</span> (data.<span class="property">abbrlink</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// set abbrlink if abbrlink is generated</span></span><br><span class="line">    <span class="keyword">const</span> abbrlink = abbrlinks[data.<span class="property">_id</span>];</span><br><span class="line">    <span class="keyword">if</span> (abbrlink) &#123;</span><br><span class="line">        data.<span class="property">abbrlink</span> = abbrlink;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>항상 게시글 주소가 똑같이 유지되도록 <a href="https://hexo.io/api/filter#before-generate">before_generate</a> filter에서 미리 주소를 전부 계산한 다음, post_permalink filter에서는 그냥 계산한 주소를 붙이기만 하기로 했다.</p>
+<p>계산한 숫자 주소는 원본 plugin에서 쓰던 대로 <strong>abbrlink</strong>라고 부르기로 했다.</p>
+<p>웃기게도 가장 애먹은 부분은 모든 게시글을 불러오려면 <code>const posts = hexo.locals.get('posts').data;</code>를 써야 된다는 것을 알아내는 일이였다... 제발 documentation 똑바로 좀 만들어라...</p>
+<p>이후는 abbrlink가 없는 post들을 찾은 다음, 날짜 순으로 정렬해 쓴 순더대로 abbrlink를 붙여주는게 끝이다.</p>
+]]></content>
+      <categories>
+        <category>BLOG</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Hexo tag plugin 만들기</title>
     <url>/posts/10/</url>
     <content><![CDATA[<h1>Tag Plugin이란?</h1>
@@ -109,43 +128,6 @@
 ]]></content>
       <categories>
         <category>BLOG</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Hexo permalink 숫자로 나오게 하기</title>
-    <url>/posts/3/</url>
-    <content><![CDATA[<h1>문제점</h1>
-<p>분명 Hexo에는 이걸 지원하는 <a href="https://github.com/rozbo/hexo-abbrlink2">plugin</a>이 있고, 이것 때문에 Hexo로 블로그 만들기를 시작했는데, 정작 이 plugin이 작동하질 않았다...</p>
-<p>아직 Hexo 작동원리를 정확히 아는 것은 아니라 모르겠지만, 대충 이유를 추측하자면 저 plugin은 <a href="https://hexo.io/api/filter_post-permalink">post_permalink</a> filter에서 주소를 계산하는데, 게시글 주소가 여러 곳에서 쓰이다 보니 (메인화면, 이전/다음 글, 카테고리 등...) post_permalink filter가 여러 번 불린다.</p>
-<p>근데 plugin 제작자가 이럴거라고 생각을 못 했는지, 아니면 post_permalink가 불릴때마다 순서가 뒤죽박죽이라던지, 여러가지 이유로 게시글 주소를 계산할 때마다 permalink를 다르게 계산하고, 결국 링크가 제대로 작동하지 않는 문제가 생겼다.</p>
-<h1>해결책</h1>
-<p>결국 plugin을 직접 만들기로 했다... 아래 파일을 <code>scripts/abbrlink.js</code>로 저장한다.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> abbrlinks = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;before_generate&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> posts = hexo.<span class="property">locals</span>.<span class="title function_">get</span>(<span class="string">&#x27;posts&#x27;</span>).<span class="property">data</span>;</span><br><span class="line">    <span class="keyword">let</span> undefined_posts = [];</span><br><span class="line">    <span class="keyword">let</span> max_abbrlink = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get max abbrlink</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> posts) &#123;</span><br><span class="line">        <span class="keyword">if</span> (post.<span class="property">abbrlink</span>) &#123;</span><br><span class="line">            abbrlinks[post.<span class="property">_id</span>] = post.<span class="property">abbrlink</span>;</span><br><span class="line">            max_abbrlink = <span class="title class_">Math</span>.<span class="title function_">max</span>(max_abbrlink, post.<span class="property">abbrlink</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            undefined_posts.<span class="title function_">push</span>(post);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// generate abbrlink for undefined posts</span></span><br><span class="line">    undefined_posts.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.<span class="property">date</span> - b.<span class="property">date</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> undefined_posts) &#123;</span><br><span class="line">        abbrlinks[post.<span class="property">_id</span>] = ++max_abbrlink;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;post_permalink&#x27;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// if abbrlink is already set, do nothing</span></span><br><span class="line">    <span class="keyword">if</span> (data.<span class="property">abbrlink</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// set abbrlink if abbrlink is generated</span></span><br><span class="line">    <span class="keyword">const</span> abbrlink = abbrlinks[data.<span class="property">_id</span>];</span><br><span class="line">    <span class="keyword">if</span> (abbrlink) &#123;</span><br><span class="line">        data.<span class="property">abbrlink</span> = abbrlink;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>항상 게시글 주소가 똑같이 유지되도록 <a href="https://hexo.io/api/filter#before-generate">before_generate</a> filter에서 미리 주소를 전부 계산한 다음, post_permalink filter에서는 그냥 계산한 주소를 붙이기만 하기로 했다.</p>
-<p>계산한 숫자 주소는 원본 plugin에서 쓰던 대로 <strong>abbrlink</strong>라고 부르기로 했다.</p>
-<p>웃기게도 가장 애먹은 부분은 모든 게시글을 불러오려면 <code>const posts = hexo.locals.get('posts').data;</code>를 써야 된다는 것을 알아내는 일이였다... 제발 documentation 똑바로 좀 만들어라...</p>
-<p>이후는 abbrlink가 없는 post들을 찾은 다음, 날짜 순으로 정렬해 쓴 순더대로 abbrlink를 붙여주는게 끝이다.</p>
-]]></content>
-      <categories>
-        <category>BLOG</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>로봇은 감정을 느낄 수 있을까?</title>
-    <url>/posts/4/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/랑과_나의_사막.jpg"></object>
-    <p>랑과 나의 사막</p><p>천선란</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000200115764"></a>
-  </div>
-<p>이 소설은 주인공 랑의 죽음으로부터 시작된다. 모든 것이 멸망한 아포칼립스 세계관에서 지구는 이미 거의 모든 동식물이 사라져 황폐해진 지 오래고 인간이 노인까지 살다가 죽기에는 너무 위험한 세계가 되었다. 그렇게 끝없는 사막 속에서 랑의 엄마인 조도 죽었고, 랑도 결국 죽게 된다. 특이하게도 랑과 같이 살던 동거인은 같은 인간이 아니라 로봇인 고고였는데, 로봇이라 인간의 감정을 이해하지 못 하는 모습을 보여준다. 랑의 장례식은 아직까지 랑의 집에 남아있던 고고와 랑의 친구인 지카가 치렀는데, 고고는 지카가 왜 그렇게 허탈해하고 왜 그렇게 쓸쓸해하는지, 그리고 왜 랑의 시체를 땅속 깊이 묻어두는지 이해하지 못한다.</p>
-<p>지카가 갈 곳이 없으면 같이 바다로 가자고 했을 때, 그제야 고고는 자신이 살아가야 할 목적이 없어졌다는 사실을 깨닫는다. 태어날 때부터 만들어져 목적을 가지고 살아가는 다른 로봇들과 달리, 고고의 기억은 랑이 모래 속에 파묻혀있던 자신을 구해줬을 때부터 시작된다. 어떠한 명령이나 지시도 받지 않은 채 유일하게 알고 지내던 랑이 세상의 전부였던 고고는 어떻게 할까 고민하던 도중 결국 새로운 삶의 목적을 찾지 못한 채 랑을 행복하게 해준다는 마지막 명령을 따르기 위해 랑이 가고 싶었던 과거로 가는 땅을 향한 여정을 출발하게 된다. 이 점에서 고고는 사람과 다르지 않다. 흔히들 상실을 이겨낸다고 하지만, 상실을 완전히 잊어버릴 수는 없으며 소중한 사람의 상실인 경우 이겨내지 못하고 매몰되는 경우도 생긴다. 물론 고고의 경우에는 마지막으로 하던 일을 계속해서 반복하는 것에 가까운, 완전 다른 이유로 행하는 것이지만, 그런데도 랑을 잊어버리지 못하고 랑에 대한 감정이 남아있는 것처럼 행동한다.</p>
-<p>사막에서 정처 없이 떠돌던 도중 고고는 다른 로봇인 알아이아이를 만나게 된다. 알아이아이는 이미 죽어버린 주인을 기다리며 마지막 명령인 트랙터의 경로를 바꾸는 일을 수행하기 위해 트랙터에 몸을 부딪쳐가며 자신을 부숴가고 있었다. 우리가 익히 알고 있는 로봇의 모습처럼 마지막 명령을 그대로 수행하는 모습이다. 고고도 똑같은 로봇이고, 똑같이 마지막 명령을 그대로 수행하고 있지만 알아이아이를 이해하지 못 하는 모습이 인상적이다. 같은 로봇이지만, 고고가 더 효율적인 방법을 제시해주고 직접 자신의 팔을 떼주는 등 랑이 했던 것처럼 쓸데없이 오지랖이 넓은 모습은 마치 두 로봇이 서로 대화하는 장면이 아니라 사람과 로봇이 대화하는 장면처럼 보이기도 한다.</p>
-<p>마지막에 도달한 과거로 가는 땅에서 만난 살리는 고고와 사람의 차이가 있는 것인지 물어본다. 그렇다. 고고가 사막으로 가는 여정을 결정한 일, 그리고 여정 중에 행동한 행위들은 사람과 다를 바가 없었다. 고고는 자신한테 감정을 느끼는 회로가 없다고 하지만, 감정은 기본적으로 실체적인 현상이 아닌 추상적인 개념이다. 인간의 감정, 기억, 생각 등도 표면적으로는 뇌 속에 있는 시냅스를 통한 전기신호일 뿐이다. 어쩌면 우리도 고고처럼 화학적인 전자회로로만 이루어진 존재라고 볼 수도 있다. 그렇다면 감정을 느낀다는 것은 무엇일까? 작가는 여기서 실제로 감정을 느끼는지 아닌지가 왜 중요하냐고 역으로 물어본다. 고고가 감정이 있는 것처럼 행동한다면 다른 사람들한테 고고가 감정을 느끼는 회로가 있는지 정말 중요하게 생각할까? 우리가 감정에 의해 행동하는 행위 그 자체가 감정을 느낀다는 근거가 되는 것이다. 애초에 감정이 추상적인 개념이기 때문에, 겉모습이 사람인지 로봇인지는 중요하지 않다. 감정이 있는 것처럼 행동한다면, 고고도 로봇임에도 불구하고 ‘인간다움’을 가지고 있다고 생각할 수 있을 것이다.</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>소설</category>
       </categories>
   </entry>
   <entry>
@@ -555,6 +537,24 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       </categories>
   </entry>
   <entry>
+    <title>로봇은 감정을 느낄 수 있을까?</title>
+    <url>/posts/4/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/랑과_나의_사막.jpg"></object>
+    <p>랑과 나의 사막</p><p>천선란</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000200115764"></a>
+  </div>
+<p>이 소설은 주인공 랑의 죽음으로부터 시작된다. 모든 것이 멸망한 아포칼립스 세계관에서 지구는 이미 거의 모든 동식물이 사라져 황폐해진 지 오래고 인간이 노인까지 살다가 죽기에는 너무 위험한 세계가 되었다. 그렇게 끝없는 사막 속에서 랑의 엄마인 조도 죽었고, 랑도 결국 죽게 된다. 특이하게도 랑과 같이 살던 동거인은 같은 인간이 아니라 로봇인 고고였는데, 로봇이라 인간의 감정을 이해하지 못 하는 모습을 보여준다. 랑의 장례식은 아직까지 랑의 집에 남아있던 고고와 랑의 친구인 지카가 치렀는데, 고고는 지카가 왜 그렇게 허탈해하고 왜 그렇게 쓸쓸해하는지, 그리고 왜 랑의 시체를 땅속 깊이 묻어두는지 이해하지 못한다.</p>
+<p>지카가 갈 곳이 없으면 같이 바다로 가자고 했을 때, 그제야 고고는 자신이 살아가야 할 목적이 없어졌다는 사실을 깨닫는다. 태어날 때부터 만들어져 목적을 가지고 살아가는 다른 로봇들과 달리, 고고의 기억은 랑이 모래 속에 파묻혀있던 자신을 구해줬을 때부터 시작된다. 어떠한 명령이나 지시도 받지 않은 채 유일하게 알고 지내던 랑이 세상의 전부였던 고고는 어떻게 할까 고민하던 도중 결국 새로운 삶의 목적을 찾지 못한 채 랑을 행복하게 해준다는 마지막 명령을 따르기 위해 랑이 가고 싶었던 과거로 가는 땅을 향한 여정을 출발하게 된다. 이 점에서 고고는 사람과 다르지 않다. 흔히들 상실을 이겨낸다고 하지만, 상실을 완전히 잊어버릴 수는 없으며 소중한 사람의 상실인 경우 이겨내지 못하고 매몰되는 경우도 생긴다. 물론 고고의 경우에는 마지막으로 하던 일을 계속해서 반복하는 것에 가까운, 완전 다른 이유로 행하는 것이지만, 그런데도 랑을 잊어버리지 못하고 랑에 대한 감정이 남아있는 것처럼 행동한다.</p>
+<p>사막에서 정처 없이 떠돌던 도중 고고는 다른 로봇인 알아이아이를 만나게 된다. 알아이아이는 이미 죽어버린 주인을 기다리며 마지막 명령인 트랙터의 경로를 바꾸는 일을 수행하기 위해 트랙터에 몸을 부딪쳐가며 자신을 부숴가고 있었다. 우리가 익히 알고 있는 로봇의 모습처럼 마지막 명령을 그대로 수행하는 모습이다. 고고도 똑같은 로봇이고, 똑같이 마지막 명령을 그대로 수행하고 있지만 알아이아이를 이해하지 못 하는 모습이 인상적이다. 같은 로봇이지만, 고고가 더 효율적인 방법을 제시해주고 직접 자신의 팔을 떼주는 등 랑이 했던 것처럼 쓸데없이 오지랖이 넓은 모습은 마치 두 로봇이 서로 대화하는 장면이 아니라 사람과 로봇이 대화하는 장면처럼 보이기도 한다.</p>
+<p>마지막에 도달한 과거로 가는 땅에서 만난 살리는 고고와 사람의 차이가 있는 것인지 물어본다. 그렇다. 고고가 사막으로 가는 여정을 결정한 일, 그리고 여정 중에 행동한 행위들은 사람과 다를 바가 없었다. 고고는 자신한테 감정을 느끼는 회로가 없다고 하지만, 감정은 기본적으로 실체적인 현상이 아닌 추상적인 개념이다. 인간의 감정, 기억, 생각 등도 표면적으로는 뇌 속에 있는 시냅스를 통한 전기신호일 뿐이다. 어쩌면 우리도 고고처럼 화학적인 전자회로로만 이루어진 존재라고 볼 수도 있다. 그렇다면 감정을 느낀다는 것은 무엇일까? 작가는 여기서 실제로 감정을 느끼는지 아닌지가 왜 중요하냐고 역으로 물어본다. 고고가 감정이 있는 것처럼 행동한다면 다른 사람들한테 고고가 감정을 느끼는 회로가 있는지 정말 중요하게 생각할까? 우리가 감정에 의해 행동하는 행위 그 자체가 감정을 느낀다는 근거가 되는 것이다. 애초에 감정이 추상적인 개념이기 때문에, 겉모습이 사람인지 로봇인지는 중요하지 않다. 감정이 있는 것처럼 행동한다면, 고고도 로봇임에도 불구하고 ‘인간다움’을 가지고 있다고 생각할 수 있을 것이다.</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>소설</category>
+      </categories>
+  </entry>
+  <entry>
     <title>무엇이든 빌려드립니다</title>
     <url>/posts/5/</url>
     <content><![CDATA[<div class="image-link-container">
@@ -591,24 +591,6 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       </categories>
   </entry>
   <entry>
-    <title>일상 속에서 소소한 행복을 찾자</title>
-    <url>/posts/9/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/유리_멘탈이지만_절대_깨지지_않아.jpg"></object>
-    <p>유리 멘탈이지만 절대 깨지지 않아</p><p>기무라 코노미</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000209030309"></a>
-  </div>
-<p>이번 달에는 어떤 책을 읽을까 고민하며 책들을 살펴보던 도중 이 책을 발견하게 됐다. ChatGPT 등 재미있어 보이는 책들이 많았지만 지금 당장 필요한 책은 이 책인 것 같아서 바로 골랐다. 이번 달에는 여러 가지 일들이 겹치면서 스트레스를 굉장히 많이 받았다. 아무래도 너무 많은 일을 준비하다 보니 몸과 마음이 지쳤던 것 같다. 상병 진급 시험도 있었고, 자격증 공부와 대학 학점취득 원격강좌도 준비하고 있었는데 뜬금없이 구글에서 약관을 변경하면서 안드로이드 개발자 계정이 삭제될 위기에 처해 군대 안에서 앱 개발을 할 방법도 고민해야 했다. 하필 입대 날짜도 애매하게 잡은 덕분에 이번 학기가 아니면 할 수가 없는 일들이 너무 많았다. 한두 달 정도 일찍 오거나 늦게 왔었다면 여유가 있었을 텐데 군대 오기 전에 이런 일들에 대해선 고민해보지 않아서 아쉬웠다. 그 와중에다 새해라서 그런지 부대 내에 있는 온갖 것들이 바뀌다 보니 적응하다 지친 나는 결국 번아웃이 와버렸다.</p>
-<p>하고 싶은 일은 많은데 아이러니하게도 시작하고 싶은 생각은 들지 않는 기분을 모두 알고 있을 것이다. 개인정비 시간 때마다 별생각 없이 누워서 스마트폰만 보면서 시간을 보내는 도중에 이 책을 보게 되었다. 이 책은 정확하게 지금과 같은 상황에서 어떻게 벗어나야 하는지 알려주고 있었다. 정신병원에서 주기적으로 약을 처방받아야 할 정도로 힘든 사람들은 많지 않지만, 사회에서 살아가면서 힘든 적이 한 번도 없는 사람은 없을 것이다. 하지만 조금이라도 감기에 걸리면 바로 병원에 가는 대한민국에서도 정신병원에 대한 인식은 심각하게 안 좋아서, 기분이 우울하면 그냥 우울한 채로 살면서 지내는 경우가 많다. 우리는 몸에 생긴 사소한 병들은 즉시 치료받으려고 들면서, 정작 정신에 대한 치료는 시간이 지나면 알아서 해결될 것이라 믿는다. 면역력만을 믿고 버티는 것인데, 이 책은 단순히 기다리는 대신 어떻게 하면 부정적인 생각 대신 긍정적인 생각을 할 수 있는지 알려준다.</p>
-<p>책을 읽으면서 내 얘기인가 싶을 정도로 공감되는 얘기가 많았다. 계속 최악의 상황만 가정한다던가, 오히려 항상 최선의 상황만 생길 거라고 막연히 기대하던가, 우울한 상황에서 억지로 힘을 내려고 하면서 더 힘들어지는 등 내가 최근에 하던 생각들이 전부 기록되어 있었다. 나도 모르게 일본 정신과 의사랑 상담이라도 했던가? 읽으면서 내 얘기 같은 얘기가 계속해서 반복되는 걸 보니 전 세계 사람들도 나랑 같은 고민을 하면서 지내는구나 하는 생각이 들었다. 어쩐지 나만 심각한 게 아니라 누구나 겪는 일이라는 생각이 들면서 안심이 됐다.</p>
-<p>특이하게도 이 책에서 제시하는 방법들은 백천만 감사나눔 운동과 겹치는 면이 많았다. 내가 전입을 했을 때 선임들이 힘들게 써봤자 휴가를 하루나 이틀밖에 안 줘서 그냥 안 쓰는 게 낫다고 말해줬고, 나도 딱히 쓸만한 공책도 시간도 없어서 백천만 감사나눔 운동은 고려조차 안 했었다. 그런데 군 생활이 너무 힘들어서 일병 때부터 공책을 구해 감사노트를 쓰기 시작했는데, 감사노트를 채우려고 억지로라도 감사할 일을 찾으려고 하다 보니 자연스럽게 일상 속에서 조금이라도 기분 좋았던 일들을 되짚어보게 되었다. 하루 동안 감사할 일을 많이 찾으면 기분도 좋아졌다. 군대에서는 더욱더 그렇지만, 사실 사회에서도 만날 기분이 좋아지려고 해외여행 같은 스펙타클한 일을 찾아다닐 수는 없다. 우리가 일상 속에서 있었던 일들 때문에 지친다면, 일상을 무리하게 바꾸려고 하기보다는 일상 속에서 행복한 일을 찾아야 하지 않을까. 아직 많이 쓰진 못 했지만, 오늘도 꾸준히 일상 속에서 감사할 일들을 찾고 있다.</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>자기계발</category>
-      </categories>
-  </entry>
-  <entry>
     <title>사람이라면 읽어야 할 책</title>
     <url>/posts/7/</url>
     <content><![CDATA[<div class="image-link-container">
@@ -620,6 +602,24 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
 <p>OECD가 &quot;어떤 능력이 정보기술 위주의 디지털 시대에서 경쟁력을 높여줄까?&quot;라는 문제에 답하기 위해 성인 경쟁력에 대한 국제조사를 시행한 적이 있다. 이 조사에서는 특이하게도 관련 없어 보이는 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력이 일하는 사람의 경쟁력을 좌우한다는 전제를 한다. 그런데 놀랍게도 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력의 상관성이 강하고, 문해력이 다른 두 능력을 좌우한다는 결론이 나왔다. 컴퓨터공학부 학생으로서 왜 이런 결과가 나왔는지 생각해봤는데, 프로그래밍도 일종의 '글쓰기'라서 그런 것 같다. 같은 기능을 하는 프로그램은 다양한 방법으로 작성할 수 있지만, 프로그래머는 그중에서 다른 사람이 봤을 때 가장 읽기 쉬운 코드를 작성하려고 노력한다. 본인이 옛날에 작성한 코드를 다시 수정하거나, 다른 사람들과 같이 코드를 작성할 때 읽기 쉬운 코드일수록 이해하기가 쉽기 때문이다.</p>
 <p>글쓰기도 마찬가지다. 글의 목적은 읽히는 것이다. 나 혼자만 볼 수 있고 이해할 수 있는 글이 필요한 때도 있을 수 있지만, 대부분 글은 다른 사람도 읽을 수 있도록 쓴다. 그런데 다른 사람들이 정작 내 글을 읽었을 때 이해를 못 한다면 좋은 글이 아닐 가능성이 크다. 글쓰기를 잘하는 사람은 읽는 사람 입장에서 생각할 줄 안다. 어떻게 하면 더 많은 사람이 이해할 수 있을지 생각하고, 본인의 주장을 간단하고 명료하게 주장한다. 그래서 더 효과적으로 자기의 주장을 전달할 수 있고, 다른 사람들에게 더 큰 영향력을 끼칠 수 있는 거물이 될 수 있다. 문과와 이과만큼 전혀 다른 분야인 것처럼 보이는 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력이 큰 상관관계가 있는 이유다.</p>
 <p>이 책은 여러 거물들의 말을 인용했다. 빌 게이츠, 워렌 버핏, 일론 머스크 등 전 세계 사람들이 알고 있는 유명인들이 모두 읽고, 생각하고, 쓰라고 권유한다. 책에서 문해력에 악영향을 끼치는 행동들을 소개해줬는데 아마 현역 군인이라면 모두 해당하는 내용일 것이다. 종이책 대신 전자책 읽기, 긴 글 대신 세줄요약 읽기, 유튜브 알고리즘에 몸을 맡기기 등 요즘 10~20대한테서 흔하게 볼 수 있는 모습이다. 심지어 세대가 지날수록 문해력이 떨어지는 것은 우리나라뿐만 아니라 전 세계에서 나타나고 있는 현상이라고 한다. 하지만 문해력은 동물이 아닌 인간이 되기 위해서 갖춰야 할 최소한의 능력이다. 단순히 보고서, 자소서, 독후감 등 글 쓸 일이 많아서 필요하다는 뜻이 아니다. 문해력은 사람이 이해하고, 생각하고, 비판적인 사고를 하기 위한 필수적인 능력이다. 남들의 생각만 따라 하는 동물 대신 스스로 생각할 수 있는 사람이 되기 위해서는 읽고, 생각하고, 쓰는 연습을 하며 문해력을 키워야 한다. 그러면 우리도 언젠가 전 세계에서 알아주는 거물이 될 수 있을 것이다.</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>자기계발</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>일상 속에서 소소한 행복을 찾자</title>
+    <url>/posts/9/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/유리_멘탈이지만_절대_깨지지_않아.jpg"></object>
+    <p>유리 멘탈이지만 절대 깨지지 않아</p><p>기무라 코노미</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000209030309"></a>
+  </div>
+<p>이번 달에는 어떤 책을 읽을까 고민하며 책들을 살펴보던 도중 이 책을 발견하게 됐다. ChatGPT 등 재미있어 보이는 책들이 많았지만 지금 당장 필요한 책은 이 책인 것 같아서 바로 골랐다. 이번 달에는 여러 가지 일들이 겹치면서 스트레스를 굉장히 많이 받았다. 아무래도 너무 많은 일을 준비하다 보니 몸과 마음이 지쳤던 것 같다. 상병 진급 시험도 있었고, 자격증 공부와 대학 학점취득 원격강좌도 준비하고 있었는데 뜬금없이 구글에서 약관을 변경하면서 안드로이드 개발자 계정이 삭제될 위기에 처해 군대 안에서 앱 개발을 할 방법도 고민해야 했다. 하필 입대 날짜도 애매하게 잡은 덕분에 이번 학기가 아니면 할 수가 없는 일들이 너무 많았다. 한두 달 정도 일찍 오거나 늦게 왔었다면 여유가 있었을 텐데 군대 오기 전에 이런 일들에 대해선 고민해보지 않아서 아쉬웠다. 그 와중에다 새해라서 그런지 부대 내에 있는 온갖 것들이 바뀌다 보니 적응하다 지친 나는 결국 번아웃이 와버렸다.</p>
+<p>하고 싶은 일은 많은데 아이러니하게도 시작하고 싶은 생각은 들지 않는 기분을 모두 알고 있을 것이다. 개인정비 시간 때마다 별생각 없이 누워서 스마트폰만 보면서 시간을 보내는 도중에 이 책을 보게 되었다. 이 책은 정확하게 지금과 같은 상황에서 어떻게 벗어나야 하는지 알려주고 있었다. 정신병원에서 주기적으로 약을 처방받아야 할 정도로 힘든 사람들은 많지 않지만, 사회에서 살아가면서 힘든 적이 한 번도 없는 사람은 없을 것이다. 하지만 조금이라도 감기에 걸리면 바로 병원에 가는 대한민국에서도 정신병원에 대한 인식은 심각하게 안 좋아서, 기분이 우울하면 그냥 우울한 채로 살면서 지내는 경우가 많다. 우리는 몸에 생긴 사소한 병들은 즉시 치료받으려고 들면서, 정작 정신에 대한 치료는 시간이 지나면 알아서 해결될 것이라 믿는다. 면역력만을 믿고 버티는 것인데, 이 책은 단순히 기다리는 대신 어떻게 하면 부정적인 생각 대신 긍정적인 생각을 할 수 있는지 알려준다.</p>
+<p>책을 읽으면서 내 얘기인가 싶을 정도로 공감되는 얘기가 많았다. 계속 최악의 상황만 가정한다던가, 오히려 항상 최선의 상황만 생길 거라고 막연히 기대하던가, 우울한 상황에서 억지로 힘을 내려고 하면서 더 힘들어지는 등 내가 최근에 하던 생각들이 전부 기록되어 있었다. 나도 모르게 일본 정신과 의사랑 상담이라도 했던가? 읽으면서 내 얘기 같은 얘기가 계속해서 반복되는 걸 보니 전 세계 사람들도 나랑 같은 고민을 하면서 지내는구나 하는 생각이 들었다. 어쩐지 나만 심각한 게 아니라 누구나 겪는 일이라는 생각이 들면서 안심이 됐다.</p>
+<p>특이하게도 이 책에서 제시하는 방법들은 백천만 감사나눔 운동과 겹치는 면이 많았다. 내가 전입을 했을 때 선임들이 힘들게 써봤자 휴가를 하루나 이틀밖에 안 줘서 그냥 안 쓰는 게 낫다고 말해줬고, 나도 딱히 쓸만한 공책도 시간도 없어서 백천만 감사나눔 운동은 고려조차 안 했었다. 그런데 군 생활이 너무 힘들어서 일병 때부터 공책을 구해 감사노트를 쓰기 시작했는데, 감사노트를 채우려고 억지로라도 감사할 일을 찾으려고 하다 보니 자연스럽게 일상 속에서 조금이라도 기분 좋았던 일들을 되짚어보게 되었다. 하루 동안 감사할 일을 많이 찾으면 기분도 좋아졌다. 군대에서는 더욱더 그렇지만, 사실 사회에서도 만날 기분이 좋아지려고 해외여행 같은 스펙타클한 일을 찾아다닐 수는 없다. 우리가 일상 속에서 있었던 일들 때문에 지친다면, 일상을 무리하게 바꾸려고 하기보다는 일상 속에서 행복한 일을 찾아야 하지 않을까. 아직 많이 쓰진 못 했지만, 오늘도 꾸준히 일상 속에서 감사할 일들을 찾고 있다.</p>
 ]]></content>
       <categories>
         <category>BOOK</category>
