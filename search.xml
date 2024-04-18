@@ -1,47 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo로 블로그 시작하기</title>
-    <url>/posts/2/</url>
-    <content><![CDATA[<h1>설치</h1>
-<p>먼저 <a href="https://nodejs.org/en/download/">node.js</a>와 <a href="https://git-scm.com/downloads">git</a>을 깔아준다.</p>
-<p>그 후 hexo를 설치한 다음 블로그 폴더를 만들어준다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<h1>실행</h1>
-<p><code>hexo new --path &lt;path&gt; &lt;title&gt;</code>로 원하는 경로에 게시글을 만들 수 있다. 물론 Front matter만 알맞게 작성한다면 직접 Markdown 파일을 만들어도 상관없다.</p>
-<p>게시글을 다 작성했다면 <code>hexo generate</code>로 블로그를 생성하고, <code>hexo server</code>로 블로그를 로컬 서버로 구동시킨다.<br>
-<code>hexo generate -w</code>를 사용하면 파일이 편집될 때마다 블로그를 계속 생성해준다.</p>
-<p>문제는 <code>hexo server</code>가 hot/live reloading을 지원하지 않아 블로그가 새로 생성돼도 브라우저를 새로고침 해야 반영이 된다.<br>
-그래서 어쩔 수 없이 <a href="https://browsersync.io/">Browsersync</a>를 깔아야 했는데, <code>npx browser-sync ./public -w</code>를 사용하면 파일이 편집될 때마다 새로 생성된 블로그를 볼 수 있다.</p>
-<p>일부 변경사항은 <code>hexo generate</code>를 아무리 해도 적용이 안 되는데, (_config.yml 변경 등) 이때는 <code>hexo clean</code>으로 캐시를 지워줘야 한다.</p>
-<h1>배포</h1>
-<p>GitHub Pages니까 GitHub Actions을 사용하기로 했다.<br>
-먼저 repository 설정에서 GitHub Pages를 활성화시켜야 한다.</p>
-<ul>
-<li>Code and automation - Pages에서 Source를 <strong>Deploy from branch</strong>로 해준다.</li>
-<li>Branch는 <code>gh-pages</code>로 선택한다.</li>
-</ul>
-<p>이후 아래 파일을 <code>.github/workflows/pages.yml</code>으로 저장한다.</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Github</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">code</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">LTS</span> <span class="string">Node.js</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">node-version:</span> <span class="string">&#x27;lts/*&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/cache@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">npm-cache-$&#123;&#123;</span> <span class="string">runner.os</span> <span class="string">&#125;&#125;-$&#123;&#123;</span> <span class="string">hashFiles(&#x27;**/package-lock.json&#x27;)</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npm-cache-$&#123;&#123; runner.os &#125;&#125;</span></span><br><span class="line"><span class="string">          npm-cache</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        npm install</span></span><br><span class="line"><span class="string">        npx hexo generate</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/actions/checkout">actions/checkout</a>, <a href="https://github.com/actions/setup-node">actions/setup-node</a>는 말 그대로의 일을 하고, <a href="https://github.com/actions/cache">actions/cache</a>는 workflow가 빠르게 돌 수 있도록 <code>node_modules</code> 폴더를 캐싱해둔다.</p>
-<p>그 후 <code>npx hexo generate</code>로 블로그를 생성한 다음 <a href="https://github.com/peaceiris/actions-gh-pages">peaceiris/actions-gh-pages</a>로 <code>./public</code> 폴더를 GitHub Pages branch에 올리면 된다.</p>
-<h1>NexT Theme 설치</h1>
-<p>NexT Theme 설치는 <code>npm install hexo-theme-next</code>로 간단하게 할 수 있다. 이후 <code>_config.yml</code>에서 <code>theme: next</code>로 설정해주면 된다.</p>
-<p>그 후 NexT Theme 설정 파일을 따로 만들어줘야 하는데, <code>node_modules/hexo-theme-next/_config.yml</code>을 <code>_config.next.yml</code>로 복사해주고 <code>_config.next.yml</code>만 수정하면 된다.</p>
-<h1>What's Next...?</h1>
-<p>이 이후로는 자유롭게 <a href="https://hexo.io/docs/configuration.html">hexo documentation</a>과 <a href="https://theme-next.js.org/docs/theme-settings/">NexT documentation</a>을 참고하면서 원하는 대로 수정하면 된다.</p>
-<p>다른 <a href="https://hexo.io/plugins/">plugin</a>들도 살펴보면서 필요한 것이 있다면 다운받아도 된다. 몇 가지 추천 플러그인들은 다음과 같다.</p>
-<ul>
-<li><a href="https://github.com/xu-song/hexo-auto-category">hexo-auto-category</a>: post의 경로대로 category를 만들어준다.</li>
-<li><a href="https://github.com/chekun/hexo-excerpt">hexo-excerpt</a>: 블로그 메인화면에서 post가 너무 길 경우 일부만 보여준다.</li>
-<li><a href="https://github.com/next-theme/hexo-generator-searchdb">hexo-generator-searchdb</a>: 검색기능을 만들어준다! 자세한 설명은 <a href="https://theme-next.js.org/docs/third-party-services/search-services.html?highlight=searchdb#Local-Search">NexT documentation</a>을 참고하자.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>BLOG</category>
-      </categories>
-  </entry>
-  <entry>
     <title>굳이굳이 Hexo로 블로그 시작한 이유</title>
     <url>/posts/1/</url>
     <content><![CDATA[<h1>동기</h1>
@@ -83,6 +42,47 @@
 <h1>결론</h1>
 <p>그래서 Hexo를 써야 하냐고 묻는다면 쓰는게 좋은 것 같다. <s>본인처럼</s> 주는 것에 만족하지 못 하고 직접 건드리려고 하면 조금 애먹을 수 있지만 Next Theme이 워낙 잘 되어있어서 건드릴 일이 거의 없다.</p>
 <p>Jekyll은 정말 기본적인 기능만 지원해서 카테고리, 검색 기능 같은 것을 지원하려면 어차피 plugin들을 찾아보거나, 직접 코딩하는 등 힘들게 살아야하는데 Hexo는 수많은 중국인들이 이미 귀찮은 작업들을 다 끝내줘서 찾아볼 필요가 없다. 감사합니다 따-거</p>
+]]></content>
+      <categories>
+        <category>BLOG</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Hexo로 블로그 시작하기</title>
+    <url>/posts/2/</url>
+    <content><![CDATA[<h1>설치</h1>
+<p>먼저 <a href="https://nodejs.org/en/download/">node.js</a>와 <a href="https://git-scm.com/downloads">git</a>을 깔아준다.</p>
+<p>그 후 hexo를 설치한 다음 블로그 폴더를 만들어준다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<h1>실행</h1>
+<p><code>hexo new --path &lt;path&gt; &lt;title&gt;</code>로 원하는 경로에 게시글을 만들 수 있다. 물론 Front matter만 알맞게 작성한다면 직접 Markdown 파일을 만들어도 상관없다.</p>
+<p>게시글을 다 작성했다면 <code>hexo generate</code>로 블로그를 생성하고, <code>hexo server</code>로 블로그를 로컬 서버로 구동시킨다.<br>
+<code>hexo generate -w</code>를 사용하면 파일이 편집될 때마다 블로그를 계속 생성해준다.</p>
+<p>문제는 <code>hexo server</code>가 hot/live reloading을 지원하지 않아 블로그가 새로 생성돼도 브라우저를 새로고침 해야 반영이 된다.<br>
+그래서 어쩔 수 없이 <a href="https://browsersync.io/">Browsersync</a>를 깔아야 했는데, <code>npx browser-sync ./public -w</code>를 사용하면 파일이 편집될 때마다 새로 생성된 블로그를 볼 수 있다.</p>
+<p>일부 변경사항은 <code>hexo generate</code>를 아무리 해도 적용이 안 되는데, (_config.yml 변경 등) 이때는 <code>hexo clean</code>으로 캐시를 지워줘야 한다.</p>
+<h1>배포</h1>
+<p>GitHub Pages니까 GitHub Actions을 사용하기로 했다.<br>
+먼저 repository 설정에서 GitHub Pages를 활성화시켜야 한다.</p>
+<ul>
+<li>Code and automation - Pages에서 Source를 <strong>Deploy from branch</strong>로 해준다.</li>
+<li>Branch는 <code>gh-pages</code>로 선택한다.</li>
+</ul>
+<p>이후 아래 파일을 <code>.github/workflows/pages.yml</code>으로 저장한다.</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Github</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">code</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">LTS</span> <span class="string">Node.js</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">node-version:</span> <span class="string">&#x27;lts/*&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/cache@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">npm-cache-$&#123;&#123;</span> <span class="string">runner.os</span> <span class="string">&#125;&#125;-$&#123;&#123;</span> <span class="string">hashFiles(&#x27;**/package-lock.json&#x27;)</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npm-cache-$&#123;&#123; runner.os &#125;&#125;</span></span><br><span class="line"><span class="string">          npm-cache</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        npm install</span></span><br><span class="line"><span class="string">        npx hexo generate</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/actions/checkout">actions/checkout</a>, <a href="https://github.com/actions/setup-node">actions/setup-node</a>는 말 그대로의 일을 하고, <a href="https://github.com/actions/cache">actions/cache</a>는 workflow가 빠르게 돌 수 있도록 <code>node_modules</code> 폴더를 캐싱해둔다.</p>
+<p>그 후 <code>npx hexo generate</code>로 블로그를 생성한 다음 <a href="https://github.com/peaceiris/actions-gh-pages">peaceiris/actions-gh-pages</a>로 <code>./public</code> 폴더를 GitHub Pages branch에 올리면 된다.</p>
+<h1>NexT Theme 설치</h1>
+<p>NexT Theme 설치는 <code>npm install hexo-theme-next</code>로 간단하게 할 수 있다. 이후 <code>_config.yml</code>에서 <code>theme: next</code>로 설정해주면 된다.</p>
+<p>그 후 NexT Theme 설정 파일을 따로 만들어줘야 하는데, <code>node_modules/hexo-theme-next/_config.yml</code>을 <code>_config.next.yml</code>로 복사해주고 <code>_config.next.yml</code>만 수정하면 된다.</p>
+<h1>What's Next...?</h1>
+<p>이 이후로는 자유롭게 <a href="https://hexo.io/docs/configuration.html">hexo documentation</a>과 <a href="https://theme-next.js.org/docs/theme-settings/">NexT documentation</a>을 참고하면서 원하는 대로 수정하면 된다.</p>
+<p>다른 <a href="https://hexo.io/plugins/">plugin</a>들도 살펴보면서 필요한 것이 있다면 다운받아도 된다. 몇 가지 추천 플러그인들은 다음과 같다.</p>
+<ul>
+<li><a href="https://github.com/xu-song/hexo-auto-category">hexo-auto-category</a>: post의 경로대로 category를 만들어준다.</li>
+<li><a href="https://github.com/chekun/hexo-excerpt">hexo-excerpt</a>: 블로그 메인화면에서 post가 너무 길 경우 일부만 보여준다.</li>
+<li><a href="https://github.com/next-theme/hexo-generator-searchdb">hexo-generator-searchdb</a>: 검색기능을 만들어준다! 자세한 설명은 <a href="https://theme-next.js.org/docs/third-party-services/search-services.html?highlight=searchdb#Local-Search">NexT documentation</a>을 참고하자.</li>
+</ul>
 ]]></content>
       <categories>
         <category>BLOG</category>
