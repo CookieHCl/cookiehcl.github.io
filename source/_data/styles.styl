@@ -1,10 +1,22 @@
+// imports
+@import "image-link.styl";
+
+// Hide "Keep on posting" in Archive Page
 .archive .collection-title {
   display: none !important;
 }
 
+// Scale images to fit in group picture
 .group-picture .group-picture-column img {
   object-fit: contain;
 }
 
-// imports
-@import "image-link.styl";
+// Post navigation path
+.post-nav-path {
+  flex: 0.5;
+  display: block;
+  font-size: $font-size-small;
+  line-height: 1.6;
+  color: darkgray;
+  text-align: center;
+}

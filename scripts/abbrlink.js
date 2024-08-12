@@ -21,9 +21,13 @@ hexo.extend.filter.register('before_generate', () => {
   for (const post of undefined_posts) {
     abbrlinks[post._id] = ++max_abbrlink;
   }
-});
+}, 1); // update this ASAP
 
 hexo.extend.filter.register('post_permalink', (data) => {
+  // if data isn't post, do nothing
+  if (data.layout !== 'post') {
+    return data;
+  }
   // if abbrlink is already set, do nothing
   if (data.abbrlink) {
     return data;
@@ -36,4 +40,4 @@ hexo.extend.filter.register('post_permalink', (data) => {
   }
 
   return data;
-}, 1);
+}, 1); // update this ASAP

@@ -1,0 +1,21 @@
+{% for navigation in post.navigations %}
+  <div class="post-nav" style="gap: 15px">
+    <div class="post-nav-item">
+      {%- if navigation.prev %}
+        <a href="{{ url_for(navigation.prev.path) }}" rel="prev" title="{{ navigation.prev.title }}">
+          <i class="fa fa-angle-left"></i> {{ navigation.prev.title }}
+        </a>
+      {%- endif %}
+    </div>
+    <div class="post-nav-path">
+      {{ navigation.path }}
+    </div>
+    <div class="post-nav-item">
+      {%- if navigation.next %}
+        <a href="{{ url_for(navigation.next.path) }}" rel="next" title="{{ navigation.next.title }}">
+          {{ navigation.next.title }} <i class="fa fa-angle-right"></i>
+        </a>
+      {%- endif %}
+    </div>
+  </div>
+{% endfor %}
