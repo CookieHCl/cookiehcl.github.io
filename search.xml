@@ -108,6 +108,29 @@
       </categories>
   </entry>
   <entry>
+    <title>Hexo tag plugin 만들기</title>
+    <url>/posts/10/</url>
+    <content><![CDATA[<h1>Tag Plugin이란?</h1>
+<p>Hexo에는 <a href="https://hexo.io/docs/tag-plugins">Tag Plugin</a>이라는 개념이 있는데, Markdown으로 작성하지 못 하는 내용들을 작성할 때 사용한다. 쉽게 말하면 임의의 html 태그를 삽입할 수 있는 기능이다. Hexo에도 다양한 <a href="https://hexo.io/docs/tag-plugins">Tag Plugin</a>들이 있지만, Next Theme에서도 버튼, 그래프 등 다양한 <a href="https://theme-next.js.org/docs/tag-plugins">Tag Plugin</a>들을 제공한다.</p>
+<h1>Tag Plugin 만들기</h1>
+<p>다행히도 Hexo에서 Tag Plugin 만드는 방법을 지원한다. <code>sciprts/</code> 폴더에 아래 두 코드 중 하나가 있는 파일을 저장하면 된다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;name&#x27;</span>, <span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;hello&quot;&gt;hi&lt;/div&gt;`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>이렇게 하면 게시글에 <code>&#123;% name args %&#125;</code>라고 쓰면 <code>&lt;div class=&quot;hello&quot;&gt;hi&lt;/div&gt;</code>로 렌더링된다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;name&#x27;</span>, <span class="keyword">function</span>(<span class="params">args, content</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;hello&quot;&gt;<span class="subst">$&#123;content&#125;</span>&lt;/div&gt;`</span>;</span><br><span class="line">&#125;, &#123;<span class="attr">ends</span>: <span class="literal">true</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p>이렇게 하면 게시글에</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">&#123;% name args %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endname %&#125;</span><br></pre></td></tr></table></figure>
+<p>라고 쓰면 <code>&lt;div class=&quot;hello&quot;&gt;content&lt;/div&gt;</code>로 렌더링된다.</p>
+<h1>CSS 입히기</h1>
+<p>불행히도 이렇게 하면 원하는 html 태그를 넣을 수는 있지만 CSS가 없기 때문에 원하는 대로 꾸미지는 못 한다. 다행이도 Next Theme에서 <a href="https://theme-next.js.org/docs/advanced-settings/custom-files">CSS를 삽입하는 방법</a>을 지원한다.</p>
+<p>먼저 Next Config File인 <code>_config.next.yml</code>에 아래 설정을 추가한다.</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+<p>이후 <code>source/_data/styles.styl</code>에 <a href="https://stylus-lang.com/">Stylus</a> 문법으로 원하는대로 스타일을 지정해주면 된다.</p>
+]]></content>
+      <categories>
+        <category>BLOG</category>
+      </categories>
+  </entry>
+  <entry>
     <title>&lt;랑과 나의 사막&gt; 로봇은 감정을 느낄 수 있을까?</title>
     <url>/posts/4/</url>
     <content><![CDATA[<div class="image-link-container">
@@ -532,26 +555,21 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       </categories>
   </entry>
   <entry>
-    <title>Hexo tag plugin 만들기</title>
-    <url>/posts/10/</url>
-    <content><![CDATA[<h1>Tag Plugin이란?</h1>
-<p>Hexo에는 <a href="https://hexo.io/docs/tag-plugins">Tag Plugin</a>이라는 개념이 있는데, Markdown으로 작성하지 못 하는 내용들을 작성할 때 사용한다. 쉽게 말하면 임의의 html 태그를 삽입할 수 있는 기능이다. Hexo에도 다양한 <a href="https://hexo.io/docs/tag-plugins">Tag Plugin</a>들이 있지만, Next Theme에서도 버튼, 그래프 등 다양한 <a href="https://theme-next.js.org/docs/tag-plugins">Tag Plugin</a>들을 제공한다.</p>
-<h1>Tag Plugin 만들기</h1>
-<p>다행히도 Hexo에서 Tag Plugin 만드는 방법을 지원한다. <code>sciprts/</code> 폴더에 아래 두 코드 중 하나가 있는 파일을 저장하면 된다.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;name&#x27;</span>, <span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;hello&quot;&gt;hi&lt;/div&gt;`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>이렇게 하면 게시글에 <code>&#123;% name args %&#125;</code>라고 쓰면 <code>&lt;div class=&quot;hello&quot;&gt;hi&lt;/div&gt;</code>로 렌더링된다.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;name&#x27;</span>, <span class="keyword">function</span>(<span class="params">args, content</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;hello&quot;&gt;<span class="subst">$&#123;content&#125;</span>&lt;/div&gt;`</span>;</span><br><span class="line">&#125;, &#123;<span class="attr">ends</span>: <span class="literal">true</span>&#125;);</span><br></pre></td></tr></table></figure>
-<p>이렇게 하면 게시글에</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">&#123;% name args %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endname %&#125;</span><br></pre></td></tr></table></figure>
-<p>라고 쓰면 <code>&lt;div class=&quot;hello&quot;&gt;content&lt;/div&gt;</code>로 렌더링된다.</p>
-<h1>CSS 입히기</h1>
-<p>불행히도 이렇게 하면 원하는 html 태그를 넣을 수는 있지만 CSS가 없기 때문에 원하는 대로 꾸미지는 못 한다. 다행이도 Next Theme에서 <a href="https://theme-next.js.org/docs/advanced-settings/custom-files">CSS를 삽입하는 방법</a>을 지원한다.</p>
-<p>먼저 Next Config File인 <code>_config.next.yml</code>에 아래 설정을 추가한다.</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-<p>이후 <code>source/_data/styles.styl</code>에 <a href="https://stylus-lang.com/">Stylus</a> 문법으로 원하는대로 스타일을 지정해주면 된다.</p>
+    <title>&lt;내게 남은 사랑을 드릴게요&gt; 사랑을 SF적으로 표현하는 방법</title>
+    <url>/posts/6/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/내게_남은_사랑을_드릴게요.jpg"></object>
+    <p>내게 남은 사랑을 드릴게요</p><p>이유리, 김서해, 김초엽, 설재인, 천선란</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000200755350"></a>
+  </div>
+<p>이 책을 처음 봤을 때는 '내게 남은 사랑을 드릴게요'라는 제목과 하트로 가득 찬 표지 때문에 로맨스 소설인 줄 알았지만, 읽어보니 이 책은 사실 SF 소설 앤솔러지였다. 그런데 SF 소설 앤솔러지라고는 하지만 'SF 소설'은 '판타지 소설'처럼 너무 광범위하고 다양한 작품들을 지칭하는 말이다. 장르의 방대함을 증명하듯 이 책을 이루는 5개의 소설에서도 명확한 공통점을 찾기는 쉽지 않다. 굳이 따지자면 이 책의 제목에서도 나타나듯, '사랑' 자체가 이 책을 관통하는 공통점일 것이다. 5명의 작가가 'SF 소설'만큼이나 정의하기 어려운 '사랑'을 나름의 방식대로 SF 소설로 표현한 모습을 볼 수 있었다.</p>
+<p>5개의 소설 중 인상 깊었던 2개의 소설이 있는데, 먼저 김초엽 작가의 &lt;수브다니의 여름휴가&gt;가 있다. 인공장기를 배양하는 회사에서 일하던 주인공이 인공피부를 배양하는 곳에서 일한다는 내용인데, 역사가 깊은 SF 장르에서도 언급되지 않은 주제인 인공피부를 찾아내서 소설로 쓴 것을 보고 작가가 매우 똑똑하다는 생각을 했다. 또한, 인공장기는 단순히 심장을 다치면 교체하고, 눈을 다치면 교체하는 등 단순히 수술을 대체해줄 의료적인 목적만 달성한다면, 인공피부는 곰, 고양이, 용, 늑대 등 인간과 완전히 다른 종이 되고 싶은 사람들을 위해 만들어진다. 물론 피부만이 인간의 본질을 나타내는 요소는 아니겠지만, 이를 통해 '피부가 달라지면 우리도 인간이 아니게 되는 걸까?'라는 생각을 하도록 만든다. 이 외에도 인간과 안드로이드의 사랑과, 금속 피부를 이식받은 후 스스로 녹슬어가는 작품의 일부가 되는 결말까지, 짧은 소설임에도 불구하고 생각해볼 점이 많았다. 읽으면서도 쏟아져 내리는 새로운 설정들 때문에 이야기가 어떻게 흘러갈지 열심히 기대하면서 읽었다.</p>
+<p>다음으로는 천선란 작가의 &lt;뼈의 기록&gt;이 있다. 소설 배경은 미래시대로, 안드로이드가 보급되면서 장의사 대신 장례를 치르는 장의사 안드로이드가 생겼다는 설정이다. 장의사 안드로이드인 로비스는 고독사한 노인, 자살한 여자, 사고사한 아이 등 여러 시체들의 장례를 치르며, 마지막에는 자신과 같이 말동무를 해주던 청소부 모미의 장례를 치러준다. 같은 작가의 &lt;랑과 나의 사막&gt;에서도 느낀 거지만 천선란 작가는 안드로이드 같은 기계적인 생각으로 인간의 마음을 표현하는 것을 잘하는 것 같다. 과학적인 사실인 적혈구의 기능을 얘기하면서 유가족들을 위로해주거나, 아름다움의 정의를 듣고 나서 뼈가 아름답다고 정의를 내리는 등의 모습을 보고 느꼈다. 또한, 이 소설은 발단-전개-위기-절정-결말로 이루어진 소설의 구성단계를 완벽하게 지킨 소설이기도 하다. 45페이지의 짧은 소설에 복선들도 넣어가며 우주선에서 장례를 치르는 클라이맥스로 달려가는 모습은 읽은 사람들에게 말 그대로 '절정'을 느끼게 해준다. 너무 짧아서 아쉬웠던 다른 소설들과 달리 짧은 글임에도 탄탄한 구성으로 이루어져 있어 수백 페이지의 소설을 다 읽은 느낌을 얻을 수 있었다.</p>
+<p>이 책에서 말하는 '사랑'은 남녀 사이의 사랑도 있긴 하지만, 그것보다 보편적인 인간성에 관한 이야기다. 혼자서만 지내는 학우한테 먼저 다가가 친구가 돼주는 일, 가정폭력을 당하고 있는 아이한테 다가가서 안아주는 일, 애인과 만들었던 마지막 작품을 스스로 완성하는 일, 평생 볼일 없을 유가족들을 위로해주고, 함께 일하다 죽은 동료를 위해 그 마음을 헤아리고 평생 내본 적 없던 용기를 내본 일. 이 모든 것들은 인간만이 가능한 비논리적인 행동이고, 그러므로 '사랑'으로 밖에 표현할 말이 없다. 5명의 작가는 서로 다른 세상의 모습을 그렸지만, 그 속에서도 여전히 '사랑'이 존재할 것이다.</p>
 ]]></content>
       <categories>
-        <category>BLOG</category>
+        <category>BOOK</category>
+        <category>소설</category>
       </categories>
   </entry>
   <entry>
@@ -573,17 +591,17 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       </categories>
   </entry>
   <entry>
-    <title>&lt;내게 남은 사랑을 드릴게요&gt; 사랑을 SF적으로 표현하는 방법</title>
-    <url>/posts/6/</url>
+    <title>&lt;푸른 낙엽&gt; 또 다른 한국인들의 삶</title>
+    <url>/posts/14/</url>
     <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/내게_남은_사랑을_드릴게요.jpg"></object>
-    <p>내게 남은 사랑을 드릴게요</p><p>이유리, 김서해, 김초엽, 설재인, 천선란</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000200755350"></a>
+    <object class="image-link-image" data="/images/BOOK/푸른_낙엽.jpg"></object>
+    <p>푸른 낙엽</p><p>김유경</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000208587032"></a>
   </div>
-<p>이 책을 처음 봤을 때는 '내게 남은 사랑을 드릴게요'라는 제목과 하트로 가득 찬 표지 때문에 로맨스 소설인 줄 알았지만, 읽어보니 이 책은 사실 SF 소설 앤솔러지였다. 그런데 SF 소설 앤솔러지라고는 하지만 'SF 소설'은 '판타지 소설'처럼 너무 광범위하고 다양한 작품들을 지칭하는 말이다. 장르의 방대함을 증명하듯 이 책을 이루는 5개의 소설에서도 명확한 공통점을 찾기는 쉽지 않다. 굳이 따지자면 이 책의 제목에서도 나타나듯, '사랑' 자체가 이 책을 관통하는 공통점일 것이다. 5명의 작가가 'SF 소설'만큼이나 정의하기 어려운 '사랑'을 나름의 방식대로 SF 소설로 표현한 모습을 볼 수 있었다.</p>
-<p>5개의 소설 중 인상 깊었던 2개의 소설이 있는데, 먼저 김초엽 작가의 &lt;수브다니의 여름휴가&gt;가 있다. 인공장기를 배양하는 회사에서 일하던 주인공이 인공피부를 배양하는 곳에서 일한다는 내용인데, 역사가 깊은 SF 장르에서도 언급되지 않은 주제인 인공피부를 찾아내서 소설로 쓴 것을 보고 작가가 매우 똑똑하다는 생각을 했다. 또한, 인공장기는 단순히 심장을 다치면 교체하고, 눈을 다치면 교체하는 등 단순히 수술을 대체해줄 의료적인 목적만 달성한다면, 인공피부는 곰, 고양이, 용, 늑대 등 인간과 완전히 다른 종이 되고 싶은 사람들을 위해 만들어진다. 물론 피부만이 인간의 본질을 나타내는 요소는 아니겠지만, 이를 통해 '피부가 달라지면 우리도 인간이 아니게 되는 걸까?'라는 생각을 하도록 만든다. 이 외에도 인간과 안드로이드의 사랑과, 금속 피부를 이식받은 후 스스로 녹슬어가는 작품의 일부가 되는 결말까지, 짧은 소설임에도 불구하고 생각해볼 점이 많았다. 읽으면서도 쏟아져 내리는 새로운 설정들 때문에 이야기가 어떻게 흘러갈지 열심히 기대하면서 읽었다.</p>
-<p>다음으로는 천선란 작가의 &lt;뼈의 기록&gt;이 있다. 소설 배경은 미래시대로, 안드로이드가 보급되면서 장의사 대신 장례를 치르는 장의사 안드로이드가 생겼다는 설정이다. 장의사 안드로이드인 로비스는 고독사한 노인, 자살한 여자, 사고사한 아이 등 여러 시체들의 장례를 치르며, 마지막에는 자신과 같이 말동무를 해주던 청소부 모미의 장례를 치러준다. 같은 작가의 &lt;랑과 나의 사막&gt;에서도 느낀 거지만 천선란 작가는 안드로이드 같은 기계적인 생각으로 인간의 마음을 표현하는 것을 잘하는 것 같다. 과학적인 사실인 적혈구의 기능을 얘기하면서 유가족들을 위로해주거나, 아름다움의 정의를 듣고 나서 뼈가 아름답다고 정의를 내리는 등의 모습을 보고 느꼈다. 또한, 이 소설은 발단-전개-위기-절정-결말로 이루어진 소설의 구성단계를 완벽하게 지킨 소설이기도 하다. 45페이지의 짧은 소설에 복선들도 넣어가며 우주선에서 장례를 치르는 클라이맥스로 달려가는 모습은 읽은 사람들에게 말 그대로 '절정'을 느끼게 해준다. 너무 짧아서 아쉬웠던 다른 소설들과 달리 짧은 글임에도 탄탄한 구성으로 이루어져 있어 수백 페이지의 소설을 다 읽은 느낌을 얻을 수 있었다.</p>
-<p>이 책에서 말하는 '사랑'은 남녀 사이의 사랑도 있긴 하지만, 그것보다 보편적인 인간성에 관한 이야기다. 혼자서만 지내는 학우한테 먼저 다가가 친구가 돼주는 일, 가정폭력을 당하고 있는 아이한테 다가가서 안아주는 일, 애인과 만들었던 마지막 작품을 스스로 완성하는 일, 평생 볼일 없을 유가족들을 위로해주고, 함께 일하다 죽은 동료를 위해 그 마음을 헤아리고 평생 내본 적 없던 용기를 내본 일. 이 모든 것들은 인간만이 가능한 비논리적인 행동이고, 그러므로 '사랑'으로 밖에 표현할 말이 없다. 5명의 작가는 서로 다른 세상의 모습을 그렸지만, 그 속에서도 여전히 '사랑'이 존재할 것이다.</p>
+<p>푸른 낙엽은 탈북민 작가 김유경이 쓴 단편 소설집이다. 무려 9개의 단편 소설로 이루어진 소설집인데, 북한 사회, 더 나아가서 탈북민의 사회에 관한 소설이다. 북한에 대해서는 당연히 바로 옆에 붙어있는 국가이기 때문에 많이 들어봤지만, 북한 사람들이 어떻게 살고 있는지는 잘 몰랐다. 그저 가난한 나라인 만큼 우리나라랑 달리 굶주리면서 살겠지 하면서 생각했다. 이 책은 북한 안에서의 삶, 탈북 도중의 중국에서의 삶, 그리고 탈북한 후 한국에서의 삶 등 다양한 각도에서 북한 사람들이 어떻게 살아가는지 보여준다. 작가는 탈북민들을 단풍으로 미처 물들지 못한 채 갑작스럽게 떨어진 푸른 낙엽에 비유하면서, 북한에서 태어났기에 어쩔 수 없이 도피처를 찾게 된 북한 사람들의 생활을 소설에 나타내고자 했다.</p>
+<p>특이하게도 이 책에서 탈북 과정에 대한 묘사는 잘 나오지 않는다. 이 책의 소개에도 다른 탈북민들의 작품처럼 '북한 인권문학'이 아니라고 소개된다. 다른 탈북민들이 쓴 작품은 탈북 과정에서 벌어지는 인신매매와 납치 등의 일을 소개하면서 인권 유린의 현장을 보여주지만, 이 책은 오히려 탈북 과정에 대한 소개 없이 북한에서의 삶과 남한에서의 삶에 초점을 맞춘다. 분명 북한 사람들의 삶과 남한 사람들의 삶은 너무나 많이 달라졌고, 해가 지날수록 탈북민들이 사회에 적응하기 더 어렵게 만든다. 작가는 북한 인권문제의 실태를 고발하는 대신, 북한과 남한이 얼마나 다른지를 보여주며 북한과 남한과의 차이가 조금이라도 줄어들기를, 그럼으로써 탈북민이 남한에 더 잘 적응할 수 있고 통일이 더 빨라지기를 바라고 있다.</p>
+<p>9개의 소설 중 크게 인상 깊었던 소설이 2개 있는데, &lt;자유인&gt;과 &lt;붉은 낙인&gt;이다. &lt;자유인&gt;에서는 북한을 위해 유럽에서 필요한 물품들을 제재에 걸리지 않고 평양으로 빼돌리는 외교관 출신 탈북자가 나온다. 하지만 이 탈북자는 북한에서 누구보다 많은 것을 누리며 상류층으로 살았던 모습을 버려버리고, 조용히 바닷가 관리원 일을 하거나 산골에서 배추를 심으면서 산다. 어쩌면 자본주의 세상에 빠져 재산과 지위를 차지하려 노력하는 우리나라 사람들과 달리, 자유를 찾아 탈출한 탈북민이기 때문에 우리보다 더 진정으로 자유만을 추구하는 삶을 살 수 있었던 것 같다.</p>
+<p>&lt;붉은 낙인&gt;에서는 먼저 탈북했던 진옥이 아직 북한에 남아있던 진미를 탈북시키기 위해 브로커를 찾는데, 알고 보니 진미는 탈북하려고 했던 게 아니라 북한한테 세뇌된 상태로 오히려 보위원의 말을 듣고 진옥을 납북시키려고 했다. 상당히 충격적인 결말에 도달하는 소설이 책의 마지막을 장식하는 이유는 무엇일까. 작가는 진옥과 진미를 통해 남한에서 바라보는 북한의 시각과 북한에서 바라보는 남한의 시각의 차이를 나타내려고 한 것 같다. 거의 80년을 향해가는 분단의 역사는 같은 민족의 생각을 이렇게나 바꾸어놓은 것이다. 하지만 북한 사람들도 남한과 말이 통하는 같은 민족임이 틀림없다. 실제로 문화어는 한국어와 크게 차이가 없어 통역 없이 서로 소통이 가능한 정도라고 한다. 이 책에서도 문화어에서만 쓰는 표현들이 일부 나오지만, 읽는 데 불편함을 느끼지 못했다. 같은 말을 쓰는 같은 민족이 80년째 분단되어 있다는 사실은 전 세계를 찾아봐도 얼마 없는 크나큰 비극이다. 비록 소설에서는 진옥과 진미가 합의점을 찾지 못하고 다시 헤어지지만, 과연 가까운 미래에는 서로의 차이를 극복하고 진옥과 진미가 함께 떠날 수 있을까.</p>
 ]]></content>
       <categories>
         <category>BOOK</category>
@@ -606,42 +624,6 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       <categories>
         <category>BOOK</category>
         <category>인문</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>&lt;푸른 낙엽&gt; 또 다른 한국인들의 삶</title>
-    <url>/posts/14/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/푸른_낙엽.jpg"></object>
-    <p>푸른 낙엽</p><p>김유경</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000208587032"></a>
-  </div>
-<p>푸른 낙엽은 탈북민 작가 김유경이 쓴 단편 소설집이다. 무려 9개의 단편 소설로 이루어진 소설집인데, 북한 사회, 더 나아가서 탈북민의 사회에 관한 소설이다. 북한에 대해서는 당연히 바로 옆에 붙어있는 국가이기 때문에 많이 들어봤지만, 북한 사람들이 어떻게 살고 있는지는 잘 몰랐다. 그저 가난한 나라인 만큼 우리나라랑 달리 굶주리면서 살겠지 하면서 생각했다. 이 책은 북한 안에서의 삶, 탈북 도중의 중국에서의 삶, 그리고 탈북한 후 한국에서의 삶 등 다양한 각도에서 북한 사람들이 어떻게 살아가는지 보여준다. 작가는 탈북민들을 단풍으로 미처 물들지 못한 채 갑작스럽게 떨어진 푸른 낙엽에 비유하면서, 북한에서 태어났기에 어쩔 수 없이 도피처를 찾게 된 북한 사람들의 생활을 소설에 나타내고자 했다.</p>
-<p>특이하게도 이 책에서 탈북 과정에 대한 묘사는 잘 나오지 않는다. 이 책의 소개에도 다른 탈북민들의 작품처럼 '북한 인권문학'이 아니라고 소개된다. 다른 탈북민들이 쓴 작품은 탈북 과정에서 벌어지는 인신매매와 납치 등의 일을 소개하면서 인권 유린의 현장을 보여주지만, 이 책은 오히려 탈북 과정에 대한 소개 없이 북한에서의 삶과 남한에서의 삶에 초점을 맞춘다. 분명 북한 사람들의 삶과 남한 사람들의 삶은 너무나 많이 달라졌고, 해가 지날수록 탈북민들이 사회에 적응하기 더 어렵게 만든다. 작가는 북한 인권문제의 실태를 고발하는 대신, 북한과 남한이 얼마나 다른지를 보여주며 북한과 남한과의 차이가 조금이라도 줄어들기를, 그럼으로써 탈북민이 남한에 더 잘 적응할 수 있고 통일이 더 빨라지기를 바라고 있다.</p>
-<p>9개의 소설 중 크게 인상 깊었던 소설이 2개 있는데, &lt;자유인&gt;과 &lt;붉은 낙인&gt;이다. &lt;자유인&gt;에서는 북한을 위해 유럽에서 필요한 물품들을 제재에 걸리지 않고 평양으로 빼돌리는 외교관 출신 탈북자가 나온다. 하지만 이 탈북자는 북한에서 누구보다 많은 것을 누리며 상류층으로 살았던 모습을 버려버리고, 조용히 바닷가 관리원 일을 하거나 산골에서 배추를 심으면서 산다. 어쩌면 자본주의 세상에 빠져 재산과 지위를 차지하려 노력하는 우리나라 사람들과 달리, 자유를 찾아 탈출한 탈북민이기 때문에 우리보다 더 진정으로 자유만을 추구하는 삶을 살 수 있었던 것 같다.</p>
-<p>&lt;붉은 낙인&gt;에서는 먼저 탈북했던 진옥이 아직 북한에 남아있던 진미를 탈북시키기 위해 브로커를 찾는데, 알고 보니 진미는 탈북하려고 했던 게 아니라 북한한테 세뇌된 상태로 오히려 보위원의 말을 듣고 진옥을 납북시키려고 했다. 상당히 충격적인 결말에 도달하는 소설이 책의 마지막을 장식하는 이유는 무엇일까. 작가는 진옥과 진미를 통해 남한에서 바라보는 북한의 시각과 북한에서 바라보는 남한의 시각의 차이를 나타내려고 한 것 같다. 거의 80년을 향해가는 분단의 역사는 같은 민족의 생각을 이렇게나 바꾸어놓은 것이다. 하지만 북한 사람들도 남한과 말이 통하는 같은 민족임이 틀림없다. 실제로 문화어는 한국어와 크게 차이가 없어 통역 없이 서로 소통이 가능한 정도라고 한다. 이 책에서도 문화어에서만 쓰는 표현들이 일부 나오지만, 읽는 데 불편함을 느끼지 못했다. 같은 말을 쓰는 같은 민족이 80년째 분단되어 있다는 사실은 전 세계를 찾아봐도 얼마 없는 크나큰 비극이다. 비록 소설에서는 진옥과 진미가 합의점을 찾지 못하고 다시 헤어지지만, 과연 가까운 미래에는 서로의 차이를 극복하고 진옥과 진미가 함께 떠날 수 있을까.</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>소설</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>&lt;일머리 문해력&gt; 사람이라면 읽어야 할 책</title>
-    <url>/posts/7/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/일머리_문해력.jpg"></object>
-    <p>일머리 문해력</p><p>송숙희</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000201077265"></a>
-  </div>
-<p>세대가 지날수록 문해력이 점점 떨어지고 있다는 지적이 계속해서 나온다. '심심한 사과', '사흘' 등 지금까지 잘 사용되던 단어들을 이해하지 못 하는 사람들이 늘어나고 있다. 보통 이런 경우 어휘력이 문제라고 생각하는 사람들이 많다. 하지만 진짜 문제는 문해력이 부족하다는 것이다. 문해력은 '글을 읽고 의미를 파악하고 이해하는 능력'으로, 문해력이 높은 사람들은 읽기-생각하기-쓰기 순서로 생각하며 글을 이해하고 평가하며 사용한다. '심심하다'의 뜻이 '마음의 표현 정도가 매우 깊고 간절하다'라는 것을 아는 사람들은 그리 많지 않다. 하지만 문해력이 높은 사람들은 글의 의도를 생각하면서 읽기 때문에 '심심한 사과'를 보고도 사과가 지루하고 재미가 없냐면서 화를 내진 않는다.</p>
-<p>OECD가 &quot;어떤 능력이 정보기술 위주의 디지털 시대에서 경쟁력을 높여줄까?&quot;라는 문제에 답하기 위해 성인 경쟁력에 대한 국제조사를 시행한 적이 있다. 이 조사에서는 특이하게도 관련 없어 보이는 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력이 일하는 사람의 경쟁력을 좌우한다는 전제를 한다. 그런데 놀랍게도 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력의 상관성이 강하고, 문해력이 다른 두 능력을 좌우한다는 결론이 나왔다. 컴퓨터공학부 학생으로서 왜 이런 결과가 나왔는지 생각해봤는데, 프로그래밍도 일종의 '글쓰기'라서 그런 것 같다. 같은 기능을 하는 프로그램은 다양한 방법으로 작성할 수 있지만, 프로그래머는 그중에서 다른 사람이 봤을 때 가장 읽기 쉬운 코드를 작성하려고 노력한다. 본인이 옛날에 작성한 코드를 다시 수정하거나, 다른 사람들과 같이 코드를 작성할 때 읽기 쉬운 코드일수록 이해하기가 쉽기 때문이다.</p>
-<p>글쓰기도 마찬가지다. 글의 목적은 읽히는 것이다. 나 혼자만 볼 수 있고 이해할 수 있는 글이 필요한 때도 있을 수 있지만, 대부분 글은 다른 사람도 읽을 수 있도록 쓴다. 그런데 다른 사람들이 정작 내 글을 읽었을 때 이해를 못 한다면 좋은 글이 아닐 가능성이 크다. 글쓰기를 잘하는 사람은 읽는 사람 입장에서 생각할 줄 안다. 어떻게 하면 더 많은 사람이 이해할 수 있을지 생각하고, 본인의 주장을 간단하고 명료하게 주장한다. 그래서 더 효과적으로 자기의 주장을 전달할 수 있고, 다른 사람들에게 더 큰 영향력을 끼칠 수 있는 거물이 될 수 있다. 문과와 이과만큼 전혀 다른 분야인 것처럼 보이는 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력이 큰 상관관계가 있는 이유다.</p>
-<p>이 책은 여러 거물들의 말을 인용했다. 빌 게이츠, 워렌 버핏, 일론 머스크 등 전 세계 사람들이 알고 있는 유명인들이 모두 읽고, 생각하고, 쓰라고 권유한다. 책에서 문해력에 악영향을 끼치는 행동들을 소개해줬는데 아마 현역 군인이라면 모두 해당하는 내용일 것이다. 종이책 대신 전자책 읽기, 긴 글 대신 세줄요약 읽기, 유튜브 알고리즘에 몸을 맡기기 등 요즘 10~20대한테서 흔하게 볼 수 있는 모습이다. 심지어 세대가 지날수록 문해력이 떨어지는 것은 우리나라뿐만 아니라 전 세계에서 나타나고 있는 현상이라고 한다. 하지만 문해력은 동물이 아닌 인간이 되기 위해서 갖춰야 할 최소한의 능력이다. 단순히 보고서, 자소서, 독후감 등 글 쓸 일이 많아서 필요하다는 뜻이 아니다. 문해력은 사람이 이해하고, 생각하고, 비판적인 사고를 하기 위한 필수적인 능력이다. 남들의 생각만 따라 하는 동물 대신 스스로 생각할 수 있는 사람이 되기 위해서는 읽고, 생각하고, 쓰는 연습을 하며 문해력을 키워야 한다. 그러면 우리도 언젠가 전 세계에서 알아주는 거물이 될 수 있을 것이다.</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>자기계발</category>
       </categories>
   </entry>
   <entry>
@@ -696,6 +678,24 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       <categories>
         <category>BOOK</category>
         <category>정치사회</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>&lt;일머리 문해력&gt; 사람이라면 읽어야 할 책</title>
+    <url>/posts/7/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/일머리_문해력.jpg"></object>
+    <p>일머리 문해력</p><p>송숙희</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000201077265"></a>
+  </div>
+<p>세대가 지날수록 문해력이 점점 떨어지고 있다는 지적이 계속해서 나온다. '심심한 사과', '사흘' 등 지금까지 잘 사용되던 단어들을 이해하지 못 하는 사람들이 늘어나고 있다. 보통 이런 경우 어휘력이 문제라고 생각하는 사람들이 많다. 하지만 진짜 문제는 문해력이 부족하다는 것이다. 문해력은 '글을 읽고 의미를 파악하고 이해하는 능력'으로, 문해력이 높은 사람들은 읽기-생각하기-쓰기 순서로 생각하며 글을 이해하고 평가하며 사용한다. '심심하다'의 뜻이 '마음의 표현 정도가 매우 깊고 간절하다'라는 것을 아는 사람들은 그리 많지 않다. 하지만 문해력이 높은 사람들은 글의 의도를 생각하면서 읽기 때문에 '심심한 사과'를 보고도 사과가 지루하고 재미가 없냐면서 화를 내진 않는다.</p>
+<p>OECD가 &quot;어떤 능력이 정보기술 위주의 디지털 시대에서 경쟁력을 높여줄까?&quot;라는 문제에 답하기 위해 성인 경쟁력에 대한 국제조사를 시행한 적이 있다. 이 조사에서는 특이하게도 관련 없어 보이는 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력이 일하는 사람의 경쟁력을 좌우한다는 전제를 한다. 그런데 놀랍게도 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력의 상관성이 강하고, 문해력이 다른 두 능력을 좌우한다는 결론이 나왔다. 컴퓨터공학부 학생으로서 왜 이런 결과가 나왔는지 생각해봤는데, 프로그래밍도 일종의 '글쓰기'라서 그런 것 같다. 같은 기능을 하는 프로그램은 다양한 방법으로 작성할 수 있지만, 프로그래머는 그중에서 다른 사람이 봤을 때 가장 읽기 쉬운 코드를 작성하려고 노력한다. 본인이 옛날에 작성한 코드를 다시 수정하거나, 다른 사람들과 같이 코드를 작성할 때 읽기 쉬운 코드일수록 이해하기가 쉽기 때문이다.</p>
+<p>글쓰기도 마찬가지다. 글의 목적은 읽히는 것이다. 나 혼자만 볼 수 있고 이해할 수 있는 글이 필요한 때도 있을 수 있지만, 대부분 글은 다른 사람도 읽을 수 있도록 쓴다. 그런데 다른 사람들이 정작 내 글을 읽었을 때 이해를 못 한다면 좋은 글이 아닐 가능성이 크다. 글쓰기를 잘하는 사람은 읽는 사람 입장에서 생각할 줄 안다. 어떻게 하면 더 많은 사람이 이해할 수 있을지 생각하고, 본인의 주장을 간단하고 명료하게 주장한다. 그래서 더 효과적으로 자기의 주장을 전달할 수 있고, 다른 사람들에게 더 큰 영향력을 끼칠 수 있는 거물이 될 수 있다. 문과와 이과만큼 전혀 다른 분야인 것처럼 보이는 문해력, 수리력, 컴퓨터를 사용한 기술적 문제해결 능력이 큰 상관관계가 있는 이유다.</p>
+<p>이 책은 여러 거물들의 말을 인용했다. 빌 게이츠, 워렌 버핏, 일론 머스크 등 전 세계 사람들이 알고 있는 유명인들이 모두 읽고, 생각하고, 쓰라고 권유한다. 책에서 문해력에 악영향을 끼치는 행동들을 소개해줬는데 아마 현역 군인이라면 모두 해당하는 내용일 것이다. 종이책 대신 전자책 읽기, 긴 글 대신 세줄요약 읽기, 유튜브 알고리즘에 몸을 맡기기 등 요즘 10~20대한테서 흔하게 볼 수 있는 모습이다. 심지어 세대가 지날수록 문해력이 떨어지는 것은 우리나라뿐만 아니라 전 세계에서 나타나고 있는 현상이라고 한다. 하지만 문해력은 동물이 아닌 인간이 되기 위해서 갖춰야 할 최소한의 능력이다. 단순히 보고서, 자소서, 독후감 등 글 쓸 일이 많아서 필요하다는 뜻이 아니다. 문해력은 사람이 이해하고, 생각하고, 비판적인 사고를 하기 위한 필수적인 능력이다. 남들의 생각만 따라 하는 동물 대신 스스로 생각할 수 있는 사람이 되기 위해서는 읽고, 생각하고, 쓰는 연습을 하며 문해력을 키워야 한다. 그러면 우리도 언젠가 전 세계에서 알아주는 거물이 될 수 있을 것이다.</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>자기계발</category>
       </categories>
   </entry>
 </search>
