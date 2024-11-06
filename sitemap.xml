@@ -11,9 +11,45 @@
   </url>
   
   <url>
+    <loc>https://cookiehcl.github.io/posts/28/</loc>
+    
+    <lastmod>2024-06-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cookiehcl.github.io/posts/14/</loc>
     
     <lastmod>2024-06-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/27/</loc>
+    
+    <lastmod>2024-06-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/26/</loc>
+    
+    <lastmod>2024-05-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/25/</loc>
+    
+    <lastmod>2024-05-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -29,6 +65,24 @@
   </url>
   
   <url>
+    <loc>https://cookiehcl.github.io/posts/24/</loc>
+    
+    <lastmod>2024-05-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/23/</loc>
+    
+    <lastmod>2024-05-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cookiehcl.github.io/posts/12/</loc>
     
     <lastmod>2024-04-27</lastmod>
@@ -38,9 +92,81 @@
   </url>
   
   <url>
+    <loc>https://cookiehcl.github.io/posts/22/</loc>
+    
+    <lastmod>2024-04-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/21/</loc>
+    
+    <lastmod>2024-04-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/20/</loc>
+    
+    <lastmod>2024-04-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/19/</loc>
+    
+    <lastmod>2024-04-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/18/</loc>
+    
+    <lastmod>2024-04-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/17/</loc>
+    
+    <lastmod>2024-04-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cookiehcl.github.io/posts/11/</loc>
     
     <lastmod>2024-03-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/16/</loc>
+    
+    <lastmod>2024-03-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/posts/15/</loc>
+    
+    <lastmod>2024-03-12</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -175,7 +301,7 @@
 
   <url>
     <loc>https://cookiehcl.github.io/</loc>
-    <lastmod>2024-10-18</lastmod>
+    <lastmod>2024-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -185,49 +311,70 @@
   
   <url>
     <loc>https://cookiehcl.github.io/categories/BLOG/</loc>
-    <lastmod>2024-10-18</lastmod>
+    <lastmod>2024-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cookiehcl.github.io/categories/BOOK/</loc>
-    <lastmod>2024-10-18</lastmod>
+    <lastmod>2024-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cookiehcl.github.io/categories/BOOK/%EC%9D%B8%EB%AC%B8/</loc>
-    <lastmod>2024-10-18</lastmod>
+    <lastmod>2024-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cookiehcl.github.io/categories/BOOK/%EA%B2%BD%EC%A0%9C%EA%B2%BD%EC%98%81/</loc>
-    <lastmod>2024-10-18</lastmod>
+    <lastmod>2024-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cookiehcl.github.io/categories/BOOK/%EC%9E%90%EA%B8%B0%EA%B3%84%EB%B0%9C/</loc>
-    <lastmod>2024-10-18</lastmod>
+    <lastmod>2024-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cookiehcl.github.io/categories/BOOK/%EC%86%8C%EC%84%A4/</loc>
-    <lastmod>2024-10-18</lastmod>
+    <lastmod>2024-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cookiehcl.github.io/categories/BOOK/%EC%A0%95%EC%B9%98%EC%82%AC%ED%9A%8C/</loc>
-    <lastmod>2024-10-18</lastmod>
+    <lastmod>2024-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/SNU/</loc>
+    <lastmod>2024-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/SNU/4-0/</loc>
+    <lastmod>2024-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/SNU/4-0/%EA%B7%B8%EB%A6%AC%EC%8A%A4-%EB%A1%9C%EB%A7%88-%EC%8B%A0%ED%99%94/</loc>
+    <lastmod>2024-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
