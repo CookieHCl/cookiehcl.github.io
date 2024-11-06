@@ -2,5 +2,7 @@
     // Line length
     "MD013": false,
     // Multiple top-level headings
-    "MD025": false
+    "MD025": false,
+    // Bare URL
+    "MD034": false
 }

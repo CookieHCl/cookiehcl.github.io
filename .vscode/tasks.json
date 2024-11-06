@@ -6,7 +6,7 @@
     {
       "label": "Create new post",
       "type": "shell",
-      "command": "hexo new --path '${input:path}' '${input:title}' && rmdir 'source/_posts/${input:path}' && code 'source/_posts/${input:path}.md'",
+      "command": "npx hexo new --path '${input:path}' '${input:title}' && rmdir 'source/_posts/${input:path}' && code 'source/_posts/${input:path}.md'",
       "problemMatcher": [],
       "presentation": {
         "reveal": "silent",
@@ -16,7 +16,7 @@
     {
       "label": "Generate blog",
       "type": "shell",
-      "command": "hexo generate -w",
+      "command": "npx hexo generate -w",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
@@ -68,7 +68,9 @@
       "id": "blog",
       "type": "command",
       "command": "simpleBrowser.show",
-      "args": ["http://localhost:4000"]
+      "args": [
+        "http://localhost:4000"
+      ]
     }
   ]
 }
