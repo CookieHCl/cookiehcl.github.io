@@ -1,5 +1,6 @@
 ---
 title: SOLID principles
+abbrlink: 30
 date: 2025-03-02 00:13:07
 tags:
 ---
