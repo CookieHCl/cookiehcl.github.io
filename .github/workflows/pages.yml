@@ -35,6 +35,11 @@ jobs:
     - name: Lock abbrlink
       run: node ./lock_abbrlink.js
 
+    - name: Build
+      run: |
+        npx hexo clean
+        npx hexo generate
+
     - name: Check if there are changes
       id: diff
       run: git diff --quiet
@@ -47,11 +52,6 @@ jobs:
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git commit -a -m "Lock abbrlink after ${{ github.event.after }}"
         git push
-
-    - name: Build
-      run: |
-        npx hexo clean
-        npx hexo generate
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
