@@ -1,6 +1,10 @@
 ---
 title: SOLID principles
 abbrlink: 30
+categories:
+  - SNU
+  - 1-2
+  - 컴퓨터프로그래밍
 date: 2025-03-02 00:13:07
 tags:
 ---
