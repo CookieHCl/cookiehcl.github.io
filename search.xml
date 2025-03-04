@@ -48,25 +48,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Hexo permalink 숫자로 나오게 하기</title>
-    <url>/posts/3/</url>
-    <content><![CDATA[<h1>문제점</h1>
-<p>분명 Hexo에는 이걸 지원하는 <a href="https://github.com/rozbo/hexo-abbrlink2">plugin</a>이 있고, 이것 때문에 Hexo로 블로그 만들기를 시작했는데, 정작 이 plugin이 작동하질 않았다...</p>
-<p>아직 Hexo 작동원리를 정확히 아는 것은 아니라 모르겠지만, 대충 이유를 추측하자면 저 plugin은 <a href="https://hexo.io/api/filter_post-permalink">post_permalink</a> filter에서 주소를 계산하는데, 게시글 주소가 여러 곳에서 쓰이다 보니 (메인화면, 이전/다음 글, 카테고리 등...) post_permalink filter가 여러 번 불린다.</p>
-<p>근데 plugin 제작자가 이럴거라고 생각을 못 했는지, 아니면 post_permalink가 불릴때마다 순서가 뒤죽박죽이라던지, 여러가지 이유로 게시글 주소를 계산할 때마다 permalink를 다르게 계산하고, 결국 링크가 제대로 작동하지 않는 문제가 생겼다.</p>
-<h1>해결책</h1>
-<p>결국 plugin을 직접 만들기로 했다... 아래 파일을 <code>scripts/abbrlink.js</code>로 저장한다.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> abbrlinks = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;before_generate&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> posts = hexo.<span class="property">locals</span>.<span class="title function_">get</span>(<span class="string">&#x27;posts&#x27;</span>).<span class="property">data</span>;</span><br><span class="line">    <span class="keyword">let</span> undefined_posts = [];</span><br><span class="line">    <span class="keyword">let</span> max_abbrlink = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get max abbrlink</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> posts) &#123;</span><br><span class="line">        <span class="keyword">if</span> (post.<span class="property">abbrlink</span>) &#123;</span><br><span class="line">            abbrlinks[post.<span class="property">_id</span>] = post.<span class="property">abbrlink</span>;</span><br><span class="line">            max_abbrlink = <span class="title class_">Math</span>.<span class="title function_">max</span>(max_abbrlink, post.<span class="property">abbrlink</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            undefined_posts.<span class="title function_">push</span>(post);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// generate abbrlink for undefined posts</span></span><br><span class="line">    undefined_posts.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.<span class="property">date</span> - b.<span class="property">date</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> undefined_posts) &#123;</span><br><span class="line">        abbrlinks[post.<span class="property">_id</span>] = ++max_abbrlink;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;post_permalink&#x27;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// if abbrlink is already set, do nothing</span></span><br><span class="line">    <span class="keyword">if</span> (data.<span class="property">abbrlink</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// set abbrlink if abbrlink is generated</span></span><br><span class="line">    <span class="keyword">const</span> abbrlink = abbrlinks[data.<span class="property">_id</span>];</span><br><span class="line">    <span class="keyword">if</span> (abbrlink) &#123;</span><br><span class="line">        data.<span class="property">abbrlink</span> = abbrlink;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>항상 게시글 주소가 똑같이 유지되도록 <a href="https://hexo.io/api/filter#before-generate">before_generate</a> filter에서 미리 주소를 전부 계산한 다음, post_permalink filter에서는 그냥 계산한 주소를 붙이기만 하기로 했다.</p>
-<p>계산한 숫자 주소는 원본 plugin에서 쓰던 대로 <strong>abbrlink</strong>라고 부르기로 했다.</p>
-<p>웃기게도 가장 애먹은 부분은 모든 게시글을 불러오려면 <code>const posts = hexo.locals.get('posts').data;</code>를 써야 된다는 것을 알아내는 일이였다... 제발 documentation 똑바로 좀 만들어라...</p>
-<p>이후는 abbrlink가 없는 post들을 찾은 다음, 날짜 순으로 정렬해 쓴 순더대로 abbrlink를 붙여주는게 끝이다.</p>
-]]></content>
-      <categories>
-        <category>BLOG</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Hexo로 블로그 시작하기</title>
     <url>/posts/2/</url>
     <content><![CDATA[<h1>설치</h1>
@@ -102,6 +83,25 @@
 <li><a href="https://github.com/chekun/hexo-excerpt">hexo-excerpt</a>: 블로그 메인화면에서 post가 너무 길 경우 일부만 보여준다.</li>
 <li><a href="https://github.com/next-theme/hexo-generator-searchdb">hexo-generator-searchdb</a>: 검색기능을 만들어준다! 자세한 설명은 <a href="https://theme-next.js.org/docs/third-party-services/search-services.html?highlight=searchdb#Local-Search">NexT documentation</a>을 참고하자.</li>
 </ul>
+]]></content>
+      <categories>
+        <category>BLOG</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Hexo permalink 숫자로 나오게 하기</title>
+    <url>/posts/3/</url>
+    <content><![CDATA[<h1>문제점</h1>
+<p>분명 Hexo에는 이걸 지원하는 <a href="https://github.com/rozbo/hexo-abbrlink2">plugin</a>이 있고, 이것 때문에 Hexo로 블로그 만들기를 시작했는데, 정작 이 plugin이 작동하질 않았다...</p>
+<p>아직 Hexo 작동원리를 정확히 아는 것은 아니라 모르겠지만, 대충 이유를 추측하자면 저 plugin은 <a href="https://hexo.io/api/filter_post-permalink">post_permalink</a> filter에서 주소를 계산하는데, 게시글 주소가 여러 곳에서 쓰이다 보니 (메인화면, 이전/다음 글, 카테고리 등...) post_permalink filter가 여러 번 불린다.</p>
+<p>근데 plugin 제작자가 이럴거라고 생각을 못 했는지, 아니면 post_permalink가 불릴때마다 순서가 뒤죽박죽이라던지, 여러가지 이유로 게시글 주소를 계산할 때마다 permalink를 다르게 계산하고, 결국 링크가 제대로 작동하지 않는 문제가 생겼다.</p>
+<h1>해결책</h1>
+<p>결국 plugin을 직접 만들기로 했다... 아래 파일을 <code>scripts/abbrlink.js</code>로 저장한다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> abbrlinks = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;before_generate&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> posts = hexo.<span class="property">locals</span>.<span class="title function_">get</span>(<span class="string">&#x27;posts&#x27;</span>).<span class="property">data</span>;</span><br><span class="line">    <span class="keyword">let</span> undefined_posts = [];</span><br><span class="line">    <span class="keyword">let</span> max_abbrlink = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get max abbrlink</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> posts) &#123;</span><br><span class="line">        <span class="keyword">if</span> (post.<span class="property">abbrlink</span>) &#123;</span><br><span class="line">            abbrlinks[post.<span class="property">_id</span>] = post.<span class="property">abbrlink</span>;</span><br><span class="line">            max_abbrlink = <span class="title class_">Math</span>.<span class="title function_">max</span>(max_abbrlink, post.<span class="property">abbrlink</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            undefined_posts.<span class="title function_">push</span>(post);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// generate abbrlink for undefined posts</span></span><br><span class="line">    undefined_posts.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.<span class="property">date</span> - b.<span class="property">date</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> post <span class="keyword">of</span> undefined_posts) &#123;</span><br><span class="line">        abbrlinks[post.<span class="property">_id</span>] = ++max_abbrlink;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;post_permalink&#x27;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// if abbrlink is already set, do nothing</span></span><br><span class="line">    <span class="keyword">if</span> (data.<span class="property">abbrlink</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// set abbrlink if abbrlink is generated</span></span><br><span class="line">    <span class="keyword">const</span> abbrlink = abbrlinks[data.<span class="property">_id</span>];</span><br><span class="line">    <span class="keyword">if</span> (abbrlink) &#123;</span><br><span class="line">        data.<span class="property">abbrlink</span> = abbrlink;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>항상 게시글 주소가 똑같이 유지되도록 <a href="https://hexo.io/api/filter#before-generate">before_generate</a> filter에서 미리 주소를 전부 계산한 다음, post_permalink filter에서는 그냥 계산한 주소를 붙이기만 하기로 했다.</p>
+<p>계산한 숫자 주소는 원본 plugin에서 쓰던 대로 <strong>abbrlink</strong>라고 부르기로 했다.</p>
+<p>웃기게도 가장 애먹은 부분은 모든 게시글을 불러오려면 <code>const posts = hexo.locals.get('posts').data;</code>를 써야 된다는 것을 알아내는 일이였다... 제발 documentation 똑바로 좀 만들어라...</p>
+<p>이후는 abbrlink가 없는 post들을 찾은 다음, 날짜 순으로 정렬해 쓴 순더대로 abbrlink를 붙여주는게 끝이다.</p>
 ]]></content>
       <categories>
         <category>BLOG</category>
@@ -609,6 +609,24 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       </categories>
   </entry>
   <entry>
+    <title>&lt;서사의 위기&gt; 의미 없고 공허한 정보의 시대</title>
+    <url>/posts/13/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/서사의_위기.jpg"></object>
+    <p>서사의 위기</p><p>한병철</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000208952987"></a>
+  </div>
+<p>&lt;서사의 위기&gt;는 아주 짧은 책이다. 137페이지에 크기도 작아서 다른 책들의 1/3 정도 분량밖에 되지 않는다. 하지만 이 짧은 책에 담겨 있는 고찰은 절대 짧지 않다. 왜 우리 현대 사회에는 목적과 방향 없이 그냥 살아가는 사람들이 많은지, 니트족 등 취업 준비도 하지 않고 살려는 어떠한 노력도 하지 않는 백수들이 점점 늘어나고 있는지 설명해준다. 작가는 이 해답을 우리 시대가 너무 스마트해졌기 때문이라고 설명한다. 이제 스마트폰은 아무리 가난해도 있어야 할 필수품으로 여겨지고 있다. 영화 &lt;기생충&gt;에서도 인터넷 요금제도 없을 만큼 가난해도 스마트폰을 가지고 있는 모습이 나온다. 누구나 인터넷을 통해서 수많은 정보를 얻거나 생산할 수 있으며, 이제 많은 사람이 책 같은 오프라인 매체보다 스마트폰을 통해서 정보를 얻는다.</p>
+<p>문제는 정보를 생산하면서 돈을 벌 수 있는 사회가 되면서 시작된다. 유튜브, 인스타그램 등의 플랫폼에서는 더 많은 사람이 플랫폼을 쓰도록 만들기 위해서 광고비 일부를 콘텐츠 크리에이터들에게 나눠주기 시작했다. 그런데 오히려 유튜브 등의 플랫폼이 전 세계 모든 사람이 사용할 정도로 커지고, 광고비 수익이 엄청나게 커지게 된다. 유튜브, 인스타그램만으로도 먹고 살 수 있을 뿐만 아니라 누구나 알아주는 부자가 될 수 있게 된 것이다. 일이 이렇게 되자 사람들은 경쟁적으로 콘텐츠 시장에 뛰어들게 된다. 싸이월드 같은 예전의 SNS는 자신의 이야기를 공유하는 목적으로 사용됐다면, 지금의 유튜브, 인스타그램 등의 SNS는 어떤 방식으로든 조회수를 더 얻거나, 좋아요를 더 얻으려는 목적으로 변질되었다. 작가는 이를 보고 '스토리텔링'이 아니라 '스토리셀링'이라고 비판한다. 사람들은 이제 SNS를 자신을 이야기하려는 목적으로 사용하지 않는다. 오히려 자신의 이야기를 상품으로 만들어 시장에 내놓으며, 어떻게든 다른 사람이 읽게 만들기 위해 더 자극적이고 단편적인 주제들로 꾸미게 된다.</p>
+<p>이 과정에서 서사의 위기를 만든 획기적인 발명품 &quot;숏츠&quot;가 탄생하게 된다. 플랫폼 회사들은 하나의 긴 이야기보다 짧은 수많은 이야기를 판매하는 것이 플랫폼에 더 도움이 된다는 사실을 알아내게 된다. 이제 유튜브도, 인스타그램도 모두 숏츠 시장에 적극적으로 집중하고 있다. 사람들은 이제 사람에 대한 하나의 이야기 대신 끝도 없이 쏟아지는 30초짜리 숏츠들을 보게 된다. 작가는 이 과정을 정보화라고 표현한다. 사람에 대한 서사는 더 이상 존재하지 않는다. 대신 사람을 30초짜리 숏츠로 분해한 정보들만이 존재할 뿐이다. 이 정보들은 무질서하고, 관련 없다. 딱 30초 동안만 유효한 곧 소멸할 정보들일 뿐이다. 처음에는 수많은 정보가 쏟아지는 정보의 바다에서 강력한 자극을 얻고 빠져들게 되지만, 곧이어 이러한 정보들은 서사가 없는 무의미한 것뿐임을 알게 된다. 그래서 현대인들은 공허해지고, 허무감에 빠지게 된다.</p>
+<p>불행히도, 작가는 이런 서사의 위기를 해결할 방법을 설명해주지 않는다. 과거와 달리 우리 사회는 현재 서사의 위기에 빠져있고, 어떻게 빠지게 됐는지 '정보'와 '이야기'의 비유로 명쾌하게 설명해주지만, 아쉽게도 그 문제에 대한 해결방법은 이 책에 남겨져 있지 않다. 어쩌면 문제의 핵심을 단번에 파악한 작가조차도 해결방법에 대해서는 아직 고민 중일지도 모르겠다. 하지만 우리 개개인이 정보의 바다에서 스스로 빠져나와야겠다고 생각하게 된다면 어떨까. 이미 오래전부터 숏츠를 보는 것은 무의미하다고 생각했던 나는 숏츠가 보이지 않도록 개조한 유튜브 앱을 사용하고 있다. 우리 스스로가 정보 대신 이야기를 찾기 시작한다면 이 사회는 다시 서사를 되찾을 수 있지 않을까?</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>인문</category>
+      </categories>
+  </entry>
+  <entry>
     <title>&lt;일머리 문해력&gt; 사람이라면 읽어야 할 책</title>
     <url>/posts/7/</url>
     <content><![CDATA[<div class="image-link-container">
@@ -660,24 +678,6 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       <categories>
         <category>BOOK</category>
         <category>자기계발</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>&lt;서사의 위기&gt; 의미 없고 공허한 정보의 시대</title>
-    <url>/posts/13/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/서사의_위기.jpg"></object>
-    <p>서사의 위기</p><p>한병철</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000208952987"></a>
-  </div>
-<p>&lt;서사의 위기&gt;는 아주 짧은 책이다. 137페이지에 크기도 작아서 다른 책들의 1/3 정도 분량밖에 되지 않는다. 하지만 이 짧은 책에 담겨 있는 고찰은 절대 짧지 않다. 왜 우리 현대 사회에는 목적과 방향 없이 그냥 살아가는 사람들이 많은지, 니트족 등 취업 준비도 하지 않고 살려는 어떠한 노력도 하지 않는 백수들이 점점 늘어나고 있는지 설명해준다. 작가는 이 해답을 우리 시대가 너무 스마트해졌기 때문이라고 설명한다. 이제 스마트폰은 아무리 가난해도 있어야 할 필수품으로 여겨지고 있다. 영화 &lt;기생충&gt;에서도 인터넷 요금제도 없을 만큼 가난해도 스마트폰을 가지고 있는 모습이 나온다. 누구나 인터넷을 통해서 수많은 정보를 얻거나 생산할 수 있으며, 이제 많은 사람이 책 같은 오프라인 매체보다 스마트폰을 통해서 정보를 얻는다.</p>
-<p>문제는 정보를 생산하면서 돈을 벌 수 있는 사회가 되면서 시작된다. 유튜브, 인스타그램 등의 플랫폼에서는 더 많은 사람이 플랫폼을 쓰도록 만들기 위해서 광고비 일부를 콘텐츠 크리에이터들에게 나눠주기 시작했다. 그런데 오히려 유튜브 등의 플랫폼이 전 세계 모든 사람이 사용할 정도로 커지고, 광고비 수익이 엄청나게 커지게 된다. 유튜브, 인스타그램만으로도 먹고 살 수 있을 뿐만 아니라 누구나 알아주는 부자가 될 수 있게 된 것이다. 일이 이렇게 되자 사람들은 경쟁적으로 콘텐츠 시장에 뛰어들게 된다. 싸이월드 같은 예전의 SNS는 자신의 이야기를 공유하는 목적으로 사용됐다면, 지금의 유튜브, 인스타그램 등의 SNS는 어떤 방식으로든 조회수를 더 얻거나, 좋아요를 더 얻으려는 목적으로 변질되었다. 작가는 이를 보고 '스토리텔링'이 아니라 '스토리셀링'이라고 비판한다. 사람들은 이제 SNS를 자신을 이야기하려는 목적으로 사용하지 않는다. 오히려 자신의 이야기를 상품으로 만들어 시장에 내놓으며, 어떻게든 다른 사람이 읽게 만들기 위해 더 자극적이고 단편적인 주제들로 꾸미게 된다.</p>
-<p>이 과정에서 서사의 위기를 만든 획기적인 발명품 &quot;숏츠&quot;가 탄생하게 된다. 플랫폼 회사들은 하나의 긴 이야기보다 짧은 수많은 이야기를 판매하는 것이 플랫폼에 더 도움이 된다는 사실을 알아내게 된다. 이제 유튜브도, 인스타그램도 모두 숏츠 시장에 적극적으로 집중하고 있다. 사람들은 이제 사람에 대한 하나의 이야기 대신 끝도 없이 쏟아지는 30초짜리 숏츠들을 보게 된다. 작가는 이 과정을 정보화라고 표현한다. 사람에 대한 서사는 더 이상 존재하지 않는다. 대신 사람을 30초짜리 숏츠로 분해한 정보들만이 존재할 뿐이다. 이 정보들은 무질서하고, 관련 없다. 딱 30초 동안만 유효한 곧 소멸할 정보들일 뿐이다. 처음에는 수많은 정보가 쏟아지는 정보의 바다에서 강력한 자극을 얻고 빠져들게 되지만, 곧이어 이러한 정보들은 서사가 없는 무의미한 것뿐임을 알게 된다. 그래서 현대인들은 공허해지고, 허무감에 빠지게 된다.</p>
-<p>불행히도, 작가는 이런 서사의 위기를 해결할 방법을 설명해주지 않는다. 과거와 달리 우리 사회는 현재 서사의 위기에 빠져있고, 어떻게 빠지게 됐는지 '정보'와 '이야기'의 비유로 명쾌하게 설명해주지만, 아쉽게도 그 문제에 대한 해결방법은 이 책에 남겨져 있지 않다. 어쩌면 문제의 핵심을 단번에 파악한 작가조차도 해결방법에 대해서는 아직 고민 중일지도 모르겠다. 하지만 우리 개개인이 정보의 바다에서 스스로 빠져나와야겠다고 생각하게 된다면 어떨까. 이미 오래전부터 숏츠를 보는 것은 무의미하다고 생각했던 나는 숏츠가 보이지 않도록 개조한 유튜브 앱을 사용하고 있다. 우리 스스로가 정보 대신 이야기를 찾기 시작한다면 이 사회는 다시 서사를 되찾을 수 있지 않을까?</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>인문</category>
       </categories>
   </entry>
   <entry>
@@ -758,6 +758,11 @@ Abstract class provides a blueprint for <strong>closely related</strong> classes
 <p>Subclass can hide superclass's static method, static variable, instance variable.</p>
 <p>Overridden method can't be accessed by casting to superclass, but hidden method/variable can be accessed by casting to superclass.</p>
 ]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>1-2</category>
+        <category>컴퓨터프로그래밍</category>
+      </categories>
   </entry>
   <entry>
     <title>SOLID principles</title>
@@ -780,6 +785,11 @@ i.e. clients should never be forced to implement an interface that it doesn't us
 <h1>How do I do this???</h1>
 <p>Solution: split your code! (into interfaces or classes)</p>
 ]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>1-2</category>
+        <category>컴퓨터프로그래밍</category>
+      </categories>
   </entry>
   <entry>
     <title>제1강 그리스로마신화의 특징과 의미</title>
@@ -3110,6 +3120,72 @@ but 로마는 자기들이 주인공인 신화를 만들어내고 싶어서 건�
         <category>SNU</category>
         <category>4-0</category>
         <category>그리스 로마 신화</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Introduction</title>
+    <url>/posts/32/</url>
+    <content><![CDATA[<h1>What is Computer Graphics?</h1>
+<p>Computer graphics is the use of computers to synthesize and manipulate sensory(usually visual) information from digital information.</p>
+<p>Sound, touch, taste, smell is also part of computer graphics!<br>
+3D printing even allow us to turn digital information into physical matter.</p>
+<p>We can easily <strong>watch</strong> state-of-art technologies from the <a href="https://youtu.be/tjYVcOJONdI?si=UiRYX1UGAmY6GwNl">SIGGRAPH Technical Paper Trailer</a>.</p>
+<ul>
+<li>Entertainment (movies, games)</li>
+<li>Art and design</li>
+<li>Industrial design</li>
+<li>Computer Aided Engineering (CAE) (What happens when two car collide?)</li>
+<li>Architecture</li>
+<li>Scientific/Mathematical Visualization</li>
+<li>Medical visualization and simulation</li>
+<li>Navigation</li>
+<li>Communication (zoom, Codec Avatars etc.)</li>
+</ul>
+<p>Extremely broad!!!!!<br>
+Everything is mixed - physics(optics), mathematics(mathematical optimization), HCI, etc.</p>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>컴퓨터그래픽스</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Introduction</title>
+    <url>/posts/31/</url>
+    <content><![CDATA[<h1>왜 왔냐요</h1>
+<p>과목명이 멋져요 <s>과목명을 바꿔야겠다</s></p>
+<h1>Real introduction</h1>
+<p>How can we run AI (in GPU) efficiently?</p>
+<ul>
+<li>What is AI accelerator chip?</li>
+<li>How can we design AI accelerator chip?</li>
+<li>How can we run neural networks on the AI accelerator chip (or GPU)?</li>
+<li>How can we run CNN/LLM on the AI accelerator chip (or GPU)?</li>
+<li>(If possible) why HBM is more important?</li>
+</ul>
+<h1>Lecture goal</h1>
+<p>Understanding hardware/software system design issues/methods with a real system design example</p>
+<h2 id="Hardware-design">Hardware design</h2>
+<p>Matrix-matrix (MM) multiplication accelerator</p>
+<p>Previously we used Verilog, but these days we have python-based hardware description language, Amaranth!</p>
+<h2 id="Software-design">Software design</h2>
+<p>Neural network code running on CPU</p>
+<p>It should communicate with hardware MM accelerator.</p>
+<h2 id="Optimizing-software-hardware-design">Optimizing software/hardware design</h2>
+<ul>
+<li>Tiling a.k.a. blocking</li>
+<li>Reduced precision (e.g. 8-bit computation)</li>
+<li>Zero skipping in matrix-matrix multiplication</li>
+</ul>
+<p>Optimization includes runtime optimization and energy optimization.</p>
+<p>Q. How do we optimize power with Amaranth(simulation)?<br>
+A. Even Verilog uses power estimation. We estimate power usage for each step in design process.</p>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>하드웨어시스템설계</category>
       </categories>
   </entry>
 </search>
