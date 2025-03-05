@@ -4,6 +4,7 @@ categories:
   - SNU
   - 4-1
   - 인간컴퓨터상호작용
+abbrlink: 33
 date: 2025-03-05 14:03:38
 tags:
 ---
