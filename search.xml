@@ -1,47 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo로 블로그 시작하기</title>
-    <url>/posts/2/</url>
-    <content><![CDATA[<h1>설치</h1>
-<p>먼저 <a href="https://nodejs.org/en/download/">node.js</a>와 <a href="https://git-scm.com/downloads">git</a>을 깔아준다.</p>
-<p>그 후 hexo를 설치한 다음 블로그 폴더를 만들어준다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<h1>실행</h1>
-<p><code>hexo new --path &lt;path&gt; &lt;title&gt;</code>로 원하는 경로에 게시글을 만들 수 있다. 물론 Front matter만 알맞게 작성한다면 직접 Markdown 파일을 만들어도 상관없다.</p>
-<p>게시글을 다 작성했다면 <code>hexo generate</code>로 블로그를 생성하고, <code>hexo server</code>로 블로그를 로컬 서버로 구동시킨다.<br>
-<code>hexo generate -w</code>를 사용하면 파일이 편집될 때마다 블로그를 계속 생성해준다.</p>
-<p>문제는 <code>hexo server</code>가 hot/live reloading을 지원하지 않아 블로그가 새로 생성돼도 브라우저를 새로고침 해야 반영이 된다.<br>
-그래서 어쩔 수 없이 <a href="https://browsersync.io/">Browsersync</a>를 깔아야 했는데, <code>npx browser-sync ./public -w</code>를 사용하면 파일이 편집될 때마다 새로 생성된 블로그를 볼 수 있다.</p>
-<p>일부 변경사항은 <code>hexo generate</code>를 아무리 해도 적용이 안 되는데, (_config.yml 변경 등) 이때는 <code>hexo clean</code>으로 캐시를 지워줘야 한다.</p>
-<h1>배포</h1>
-<p>GitHub Pages니까 GitHub Actions을 사용하기로 했다.<br>
-먼저 repository 설정에서 GitHub Pages를 활성화시켜야 한다.</p>
-<ul>
-<li>Code and automation - Pages에서 Source를 <strong>Deploy from branch</strong>로 해준다.</li>
-<li>Branch는 <code>gh-pages</code>로 선택한다.</li>
-</ul>
-<p>이후 아래 파일을 <code>.github/workflows/pages.yml</code>으로 저장한다.</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Github</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">code</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">LTS</span> <span class="string">Node.js</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">node-version:</span> <span class="string">&#x27;lts/*&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/cache@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">npm-cache-$&#123;&#123;</span> <span class="string">runner.os</span> <span class="string">&#125;&#125;-$&#123;&#123;</span> <span class="string">hashFiles(&#x27;**/package-lock.json&#x27;)</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npm-cache-$&#123;&#123; runner.os &#125;&#125;</span></span><br><span class="line"><span class="string">          npm-cache</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        npm install</span></span><br><span class="line"><span class="string">        npx hexo generate</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/actions/checkout">actions/checkout</a>, <a href="https://github.com/actions/setup-node">actions/setup-node</a>는 말 그대로의 일을 하고, <a href="https://github.com/actions/cache">actions/cache</a>는 workflow가 빠르게 돌 수 있도록 <code>node_modules</code> 폴더를 캐싱해둔다.</p>
-<p>그 후 <code>npx hexo generate</code>로 블로그를 생성한 다음 <a href="https://github.com/peaceiris/actions-gh-pages">peaceiris/actions-gh-pages</a>로 <code>./public</code> 폴더를 GitHub Pages branch에 올리면 된다.</p>
-<h1>NexT Theme 설치</h1>
-<p>NexT Theme 설치는 <code>npm install hexo-theme-next</code>로 간단하게 할 수 있다. 이후 <code>_config.yml</code>에서 <code>theme: next</code>로 설정해주면 된다.</p>
-<p>그 후 NexT Theme 설정 파일을 따로 만들어줘야 하는데, <code>node_modules/hexo-theme-next/_config.yml</code>을 <code>_config.next.yml</code>로 복사해주고 <code>_config.next.yml</code>만 수정하면 된다.</p>
-<h1>What's Next...?</h1>
-<p>이 이후로는 자유롭게 <a href="https://hexo.io/docs/configuration.html">hexo documentation</a>과 <a href="https://theme-next.js.org/docs/theme-settings/">NexT documentation</a>을 참고하면서 원하는 대로 수정하면 된다.</p>
-<p>다른 <a href="https://hexo.io/plugins/">plugin</a>들도 살펴보면서 필요한 것이 있다면 다운받아도 된다. 몇 가지 추천 플러그인들은 다음과 같다.</p>
-<ul>
-<li><a href="https://github.com/xu-song/hexo-auto-category">hexo-auto-category</a>: post의 경로대로 category를 만들어준다.</li>
-<li><a href="https://github.com/chekun/hexo-excerpt">hexo-excerpt</a>: 블로그 메인화면에서 post가 너무 길 경우 일부만 보여준다.</li>
-<li><a href="https://github.com/next-theme/hexo-generator-searchdb">hexo-generator-searchdb</a>: 검색기능을 만들어준다! 자세한 설명은 <a href="https://theme-next.js.org/docs/third-party-services/search-services.html?highlight=searchdb#Local-Search">NexT documentation</a>을 참고하자.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>BLOG</category>
-      </categories>
-  </entry>
-  <entry>
     <title>굳이굳이 Hexo로 블로그 시작한 이유</title>
     <url>/posts/1/</url>
     <content><![CDATA[<h1>동기</h1>
@@ -89,6 +48,47 @@
       </categories>
   </entry>
   <entry>
+    <title>Hexo로 블로그 시작하기</title>
+    <url>/posts/2/</url>
+    <content><![CDATA[<h1>설치</h1>
+<p>먼저 <a href="https://nodejs.org/en/download/">node.js</a>와 <a href="https://git-scm.com/downloads">git</a>을 깔아준다.</p>
+<p>그 후 hexo를 설치한 다음 블로그 폴더를 만들어준다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<h1>실행</h1>
+<p><code>hexo new --path &lt;path&gt; &lt;title&gt;</code>로 원하는 경로에 게시글을 만들 수 있다. 물론 Front matter만 알맞게 작성한다면 직접 Markdown 파일을 만들어도 상관없다.</p>
+<p>게시글을 다 작성했다면 <code>hexo generate</code>로 블로그를 생성하고, <code>hexo server</code>로 블로그를 로컬 서버로 구동시킨다.<br>
+<code>hexo generate -w</code>를 사용하면 파일이 편집될 때마다 블로그를 계속 생성해준다.</p>
+<p>문제는 <code>hexo server</code>가 hot/live reloading을 지원하지 않아 블로그가 새로 생성돼도 브라우저를 새로고침 해야 반영이 된다.<br>
+그래서 어쩔 수 없이 <a href="https://browsersync.io/">Browsersync</a>를 깔아야 했는데, <code>npx browser-sync ./public -w</code>를 사용하면 파일이 편집될 때마다 새로 생성된 블로그를 볼 수 있다.</p>
+<p>일부 변경사항은 <code>hexo generate</code>를 아무리 해도 적용이 안 되는데, (_config.yml 변경 등) 이때는 <code>hexo clean</code>으로 캐시를 지워줘야 한다.</p>
+<h1>배포</h1>
+<p>GitHub Pages니까 GitHub Actions을 사용하기로 했다.<br>
+먼저 repository 설정에서 GitHub Pages를 활성화시켜야 한다.</p>
+<ul>
+<li>Code and automation - Pages에서 Source를 <strong>Deploy from branch</strong>로 해준다.</li>
+<li>Branch는 <code>gh-pages</code>로 선택한다.</li>
+</ul>
+<p>이후 아래 파일을 <code>.github/workflows/pages.yml</code>으로 저장한다.</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Github</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">code</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">LTS</span> <span class="string">Node.js</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">node-version:</span> <span class="string">&#x27;lts/*&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/cache@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">npm-cache-$&#123;&#123;</span> <span class="string">runner.os</span> <span class="string">&#125;&#125;-$&#123;&#123;</span> <span class="string">hashFiles(&#x27;**/package-lock.json&#x27;)</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npm-cache-$&#123;&#123; runner.os &#125;&#125;</span></span><br><span class="line"><span class="string">          npm-cache</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        npm install</span></span><br><span class="line"><span class="string">        npx hexo generate</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/actions/checkout">actions/checkout</a>, <a href="https://github.com/actions/setup-node">actions/setup-node</a>는 말 그대로의 일을 하고, <a href="https://github.com/actions/cache">actions/cache</a>는 workflow가 빠르게 돌 수 있도록 <code>node_modules</code> 폴더를 캐싱해둔다.</p>
+<p>그 후 <code>npx hexo generate</code>로 블로그를 생성한 다음 <a href="https://github.com/peaceiris/actions-gh-pages">peaceiris/actions-gh-pages</a>로 <code>./public</code> 폴더를 GitHub Pages branch에 올리면 된다.</p>
+<h1>NexT Theme 설치</h1>
+<p>NexT Theme 설치는 <code>npm install hexo-theme-next</code>로 간단하게 할 수 있다. 이후 <code>_config.yml</code>에서 <code>theme: next</code>로 설정해주면 된다.</p>
+<p>그 후 NexT Theme 설정 파일을 따로 만들어줘야 하는데, <code>node_modules/hexo-theme-next/_config.yml</code>을 <code>_config.next.yml</code>로 복사해주고 <code>_config.next.yml</code>만 수정하면 된다.</p>
+<h1>What's Next...?</h1>
+<p>이 이후로는 자유롭게 <a href="https://hexo.io/docs/configuration.html">hexo documentation</a>과 <a href="https://theme-next.js.org/docs/theme-settings/">NexT documentation</a>을 참고하면서 원하는 대로 수정하면 된다.</p>
+<p>다른 <a href="https://hexo.io/plugins/">plugin</a>들도 살펴보면서 필요한 것이 있다면 다운받아도 된다. 몇 가지 추천 플러그인들은 다음과 같다.</p>
+<ul>
+<li><a href="https://github.com/xu-song/hexo-auto-category">hexo-auto-category</a>: post의 경로대로 category를 만들어준다.</li>
+<li><a href="https://github.com/chekun/hexo-excerpt">hexo-excerpt</a>: 블로그 메인화면에서 post가 너무 길 경우 일부만 보여준다.</li>
+<li><a href="https://github.com/next-theme/hexo-generator-searchdb">hexo-generator-searchdb</a>: 검색기능을 만들어준다! 자세한 설명은 <a href="https://theme-next.js.org/docs/third-party-services/search-services.html?highlight=searchdb#Local-Search">NexT documentation</a>을 참고하자.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>BLOG</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Hexo permalink 숫자로 나오게 하기</title>
     <url>/posts/3/</url>
     <content><![CDATA[<h1>문제점</h1>
@@ -128,78 +128,6 @@
 ]]></content>
       <categories>
         <category>BLOG</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>&lt;랑과 나의 사막&gt; 로봇은 감정을 느낄 수 있을까?</title>
-    <url>/posts/4/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/랑과_나의_사막.jpg"></object>
-    <p>랑과 나의 사막</p><p>천선란</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000200115764"></a>
-  </div>
-<p>이 소설은 주인공 랑의 죽음으로부터 시작된다. 모든 것이 멸망한 아포칼립스 세계관에서 지구는 이미 거의 모든 동식물이 사라져 황폐해진 지 오래고 인간이 노인까지 살다가 죽기에는 너무 위험한 세계가 되었다. 그렇게 끝없는 사막 속에서 랑의 엄마인 조도 죽었고, 랑도 결국 죽게 된다. 특이하게도 랑과 같이 살던 동거인은 같은 인간이 아니라 로봇인 고고였는데, 로봇이라 인간의 감정을 이해하지 못 하는 모습을 보여준다. 랑의 장례식은 아직까지 랑의 집에 남아있던 고고와 랑의 친구인 지카가 치렀는데, 고고는 지카가 왜 그렇게 허탈해하고 왜 그렇게 쓸쓸해하는지, 그리고 왜 랑의 시체를 땅속 깊이 묻어두는지 이해하지 못한다.</p>
-<p>지카가 갈 곳이 없으면 같이 바다로 가자고 했을 때, 그제야 고고는 자신이 살아가야 할 목적이 없어졌다는 사실을 깨닫는다. 태어날 때부터 만들어져 목적을 가지고 살아가는 다른 로봇들과 달리, 고고의 기억은 랑이 모래 속에 파묻혀있던 자신을 구해줬을 때부터 시작된다. 어떠한 명령이나 지시도 받지 않은 채 유일하게 알고 지내던 랑이 세상의 전부였던 고고는 어떻게 할까 고민하던 도중 결국 새로운 삶의 목적을 찾지 못한 채 랑을 행복하게 해준다는 마지막 명령을 따르기 위해 랑이 가고 싶었던 과거로 가는 땅을 향한 여정을 출발하게 된다. 이 점에서 고고는 사람과 다르지 않다. 흔히들 상실을 이겨낸다고 하지만, 상실을 완전히 잊어버릴 수는 없으며 소중한 사람의 상실인 경우 이겨내지 못하고 매몰되는 경우도 생긴다. 물론 고고의 경우에는 마지막으로 하던 일을 계속해서 반복하는 것에 가까운, 완전 다른 이유로 행하는 것이지만, 그런데도 랑을 잊어버리지 못하고 랑에 대한 감정이 남아있는 것처럼 행동한다.</p>
-<p>사막에서 정처 없이 떠돌던 도중 고고는 다른 로봇인 알아이아이를 만나게 된다. 알아이아이는 이미 죽어버린 주인을 기다리며 마지막 명령인 트랙터의 경로를 바꾸는 일을 수행하기 위해 트랙터에 몸을 부딪쳐가며 자신을 부숴가고 있었다. 우리가 익히 알고 있는 로봇의 모습처럼 마지막 명령을 그대로 수행하는 모습이다. 고고도 똑같은 로봇이고, 똑같이 마지막 명령을 그대로 수행하고 있지만 알아이아이를 이해하지 못 하는 모습이 인상적이다. 같은 로봇이지만, 고고가 더 효율적인 방법을 제시해주고 직접 자신의 팔을 떼주는 등 랑이 했던 것처럼 쓸데없이 오지랖이 넓은 모습은 마치 두 로봇이 서로 대화하는 장면이 아니라 사람과 로봇이 대화하는 장면처럼 보이기도 한다.</p>
-<p>마지막에 도달한 과거로 가는 땅에서 만난 살리는 고고와 사람의 차이가 있는 것인지 물어본다. 그렇다. 고고가 사막으로 가는 여정을 결정한 일, 그리고 여정 중에 행동한 행위들은 사람과 다를 바가 없었다. 고고는 자신한테 감정을 느끼는 회로가 없다고 하지만, 감정은 기본적으로 실체적인 현상이 아닌 추상적인 개념이다. 인간의 감정, 기억, 생각 등도 표면적으로는 뇌 속에 있는 시냅스를 통한 전기신호일 뿐이다. 어쩌면 우리도 고고처럼 화학적인 전자회로로만 이루어진 존재라고 볼 수도 있다. 그렇다면 감정을 느낀다는 것은 무엇일까? 작가는 여기서 실제로 감정을 느끼는지 아닌지가 왜 중요하냐고 역으로 물어본다. 고고가 감정이 있는 것처럼 행동한다면 다른 사람들한테 고고가 감정을 느끼는 회로가 있는지 정말 중요하게 생각할까? 우리가 감정에 의해 행동하는 행위 그 자체가 감정을 느낀다는 근거가 되는 것이다. 애초에 감정이 추상적인 개념이기 때문에, 겉모습이 사람인지 로봇인지는 중요하지 않다. 감정이 있는 것처럼 행동한다면, 고고도 로봇임에도 불구하고 '인간다움'을 가지고 있다고 생각할 수 있을 것이다.</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>소설</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>&lt;외모 대여점&gt; 무엇이든 빌려드립니다</title>
-    <url>/posts/5/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/외모_대여점.jpg"></object>
-    <p>외모 대여점</p><p>이사카와 히로치카</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000061694206"></a>
-  </div>
-<p>이 책은 하루 동안 원하는 외모를 빌릴 수 있는 외모 대여점에 방문하는 10명의 손님들에 관한 이야기다. 외모 대여점의 점장인 아즈마 안지는 사실 여우술사라 4명의 변신여우들을 다룰 수 있으며, 변신여우들은 원하는 외모로 변신할 수 있어, 변신여우들이 손님들이 원하는 외모로 변신한 뒤, 변신여우와 손님이 서로 외모를 맞바꾸는 방식으로 외모를 '대여'할 수 있다. 이런 소설도 나오는 것을 보면 더 잘생겨지고 싶거나 더 예뻐지고 싶은 마음은 일본에서도 한국에서도 똑같은 사람의 본성인 것 같다.</p>
-<p>하지만 외모 대여점에서 자신이 가장 가지고 싶었던 외모를 빌려본 10명의 손님들은 '외모가 중요하지 않다'는 결론을 얻고 돌아간다. 공공장소에서 시끄럽게 떠드는 여자애들한테 조용히 하라고 말하려고 하거나, 자신이 좋아하는 남자한테 고백하려고 하거나, 혼자 있는 직장 동료에게 하고 싶은 말을 하려고 하는 등 10명의 손님들은 다양한 이유로 외모를 빌려봤지만, 정작 알아낸 것은 사람들이 '원하는 외모'를 빌린 자기 자신보다, 외모가 뒤바뀌어서 '원래 자신의 외모'를 가지고 있는 변신여우의 말을 더 잘 듣는다는 사실을 알아낸다. 외모를 빌리려고 한 손님들은 자신의 외모로는 다른 사람들한테 얘기할 수 없을 것 같아, 다른 사람들이 더 잘 들어줄 것 같은 외모를 빌려보지만, 가장 중요한 것은 자신감이 있는 외모가 아니라 자신감이 있는 내면의 모습 그 자체임을 알게 된다.</p>
-<p>다만 교육적인 내용과는 별개로 소설 자체는 아쉬운 편이다. 외모 대여점은 옴니버스 형식을 사용한 소설로, 손님마다 1개의 챕터를 맡아 총 10개의 챕터로 나누어져 있는데, 책 자체가 300쪽도 안 되는 짧은 분량이기 때문에 각 손님의 이야기가 몇십 쪽 만에 끝나버려 깊은 이야기를 다루지 못 한 것 같다. 책 내용도 매번 등장인물 소개 후 외모를 바꿔본 뒤에 생각처럼 안 된다는 결론이 계속 반복되니 같은 내용만 보고 있다는 느낌도 받았다. 가장 아쉬운 점은 주인공의 얘기가 소설에 잘 안 나타난다는 점이다. 여우술사와 변신여우라는 특이한 설정을 채용했음에도 불구하고, 정작 소설 내에서의 활용도는 원하는 외모를 바꿔주는 도구로만 쓰이는 것이 대부분이다. 주인공들의 설정은 정말 매력적임에도 불구하고 그에 걸맞은 뒷이야기가 풀리지 않은 것 같아 매우 아쉽다. 아무래도 소설이 옴니버스 형식이다 보니 주인공의 이야기를 우선적으로 풀기보단, 각 챕터마다 등장하는 손님들의 이야기를 먼저 얘기하다 보니 정작 주인공에 대해 할 이야기가 줄어들어 소설에 묻힌 감이 있다. 막상 각 손님의 이야기도 손님마다 감정이입 하기에는 너무 짧아서 주인공한테도, 손님들한테도 감정을 이입할 수가 없었다. 챕터 수를 좀 더 줄이고 각 챕터를 조금 늘리면 더 나은 소설이 될 것 같다.</p>
-<p>그럼에도 불구하고 워낙 소설 설정 자체가 매력적이다보니 재밌게 읽은 것 같다. 깊이 있는 소설을 원하는 사람한테는 별로지만 간단하게 읽을 수 있는 책으로는 나쁘지 않다. 몇몇 챕터는 여장남자에 관한 얘기가 나오는 등 생각해볼 만한 주제가 있는 챕터도 있었고, 전체적으로 책이 주는 교훈이 나쁘지 않다. 내가 무슨 짓을 해도 바꿀 수 없는 외모에 대해 집착하는 것보단, 내 노력으로 바꿀 수 있는 마음가짐을 바꾸는 것이 더 중요하다. 결국, 사람의 본질은 외모에 있는 것이 아니라 마음에 있다는 사실을 알게 된다.</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>소설</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>&lt;내게 남은 사랑을 드릴게요&gt; 사랑을 SF적으로 표현하는 방법</title>
-    <url>/posts/6/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/내게_남은_사랑을_드릴게요.jpg"></object>
-    <p>내게 남은 사랑을 드릴게요</p><p>이유리, 김서해, 김초엽, 설재인, 천선란</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000200755350"></a>
-  </div>
-<p>이 책을 처음 봤을 때는 '내게 남은 사랑을 드릴게요'라는 제목과 하트로 가득 찬 표지 때문에 로맨스 소설인 줄 알았지만, 읽어보니 이 책은 사실 SF 소설 앤솔러지였다. 그런데 SF 소설 앤솔러지라고는 하지만 'SF 소설'은 '판타지 소설'처럼 너무 광범위하고 다양한 작품들을 지칭하는 말이다. 장르의 방대함을 증명하듯 이 책을 이루는 5개의 소설에서도 명확한 공통점을 찾기는 쉽지 않다. 굳이 따지자면 이 책의 제목에서도 나타나듯, '사랑' 자체가 이 책을 관통하는 공통점일 것이다. 5명의 작가가 'SF 소설'만큼이나 정의하기 어려운 '사랑'을 나름의 방식대로 SF 소설로 표현한 모습을 볼 수 있었다.</p>
-<p>5개의 소설 중 인상 깊었던 2개의 소설이 있는데, 먼저 김초엽 작가의 &lt;수브다니의 여름휴가&gt;가 있다. 인공장기를 배양하는 회사에서 일하던 주인공이 인공피부를 배양하는 곳에서 일한다는 내용인데, 역사가 깊은 SF 장르에서도 언급되지 않은 주제인 인공피부를 찾아내서 소설로 쓴 것을 보고 작가가 매우 똑똑하다는 생각을 했다. 또한, 인공장기는 단순히 심장을 다치면 교체하고, 눈을 다치면 교체하는 등 단순히 수술을 대체해줄 의료적인 목적만 달성한다면, 인공피부는 곰, 고양이, 용, 늑대 등 인간과 완전히 다른 종이 되고 싶은 사람들을 위해 만들어진다. 물론 피부만이 인간의 본질을 나타내는 요소는 아니겠지만, 이를 통해 '피부가 달라지면 우리도 인간이 아니게 되는 걸까?'라는 생각을 하도록 만든다. 이 외에도 인간과 안드로이드의 사랑과, 금속 피부를 이식받은 후 스스로 녹슬어가는 작품의 일부가 되는 결말까지, 짧은 소설임에도 불구하고 생각해볼 점이 많았다. 읽으면서도 쏟아져 내리는 새로운 설정들 때문에 이야기가 어떻게 흘러갈지 열심히 기대하면서 읽었다.</p>
-<p>다음으로는 천선란 작가의 &lt;뼈의 기록&gt;이 있다. 소설 배경은 미래시대로, 안드로이드가 보급되면서 장의사 대신 장례를 치르는 장의사 안드로이드가 생겼다는 설정이다. 장의사 안드로이드인 로비스는 고독사한 노인, 자살한 여자, 사고사한 아이 등 여러 시체들의 장례를 치르며, 마지막에는 자신과 같이 말동무를 해주던 청소부 모미의 장례를 치러준다. 같은 작가의 &lt;랑과 나의 사막&gt;에서도 느낀 거지만 천선란 작가는 안드로이드 같은 기계적인 생각으로 인간의 마음을 표현하는 것을 잘하는 것 같다. 과학적인 사실인 적혈구의 기능을 얘기하면서 유가족들을 위로해주거나, 아름다움의 정의를 듣고 나서 뼈가 아름답다고 정의를 내리는 등의 모습을 보고 느꼈다. 또한, 이 소설은 발단-전개-위기-절정-결말로 이루어진 소설의 구성단계를 완벽하게 지킨 소설이기도 하다. 45페이지의 짧은 소설에 복선들도 넣어가며 우주선에서 장례를 치르는 클라이맥스로 달려가는 모습은 읽은 사람들에게 말 그대로 '절정'을 느끼게 해준다. 너무 짧아서 아쉬웠던 다른 소설들과 달리 짧은 글임에도 탄탄한 구성으로 이루어져 있어 수백 페이지의 소설을 다 읽은 느낌을 얻을 수 있었다.</p>
-<p>이 책에서 말하는 '사랑'은 남녀 사이의 사랑도 있긴 하지만, 그것보다 보편적인 인간성에 관한 이야기다. 혼자서만 지내는 학우한테 먼저 다가가 친구가 돼주는 일, 가정폭력을 당하고 있는 아이한테 다가가서 안아주는 일, 애인과 만들었던 마지막 작품을 스스로 완성하는 일, 평생 볼일 없을 유가족들을 위로해주고, 함께 일하다 죽은 동료를 위해 그 마음을 헤아리고 평생 내본 적 없던 용기를 내본 일. 이 모든 것들은 인간만이 가능한 비논리적인 행동이고, 그러므로 '사랑'으로 밖에 표현할 말이 없다. 5명의 작가는 서로 다른 세상의 모습을 그렸지만, 그 속에서도 여전히 '사랑'이 존재할 것이다.</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>소설</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>&lt;서사의 위기&gt; 의미 없고 공허한 정보의 시대</title>
-    <url>/posts/13/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/서사의_위기.jpg"></object>
-    <p>서사의 위기</p><p>한병철</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000208952987"></a>
-  </div>
-<p>&lt;서사의 위기&gt;는 아주 짧은 책이다. 137페이지에 크기도 작아서 다른 책들의 1/3 정도 분량밖에 되지 않는다. 하지만 이 짧은 책에 담겨 있는 고찰은 절대 짧지 않다. 왜 우리 현대 사회에는 목적과 방향 없이 그냥 살아가는 사람들이 많은지, 니트족 등 취업 준비도 하지 않고 살려는 어떠한 노력도 하지 않는 백수들이 점점 늘어나고 있는지 설명해준다. 작가는 이 해답을 우리 시대가 너무 스마트해졌기 때문이라고 설명한다. 이제 스마트폰은 아무리 가난해도 있어야 할 필수품으로 여겨지고 있다. 영화 &lt;기생충&gt;에서도 인터넷 요금제도 없을 만큼 가난해도 스마트폰을 가지고 있는 모습이 나온다. 누구나 인터넷을 통해서 수많은 정보를 얻거나 생산할 수 있으며, 이제 많은 사람이 책 같은 오프라인 매체보다 스마트폰을 통해서 정보를 얻는다.</p>
-<p>문제는 정보를 생산하면서 돈을 벌 수 있는 사회가 되면서 시작된다. 유튜브, 인스타그램 등의 플랫폼에서는 더 많은 사람이 플랫폼을 쓰도록 만들기 위해서 광고비 일부를 콘텐츠 크리에이터들에게 나눠주기 시작했다. 그런데 오히려 유튜브 등의 플랫폼이 전 세계 모든 사람이 사용할 정도로 커지고, 광고비 수익이 엄청나게 커지게 된다. 유튜브, 인스타그램만으로도 먹고 살 수 있을 뿐만 아니라 누구나 알아주는 부자가 될 수 있게 된 것이다. 일이 이렇게 되자 사람들은 경쟁적으로 콘텐츠 시장에 뛰어들게 된다. 싸이월드 같은 예전의 SNS는 자신의 이야기를 공유하는 목적으로 사용됐다면, 지금의 유튜브, 인스타그램 등의 SNS는 어떤 방식으로든 조회수를 더 얻거나, 좋아요를 더 얻으려는 목적으로 변질되었다. 작가는 이를 보고 '스토리텔링'이 아니라 '스토리셀링'이라고 비판한다. 사람들은 이제 SNS를 자신을 이야기하려는 목적으로 사용하지 않는다. 오히려 자신의 이야기를 상품으로 만들어 시장에 내놓으며, 어떻게든 다른 사람이 읽게 만들기 위해 더 자극적이고 단편적인 주제들로 꾸미게 된다.</p>
-<p>이 과정에서 서사의 위기를 만든 획기적인 발명품 &quot;숏츠&quot;가 탄생하게 된다. 플랫폼 회사들은 하나의 긴 이야기보다 짧은 수많은 이야기를 판매하는 것이 플랫폼에 더 도움이 된다는 사실을 알아내게 된다. 이제 유튜브도, 인스타그램도 모두 숏츠 시장에 적극적으로 집중하고 있다. 사람들은 이제 사람에 대한 하나의 이야기 대신 끝도 없이 쏟아지는 30초짜리 숏츠들을 보게 된다. 작가는 이 과정을 정보화라고 표현한다. 사람에 대한 서사는 더 이상 존재하지 않는다. 대신 사람을 30초짜리 숏츠로 분해한 정보들만이 존재할 뿐이다. 이 정보들은 무질서하고, 관련 없다. 딱 30초 동안만 유효한 곧 소멸할 정보들일 뿐이다. 처음에는 수많은 정보가 쏟아지는 정보의 바다에서 강력한 자극을 얻고 빠져들게 되지만, 곧이어 이러한 정보들은 서사가 없는 무의미한 것뿐임을 알게 된다. 그래서 현대인들은 공허해지고, 허무감에 빠지게 된다.</p>
-<p>불행히도, 작가는 이런 서사의 위기를 해결할 방법을 설명해주지 않는다. 과거와 달리 우리 사회는 현재 서사의 위기에 빠져있고, 어떻게 빠지게 됐는지 '정보'와 '이야기'의 비유로 명쾌하게 설명해주지만, 아쉽게도 그 문제에 대한 해결방법은 이 책에 남겨져 있지 않다. 어쩌면 문제의 핵심을 단번에 파악한 작가조차도 해결방법에 대해서는 아직 고민 중일지도 모르겠다. 하지만 우리 개개인이 정보의 바다에서 스스로 빠져나와야겠다고 생각하게 된다면 어떨까. 이미 오래전부터 숏츠를 보는 것은 무의미하다고 생각했던 나는 숏츠가 보이지 않도록 개조한 유튜브 앱을 사용하고 있다. 우리 스스로가 정보 대신 이야기를 찾기 시작한다면 이 사회는 다시 서사를 되찾을 수 있지 않을까?</p>
-]]></content>
-      <categories>
-        <category>BOOK</category>
-        <category>인문</category>
       </categories>
   </entry>
   <entry>
@@ -609,6 +537,60 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       </categories>
   </entry>
   <entry>
+    <title>&lt;랑과 나의 사막&gt; 로봇은 감정을 느낄 수 있을까?</title>
+    <url>/posts/4/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/랑과_나의_사막.jpg"></object>
+    <p>랑과 나의 사막</p><p>천선란</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000200115764"></a>
+  </div>
+<p>이 소설은 주인공 랑의 죽음으로부터 시작된다. 모든 것이 멸망한 아포칼립스 세계관에서 지구는 이미 거의 모든 동식물이 사라져 황폐해진 지 오래고 인간이 노인까지 살다가 죽기에는 너무 위험한 세계가 되었다. 그렇게 끝없는 사막 속에서 랑의 엄마인 조도 죽었고, 랑도 결국 죽게 된다. 특이하게도 랑과 같이 살던 동거인은 같은 인간이 아니라 로봇인 고고였는데, 로봇이라 인간의 감정을 이해하지 못 하는 모습을 보여준다. 랑의 장례식은 아직까지 랑의 집에 남아있던 고고와 랑의 친구인 지카가 치렀는데, 고고는 지카가 왜 그렇게 허탈해하고 왜 그렇게 쓸쓸해하는지, 그리고 왜 랑의 시체를 땅속 깊이 묻어두는지 이해하지 못한다.</p>
+<p>지카가 갈 곳이 없으면 같이 바다로 가자고 했을 때, 그제야 고고는 자신이 살아가야 할 목적이 없어졌다는 사실을 깨닫는다. 태어날 때부터 만들어져 목적을 가지고 살아가는 다른 로봇들과 달리, 고고의 기억은 랑이 모래 속에 파묻혀있던 자신을 구해줬을 때부터 시작된다. 어떠한 명령이나 지시도 받지 않은 채 유일하게 알고 지내던 랑이 세상의 전부였던 고고는 어떻게 할까 고민하던 도중 결국 새로운 삶의 목적을 찾지 못한 채 랑을 행복하게 해준다는 마지막 명령을 따르기 위해 랑이 가고 싶었던 과거로 가는 땅을 향한 여정을 출발하게 된다. 이 점에서 고고는 사람과 다르지 않다. 흔히들 상실을 이겨낸다고 하지만, 상실을 완전히 잊어버릴 수는 없으며 소중한 사람의 상실인 경우 이겨내지 못하고 매몰되는 경우도 생긴다. 물론 고고의 경우에는 마지막으로 하던 일을 계속해서 반복하는 것에 가까운, 완전 다른 이유로 행하는 것이지만, 그런데도 랑을 잊어버리지 못하고 랑에 대한 감정이 남아있는 것처럼 행동한다.</p>
+<p>사막에서 정처 없이 떠돌던 도중 고고는 다른 로봇인 알아이아이를 만나게 된다. 알아이아이는 이미 죽어버린 주인을 기다리며 마지막 명령인 트랙터의 경로를 바꾸는 일을 수행하기 위해 트랙터에 몸을 부딪쳐가며 자신을 부숴가고 있었다. 우리가 익히 알고 있는 로봇의 모습처럼 마지막 명령을 그대로 수행하는 모습이다. 고고도 똑같은 로봇이고, 똑같이 마지막 명령을 그대로 수행하고 있지만 알아이아이를 이해하지 못 하는 모습이 인상적이다. 같은 로봇이지만, 고고가 더 효율적인 방법을 제시해주고 직접 자신의 팔을 떼주는 등 랑이 했던 것처럼 쓸데없이 오지랖이 넓은 모습은 마치 두 로봇이 서로 대화하는 장면이 아니라 사람과 로봇이 대화하는 장면처럼 보이기도 한다.</p>
+<p>마지막에 도달한 과거로 가는 땅에서 만난 살리는 고고와 사람의 차이가 있는 것인지 물어본다. 그렇다. 고고가 사막으로 가는 여정을 결정한 일, 그리고 여정 중에 행동한 행위들은 사람과 다를 바가 없었다. 고고는 자신한테 감정을 느끼는 회로가 없다고 하지만, 감정은 기본적으로 실체적인 현상이 아닌 추상적인 개념이다. 인간의 감정, 기억, 생각 등도 표면적으로는 뇌 속에 있는 시냅스를 통한 전기신호일 뿐이다. 어쩌면 우리도 고고처럼 화학적인 전자회로로만 이루어진 존재라고 볼 수도 있다. 그렇다면 감정을 느낀다는 것은 무엇일까? 작가는 여기서 실제로 감정을 느끼는지 아닌지가 왜 중요하냐고 역으로 물어본다. 고고가 감정이 있는 것처럼 행동한다면 다른 사람들한테 고고가 감정을 느끼는 회로가 있는지 정말 중요하게 생각할까? 우리가 감정에 의해 행동하는 행위 그 자체가 감정을 느낀다는 근거가 되는 것이다. 애초에 감정이 추상적인 개념이기 때문에, 겉모습이 사람인지 로봇인지는 중요하지 않다. 감정이 있는 것처럼 행동한다면, 고고도 로봇임에도 불구하고 '인간다움'을 가지고 있다고 생각할 수 있을 것이다.</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>소설</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>&lt;외모 대여점&gt; 무엇이든 빌려드립니다</title>
+    <url>/posts/5/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/외모_대여점.jpg"></object>
+    <p>외모 대여점</p><p>이사카와 히로치카</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000061694206"></a>
+  </div>
+<p>이 책은 하루 동안 원하는 외모를 빌릴 수 있는 외모 대여점에 방문하는 10명의 손님들에 관한 이야기다. 외모 대여점의 점장인 아즈마 안지는 사실 여우술사라 4명의 변신여우들을 다룰 수 있으며, 변신여우들은 원하는 외모로 변신할 수 있어, 변신여우들이 손님들이 원하는 외모로 변신한 뒤, 변신여우와 손님이 서로 외모를 맞바꾸는 방식으로 외모를 '대여'할 수 있다. 이런 소설도 나오는 것을 보면 더 잘생겨지고 싶거나 더 예뻐지고 싶은 마음은 일본에서도 한국에서도 똑같은 사람의 본성인 것 같다.</p>
+<p>하지만 외모 대여점에서 자신이 가장 가지고 싶었던 외모를 빌려본 10명의 손님들은 '외모가 중요하지 않다'는 결론을 얻고 돌아간다. 공공장소에서 시끄럽게 떠드는 여자애들한테 조용히 하라고 말하려고 하거나, 자신이 좋아하는 남자한테 고백하려고 하거나, 혼자 있는 직장 동료에게 하고 싶은 말을 하려고 하는 등 10명의 손님들은 다양한 이유로 외모를 빌려봤지만, 정작 알아낸 것은 사람들이 '원하는 외모'를 빌린 자기 자신보다, 외모가 뒤바뀌어서 '원래 자신의 외모'를 가지고 있는 변신여우의 말을 더 잘 듣는다는 사실을 알아낸다. 외모를 빌리려고 한 손님들은 자신의 외모로는 다른 사람들한테 얘기할 수 없을 것 같아, 다른 사람들이 더 잘 들어줄 것 같은 외모를 빌려보지만, 가장 중요한 것은 자신감이 있는 외모가 아니라 자신감이 있는 내면의 모습 그 자체임을 알게 된다.</p>
+<p>다만 교육적인 내용과는 별개로 소설 자체는 아쉬운 편이다. 외모 대여점은 옴니버스 형식을 사용한 소설로, 손님마다 1개의 챕터를 맡아 총 10개의 챕터로 나누어져 있는데, 책 자체가 300쪽도 안 되는 짧은 분량이기 때문에 각 손님의 이야기가 몇십 쪽 만에 끝나버려 깊은 이야기를 다루지 못 한 것 같다. 책 내용도 매번 등장인물 소개 후 외모를 바꿔본 뒤에 생각처럼 안 된다는 결론이 계속 반복되니 같은 내용만 보고 있다는 느낌도 받았다. 가장 아쉬운 점은 주인공의 얘기가 소설에 잘 안 나타난다는 점이다. 여우술사와 변신여우라는 특이한 설정을 채용했음에도 불구하고, 정작 소설 내에서의 활용도는 원하는 외모를 바꿔주는 도구로만 쓰이는 것이 대부분이다. 주인공들의 설정은 정말 매력적임에도 불구하고 그에 걸맞은 뒷이야기가 풀리지 않은 것 같아 매우 아쉽다. 아무래도 소설이 옴니버스 형식이다 보니 주인공의 이야기를 우선적으로 풀기보단, 각 챕터마다 등장하는 손님들의 이야기를 먼저 얘기하다 보니 정작 주인공에 대해 할 이야기가 줄어들어 소설에 묻힌 감이 있다. 막상 각 손님의 이야기도 손님마다 감정이입 하기에는 너무 짧아서 주인공한테도, 손님들한테도 감정을 이입할 수가 없었다. 챕터 수를 좀 더 줄이고 각 챕터를 조금 늘리면 더 나은 소설이 될 것 같다.</p>
+<p>그럼에도 불구하고 워낙 소설 설정 자체가 매력적이다보니 재밌게 읽은 것 같다. 깊이 있는 소설을 원하는 사람한테는 별로지만 간단하게 읽을 수 있는 책으로는 나쁘지 않다. 몇몇 챕터는 여장남자에 관한 얘기가 나오는 등 생각해볼 만한 주제가 있는 챕터도 있었고, 전체적으로 책이 주는 교훈이 나쁘지 않다. 내가 무슨 짓을 해도 바꿀 수 없는 외모에 대해 집착하는 것보단, 내 노력으로 바꿀 수 있는 마음가짐을 바꾸는 것이 더 중요하다. 결국, 사람의 본질은 외모에 있는 것이 아니라 마음에 있다는 사실을 알게 된다.</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>소설</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>&lt;내게 남은 사랑을 드릴게요&gt; 사랑을 SF적으로 표현하는 방법</title>
+    <url>/posts/6/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/내게_남은_사랑을_드릴게요.jpg"></object>
+    <p>내게 남은 사랑을 드릴게요</p><p>이유리, 김서해, 김초엽, 설재인, 천선란</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000200755350"></a>
+  </div>
+<p>이 책을 처음 봤을 때는 '내게 남은 사랑을 드릴게요'라는 제목과 하트로 가득 찬 표지 때문에 로맨스 소설인 줄 알았지만, 읽어보니 이 책은 사실 SF 소설 앤솔러지였다. 그런데 SF 소설 앤솔러지라고는 하지만 'SF 소설'은 '판타지 소설'처럼 너무 광범위하고 다양한 작품들을 지칭하는 말이다. 장르의 방대함을 증명하듯 이 책을 이루는 5개의 소설에서도 명확한 공통점을 찾기는 쉽지 않다. 굳이 따지자면 이 책의 제목에서도 나타나듯, '사랑' 자체가 이 책을 관통하는 공통점일 것이다. 5명의 작가가 'SF 소설'만큼이나 정의하기 어려운 '사랑'을 나름의 방식대로 SF 소설로 표현한 모습을 볼 수 있었다.</p>
+<p>5개의 소설 중 인상 깊었던 2개의 소설이 있는데, 먼저 김초엽 작가의 &lt;수브다니의 여름휴가&gt;가 있다. 인공장기를 배양하는 회사에서 일하던 주인공이 인공피부를 배양하는 곳에서 일한다는 내용인데, 역사가 깊은 SF 장르에서도 언급되지 않은 주제인 인공피부를 찾아내서 소설로 쓴 것을 보고 작가가 매우 똑똑하다는 생각을 했다. 또한, 인공장기는 단순히 심장을 다치면 교체하고, 눈을 다치면 교체하는 등 단순히 수술을 대체해줄 의료적인 목적만 달성한다면, 인공피부는 곰, 고양이, 용, 늑대 등 인간과 완전히 다른 종이 되고 싶은 사람들을 위해 만들어진다. 물론 피부만이 인간의 본질을 나타내는 요소는 아니겠지만, 이를 통해 '피부가 달라지면 우리도 인간이 아니게 되는 걸까?'라는 생각을 하도록 만든다. 이 외에도 인간과 안드로이드의 사랑과, 금속 피부를 이식받은 후 스스로 녹슬어가는 작품의 일부가 되는 결말까지, 짧은 소설임에도 불구하고 생각해볼 점이 많았다. 읽으면서도 쏟아져 내리는 새로운 설정들 때문에 이야기가 어떻게 흘러갈지 열심히 기대하면서 읽었다.</p>
+<p>다음으로는 천선란 작가의 &lt;뼈의 기록&gt;이 있다. 소설 배경은 미래시대로, 안드로이드가 보급되면서 장의사 대신 장례를 치르는 장의사 안드로이드가 생겼다는 설정이다. 장의사 안드로이드인 로비스는 고독사한 노인, 자살한 여자, 사고사한 아이 등 여러 시체들의 장례를 치르며, 마지막에는 자신과 같이 말동무를 해주던 청소부 모미의 장례를 치러준다. 같은 작가의 &lt;랑과 나의 사막&gt;에서도 느낀 거지만 천선란 작가는 안드로이드 같은 기계적인 생각으로 인간의 마음을 표현하는 것을 잘하는 것 같다. 과학적인 사실인 적혈구의 기능을 얘기하면서 유가족들을 위로해주거나, 아름다움의 정의를 듣고 나서 뼈가 아름답다고 정의를 내리는 등의 모습을 보고 느꼈다. 또한, 이 소설은 발단-전개-위기-절정-결말로 이루어진 소설의 구성단계를 완벽하게 지킨 소설이기도 하다. 45페이지의 짧은 소설에 복선들도 넣어가며 우주선에서 장례를 치르는 클라이맥스로 달려가는 모습은 읽은 사람들에게 말 그대로 '절정'을 느끼게 해준다. 너무 짧아서 아쉬웠던 다른 소설들과 달리 짧은 글임에도 탄탄한 구성으로 이루어져 있어 수백 페이지의 소설을 다 읽은 느낌을 얻을 수 있었다.</p>
+<p>이 책에서 말하는 '사랑'은 남녀 사이의 사랑도 있긴 하지만, 그것보다 보편적인 인간성에 관한 이야기다. 혼자서만 지내는 학우한테 먼저 다가가 친구가 돼주는 일, 가정폭력을 당하고 있는 아이한테 다가가서 안아주는 일, 애인과 만들었던 마지막 작품을 스스로 완성하는 일, 평생 볼일 없을 유가족들을 위로해주고, 함께 일하다 죽은 동료를 위해 그 마음을 헤아리고 평생 내본 적 없던 용기를 내본 일. 이 모든 것들은 인간만이 가능한 비논리적인 행동이고, 그러므로 '사랑'으로 밖에 표현할 말이 없다. 5명의 작가는 서로 다른 세상의 모습을 그렸지만, 그 속에서도 여전히 '사랑'이 존재할 것이다.</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>소설</category>
+      </categories>
+  </entry>
+  <entry>
     <title>&lt;푸른 낙엽&gt; 또 다른 한국인들의 삶</title>
     <url>/posts/14/</url>
     <content><![CDATA[<div class="image-link-container">
@@ -624,6 +606,24 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
       <categories>
         <category>BOOK</category>
         <category>소설</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>&lt;서사의 위기&gt; 의미 없고 공허한 정보의 시대</title>
+    <url>/posts/13/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/서사의_위기.jpg"></object>
+    <p>서사의 위기</p><p>한병철</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000208952987"></a>
+  </div>
+<p>&lt;서사의 위기&gt;는 아주 짧은 책이다. 137페이지에 크기도 작아서 다른 책들의 1/3 정도 분량밖에 되지 않는다. 하지만 이 짧은 책에 담겨 있는 고찰은 절대 짧지 않다. 왜 우리 현대 사회에는 목적과 방향 없이 그냥 살아가는 사람들이 많은지, 니트족 등 취업 준비도 하지 않고 살려는 어떠한 노력도 하지 않는 백수들이 점점 늘어나고 있는지 설명해준다. 작가는 이 해답을 우리 시대가 너무 스마트해졌기 때문이라고 설명한다. 이제 스마트폰은 아무리 가난해도 있어야 할 필수품으로 여겨지고 있다. 영화 &lt;기생충&gt;에서도 인터넷 요금제도 없을 만큼 가난해도 스마트폰을 가지고 있는 모습이 나온다. 누구나 인터넷을 통해서 수많은 정보를 얻거나 생산할 수 있으며, 이제 많은 사람이 책 같은 오프라인 매체보다 스마트폰을 통해서 정보를 얻는다.</p>
+<p>문제는 정보를 생산하면서 돈을 벌 수 있는 사회가 되면서 시작된다. 유튜브, 인스타그램 등의 플랫폼에서는 더 많은 사람이 플랫폼을 쓰도록 만들기 위해서 광고비 일부를 콘텐츠 크리에이터들에게 나눠주기 시작했다. 그런데 오히려 유튜브 등의 플랫폼이 전 세계 모든 사람이 사용할 정도로 커지고, 광고비 수익이 엄청나게 커지게 된다. 유튜브, 인스타그램만으로도 먹고 살 수 있을 뿐만 아니라 누구나 알아주는 부자가 될 수 있게 된 것이다. 일이 이렇게 되자 사람들은 경쟁적으로 콘텐츠 시장에 뛰어들게 된다. 싸이월드 같은 예전의 SNS는 자신의 이야기를 공유하는 목적으로 사용됐다면, 지금의 유튜브, 인스타그램 등의 SNS는 어떤 방식으로든 조회수를 더 얻거나, 좋아요를 더 얻으려는 목적으로 변질되었다. 작가는 이를 보고 '스토리텔링'이 아니라 '스토리셀링'이라고 비판한다. 사람들은 이제 SNS를 자신을 이야기하려는 목적으로 사용하지 않는다. 오히려 자신의 이야기를 상품으로 만들어 시장에 내놓으며, 어떻게든 다른 사람이 읽게 만들기 위해 더 자극적이고 단편적인 주제들로 꾸미게 된다.</p>
+<p>이 과정에서 서사의 위기를 만든 획기적인 발명품 &quot;숏츠&quot;가 탄생하게 된다. 플랫폼 회사들은 하나의 긴 이야기보다 짧은 수많은 이야기를 판매하는 것이 플랫폼에 더 도움이 된다는 사실을 알아내게 된다. 이제 유튜브도, 인스타그램도 모두 숏츠 시장에 적극적으로 집중하고 있다. 사람들은 이제 사람에 대한 하나의 이야기 대신 끝도 없이 쏟아지는 30초짜리 숏츠들을 보게 된다. 작가는 이 과정을 정보화라고 표현한다. 사람에 대한 서사는 더 이상 존재하지 않는다. 대신 사람을 30초짜리 숏츠로 분해한 정보들만이 존재할 뿐이다. 이 정보들은 무질서하고, 관련 없다. 딱 30초 동안만 유효한 곧 소멸할 정보들일 뿐이다. 처음에는 수많은 정보가 쏟아지는 정보의 바다에서 강력한 자극을 얻고 빠져들게 되지만, 곧이어 이러한 정보들은 서사가 없는 무의미한 것뿐임을 알게 된다. 그래서 현대인들은 공허해지고, 허무감에 빠지게 된다.</p>
+<p>불행히도, 작가는 이런 서사의 위기를 해결할 방법을 설명해주지 않는다. 과거와 달리 우리 사회는 현재 서사의 위기에 빠져있고, 어떻게 빠지게 됐는지 '정보'와 '이야기'의 비유로 명쾌하게 설명해주지만, 아쉽게도 그 문제에 대한 해결방법은 이 책에 남겨져 있지 않다. 어쩌면 문제의 핵심을 단번에 파악한 작가조차도 해결방법에 대해서는 아직 고민 중일지도 모르겠다. 하지만 우리 개개인이 정보의 바다에서 스스로 빠져나와야겠다고 생각하게 된다면 어떨까. 이미 오래전부터 숏츠를 보는 것은 무의미하다고 생각했던 나는 숏츠가 보이지 않도록 개조한 유튜브 앱을 사용하고 있다. 우리 스스로가 정보 대신 이야기를 찾기 시작한다면 이 사회는 다시 서사를 되찾을 수 있지 않을까?</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>인문</category>
       </categories>
   </entry>
   <entry>
@@ -656,6 +656,24 @@ ex) 시장 금리가 10%면 액면가 105만원인 채권을 아무도 100만원
 <p>하고 싶은 일은 많은데 아이러니하게도 시작하고 싶은 생각은 들지 않는 기분을 모두 알고 있을 것이다. 개인정비 시간 때마다 별생각 없이 누워서 스마트폰만 보면서 시간을 보내는 도중에 이 책을 보게 되었다. 이 책은 정확하게 지금과 같은 상황에서 어떻게 벗어나야 하는지 알려주고 있었다. 정신병원에서 주기적으로 약을 처방받아야 할 정도로 힘든 사람들은 많지 않지만, 사회에서 살아가면서 힘든 적이 한 번도 없는 사람은 없을 것이다. 하지만 조금이라도 감기에 걸리면 바로 병원에 가는 대한민국에서도 정신병원에 대한 인식은 심각하게 안 좋아서, 기분이 우울하면 그냥 우울한 채로 살면서 지내는 경우가 많다. 우리는 몸에 생긴 사소한 병들은 즉시 치료받으려고 들면서, 정작 정신에 대한 치료는 시간이 지나면 알아서 해결될 것이라 믿는다. 면역력만을 믿고 버티는 것인데, 이 책은 단순히 기다리는 대신 어떻게 하면 부정적인 생각 대신 긍정적인 생각을 할 수 있는지 알려준다.</p>
 <p>책을 읽으면서 내 얘기인가 싶을 정도로 공감되는 얘기가 많았다. 계속 최악의 상황만 가정한다던가, 오히려 항상 최선의 상황만 생길 거라고 막연히 기대하던가, 우울한 상황에서 억지로 힘을 내려고 하면서 더 힘들어지는 등 내가 최근에 하던 생각들이 전부 기록되어 있었다. 나도 모르게 일본 정신과 의사랑 상담이라도 했던가? 읽으면서 내 얘기 같은 얘기가 계속해서 반복되는 걸 보니 전 세계 사람들도 나랑 같은 고민을 하면서 지내는구나 하는 생각이 들었다. 어쩐지 나만 심각한 게 아니라 누구나 겪는 일이라는 생각이 들면서 안심이 됐다.</p>
 <p>특이하게도 이 책에서 제시하는 방법들은 백천만 감사나눔 운동과 겹치는 면이 많았다. 내가 전입을 했을 때 선임들이 힘들게 써봤자 휴가를 하루나 이틀밖에 안 줘서 그냥 안 쓰는 게 낫다고 말해줬고, 나도 딱히 쓸만한 공책도 시간도 없어서 백천만 감사나눔 운동은 고려조차 안 했었다. 그런데 군 생활이 너무 힘들어서 일병 때부터 공책을 구해 감사노트를 쓰기 시작했는데, 감사노트를 채우려고 억지로라도 감사할 일을 찾으려고 하다 보니 자연스럽게 일상 속에서 조금이라도 기분 좋았던 일들을 되짚어보게 되었다. 하루 동안 감사할 일을 많이 찾으면 기분도 좋아졌다. 군대에서는 더욱더 그렇지만, 사실 사회에서도 만날 기분이 좋아지려고 해외여행 같은 스펙타클한 일을 찾아다닐 수는 없다. 우리가 일상 속에서 있었던 일들 때문에 지친다면, 일상을 무리하게 바꾸려고 하기보다는 일상 속에서 행복한 일을 찾아야 하지 않을까. 아직 많이 쓰진 못 했지만, 오늘도 꾸준히 일상 속에서 감사할 일들을 찾고 있다.</p>
+]]></content>
+      <categories>
+        <category>BOOK</category>
+        <category>자기계발</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>&lt;한석준의 말하기 수업&gt; 나의 말하기를 되돌아볼 시간</title>
+    <url>/posts/11/</url>
+    <content><![CDATA[<div class="image-link-container">
+    <object class="image-link-image" data="/images/BOOK/한석준의_말하기_수업.jpg"></object>
+    <p>한석준의 말하기 수업</p><p>한석준</p>
+    <a href="https://product.kyobobook.co.kr/detail/S000208691083"></a>
+  </div>
+<p>초등학교 때 국어 과목으로 읽기와 듣기, 말하기, 쓰기를 배운 기억이 난다. 학교에서 언어로 할 수 있는 일을 총 4가지로 나누었던 것이다. 저번 독후감을 쓸 때 읽었던 &lt;일머리 문해력&gt;에서 읽기와 쓰기를 어떻게 해야 하는지 배웠는데, 이번 독후감을 쓸 때 읽은 &lt;한석준의 말하기 수업&gt;에서는 말하기를 어떻게 해야 하는지 배운다. 물론 의무교육을 들은 사람들은 누구나 한국어로 읽기, 듣기, 말하기, 쓰기를 할 수 있다. 하지만 남들의 생각을 정확하게 이해하면서 읽고, 자신의 생각을 명료하게 쓰는 것은 어려운 일이고, 학습이 필요하다. 말하기도 마찬가지다. 자기가 말하고자 하는 바를 상대가 이해하도록 정확하게 말하는 일은 쉬운 일이 아니다. 그렇기 때문에 말을 전달해주는 직업인 아나운서라는 직업이 있는 것이다.</p>
+<p>이 책에선 한석준 아나운서가 직접 사용했던 말하기 기법들이 적혀 있다. 사실 다들 한국어를 자연스럽게 쓰기 때문에 당연히 올바르게 한국어를 발음하고 있다고 착각하고 있다. 하지만 많은 사람이 잘못된 맞춤법을 사용하는 것처럼, 많은 사람이 잘못된 발음으로 한국어를 발음하고 있다. 대학교 재학 중 &quot;한글맞춤법의 이론과 실제&quot; 강좌를 들으면서 알게 됐던 사실인데, 나도 '닭이 난다', '닭을 잡았다' 등의 문장을 잘못 발음하고 있다는 사실을 알게 되었다. 올바르게 발음하려면 [달기], [달글]으로 발음하는 것이 맞는다. 솔직히 말하자면 너무 오랫동안 잘못된 발음으로 발음한 탓에 아직도 올바른 발음이 입에 붙진 않는다. 이 책에서는 이런 식의 잘못된 발음 말고도 사투리 등의 어조나 어투를 고치는 방법을 알려준다. 한석준 아나운서의 유튜브에 올라와 있는 영상자료 링크도 함께 책에 나와 있어서 쉽게 영상을 보면서 연습할 수 있었다. 가장 특이했던 훈련 중 하나는 모음 훈련으로, 대부분 사람이 모음을 올바르게 발음하지 못하기 때문에 문장에서 자음을 제외한 모음만 발음하도록 만든 훈련이다. 이 책을 보지 않았다면 내가 모음 발음이 잘 안 된다는 사실도 몰랐을 것이다.</p>
+<p>하지만 이 책에서는 말하기 기법 말고도 어떤 내용을 말해야 좋은지도 나와 있다. 어쩌면 말하기 기법들보다도 훨씬 중요한 내용일지도 모른다. 힘들어하는 사람을 위로해주는 일, 상대방의 잘못을 지적하는 일, 상대방의 부탁을 거절하는 일, 상대방에게 조언하는 일 등 일상에서 자주 일어나지만 어떻게 말해야 할지 난감한 일들이 많다. 특히 일상 속에서 대화하다 보면 흔히 나오는 주제이기 때문에 몇 시간 동안 공들여서 생각하면서 글을 쓸 수 없고 즉석에서 말을 꺼내야 하며, 그러다 보면 갈등이 생기기 마련이다. 이 책에서는 어떻게 말하면 현명하게 일을 해결할 수 있는지 알려준다. 개인적으로 말하기 기법들보다 더 중요하게 여겨졌던 챕터였다.</p>
+<p>이 책의 마지막에서 내리는 결론은 좋은 말을 하면 좋은 사람이 온다는 것이다. 대화 중에는 잠시 말을 끊고 몇 시간 동안 생각한 뒤 대화를 이어나갈 수가 없다. 한순간의 실수로 서로를 이해하지 못하고 서로한테 상처를 줄 수가 있다. 이런 일이 생기지 않으려면 평소에 배려하는 태도를 가지고 상대방을 존중하는 마음을 가져 즉석에서 좋은 말이 나올 수 있도록 해야 한다. 상대방을 배려하고 존중하는 사람 주변에는 좋은 사람들만 모일 수밖에 없다. 평소의 태도에 따라서 말 한마디로 좋은 사람을 얻거나 잃을 수도 있다. 언제든지 좋은 말이 나올 수 있도록 연습해둬야겠다.</p>
 ]]></content>
       <categories>
         <category>BOOK</category>
@@ -747,21 +765,30 @@ Abstract class provides a blueprint for <strong>closely related</strong> classes
       </categories>
   </entry>
   <entry>
-    <title>&lt;한석준의 말하기 수업&gt; 나의 말하기를 되돌아볼 시간</title>
-    <url>/posts/11/</url>
-    <content><![CDATA[<div class="image-link-container">
-    <object class="image-link-image" data="/images/BOOK/한석준의_말하기_수업.jpg"></object>
-    <p>한석준의 말하기 수업</p><p>한석준</p>
-    <a href="https://product.kyobobook.co.kr/detail/S000208691083"></a>
-  </div>
-<p>초등학교 때 국어 과목으로 읽기와 듣기, 말하기, 쓰기를 배운 기억이 난다. 학교에서 언어로 할 수 있는 일을 총 4가지로 나누었던 것이다. 저번 독후감을 쓸 때 읽었던 &lt;일머리 문해력&gt;에서 읽기와 쓰기를 어떻게 해야 하는지 배웠는데, 이번 독후감을 쓸 때 읽은 &lt;한석준의 말하기 수업&gt;에서는 말하기를 어떻게 해야 하는지 배운다. 물론 의무교육을 들은 사람들은 누구나 한국어로 읽기, 듣기, 말하기, 쓰기를 할 수 있다. 하지만 남들의 생각을 정확하게 이해하면서 읽고, 자신의 생각을 명료하게 쓰는 것은 어려운 일이고, 학습이 필요하다. 말하기도 마찬가지다. 자기가 말하고자 하는 바를 상대가 이해하도록 정확하게 말하는 일은 쉬운 일이 아니다. 그렇기 때문에 말을 전달해주는 직업인 아나운서라는 직업이 있는 것이다.</p>
-<p>이 책에선 한석준 아나운서가 직접 사용했던 말하기 기법들이 적혀 있다. 사실 다들 한국어를 자연스럽게 쓰기 때문에 당연히 올바르게 한국어를 발음하고 있다고 착각하고 있다. 하지만 많은 사람이 잘못된 맞춤법을 사용하는 것처럼, 많은 사람이 잘못된 발음으로 한국어를 발음하고 있다. 대학교 재학 중 &quot;한글맞춤법의 이론과 실제&quot; 강좌를 들으면서 알게 됐던 사실인데, 나도 '닭이 난다', '닭을 잡았다' 등의 문장을 잘못 발음하고 있다는 사실을 알게 되었다. 올바르게 발음하려면 [달기], [달글]으로 발음하는 것이 맞는다. 솔직히 말하자면 너무 오랫동안 잘못된 발음으로 발음한 탓에 아직도 올바른 발음이 입에 붙진 않는다. 이 책에서는 이런 식의 잘못된 발음 말고도 사투리 등의 어조나 어투를 고치는 방법을 알려준다. 한석준 아나운서의 유튜브에 올라와 있는 영상자료 링크도 함께 책에 나와 있어서 쉽게 영상을 보면서 연습할 수 있었다. 가장 특이했던 훈련 중 하나는 모음 훈련으로, 대부분 사람이 모음을 올바르게 발음하지 못하기 때문에 문장에서 자음을 제외한 모음만 발음하도록 만든 훈련이다. 이 책을 보지 않았다면 내가 모음 발음이 잘 안 된다는 사실도 몰랐을 것이다.</p>
-<p>하지만 이 책에서는 말하기 기법 말고도 어떤 내용을 말해야 좋은지도 나와 있다. 어쩌면 말하기 기법들보다도 훨씬 중요한 내용일지도 모른다. 힘들어하는 사람을 위로해주는 일, 상대방의 잘못을 지적하는 일, 상대방의 부탁을 거절하는 일, 상대방에게 조언하는 일 등 일상에서 자주 일어나지만 어떻게 말해야 할지 난감한 일들이 많다. 특히 일상 속에서 대화하다 보면 흔히 나오는 주제이기 때문에 몇 시간 동안 공들여서 생각하면서 글을 쓸 수 없고 즉석에서 말을 꺼내야 하며, 그러다 보면 갈등이 생기기 마련이다. 이 책에서는 어떻게 말하면 현명하게 일을 해결할 수 있는지 알려준다. 개인적으로 말하기 기법들보다 더 중요하게 여겨졌던 챕터였다.</p>
-<p>이 책의 마지막에서 내리는 결론은 좋은 말을 하면 좋은 사람이 온다는 것이다. 대화 중에는 잠시 말을 끊고 몇 시간 동안 생각한 뒤 대화를 이어나갈 수가 없다. 한순간의 실수로 서로를 이해하지 못하고 서로한테 상처를 줄 수가 있다. 이런 일이 생기지 않으려면 평소에 배려하는 태도를 가지고 상대방을 존중하는 마음을 가져 즉석에서 좋은 말이 나올 수 있도록 해야 한다. 상대방을 배려하고 존중하는 사람 주변에는 좋은 사람들만 모일 수밖에 없다. 평소의 태도에 따라서 말 한마디로 좋은 사람을 얻거나 잃을 수도 있다. 언제든지 좋은 말이 나올 수 있도록 연습해둬야겠다.</p>
+    <title>SOLID principles</title>
+    <url>/posts/30/</url>
+    <content><![CDATA[<h1>SOLID principles</h1>
+<p>SOLID is a OOP design principles proposed by Robert C. Martin in his paper <a href="https://labs.cs.upt.ro/labs/ip2/html/lectures/2/res/Martin-PrinciplesAndPatterns.PDF">Design Principles and Design Patterns. (2000)</a></p>
+<h2 id="Single-responsibility-principle-SRP">Single responsibility principle (SRP)</h2>
+<p>A class should handle one and only one job.<br>
+i.e. a class should have one and only one reason to change.</p>
+<h2 id="Open-Closed-principle-OCP">Open-Closed principle (OCP)</h2>
+<p>Objects or entities should be open for extension, but closed for modification.</p>
+<h2 id="Liskov-substitution-principle-LSP">Liskov substitution principle (LSP)</h2>
+<p>Every subclass should be substitutable for their superclass.<br>
+Formally, if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">q(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> is a property provable about objects of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> of type <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span>, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">q(y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span> should be provable for objects <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> of type <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span> where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span> is a subtype of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span>.</p>
+<h2 id="Interface-segregation-principle-ISP">Interface segregation principle (ISP)</h2>
+<p>Clients shouldn't be forced to depend on methods they do not use.<br>
+i.e. clients should never be forced to implement an interface that it doesn't use.</p>
+<h2 id="Dependency-inversion-principle-DIP">Dependency inversion principle (DIP)</h2>
+<p>Entities must depend on abstractions (e.g. interface) not on concretions (e.g. class).</p>
+<h1>How do I do this???</h1>
+<p>Solution: split your code! (into interfaces or classes)</p>
 ]]></content>
       <categories>
-        <category>BOOK</category>
-        <category>자기계발</category>
+        <category>SNU</category>
+        <category>1-2</category>
+        <category>컴퓨터프로그래밍</category>
       </categories>
   </entry>
   <entry>
@@ -893,33 +920,6 @@ sophos: 지혜로운 사람(sopia: 지혜/지식)</p>
         <category>SNU</category>
         <category>4-0</category>
         <category>그리스 로마 신화</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>SOLID principles</title>
-    <url>/posts/30/</url>
-    <content><![CDATA[<h1>SOLID principles</h1>
-<p>SOLID is a OOP design principles proposed by Robert C. Martin in his paper <a href="https://labs.cs.upt.ro/labs/ip2/html/lectures/2/res/Martin-PrinciplesAndPatterns.PDF">Design Principles and Design Patterns. (2000)</a></p>
-<h2 id="Single-responsibility-principle-SRP">Single responsibility principle (SRP)</h2>
-<p>A class should handle one and only one job.<br>
-i.e. a class should have one and only one reason to change.</p>
-<h2 id="Open-Closed-principle-OCP">Open-Closed principle (OCP)</h2>
-<p>Objects or entities should be open for extension, but closed for modification.</p>
-<h2 id="Liskov-substitution-principle-LSP">Liskov substitution principle (LSP)</h2>
-<p>Every subclass should be substitutable for their superclass.<br>
-Formally, if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">q(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> is a property provable about objects of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> of type <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span>, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">q(y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span> should be provable for objects <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> of type <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span> where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span> is a subtype of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span>.</p>
-<h2 id="Interface-segregation-principle-ISP">Interface segregation principle (ISP)</h2>
-<p>Clients shouldn't be forced to depend on methods they do not use.<br>
-i.e. clients should never be forced to implement an interface that it doesn't use.</p>
-<h2 id="Dependency-inversion-principle-DIP">Dependency inversion principle (DIP)</h2>
-<p>Entities must depend on abstractions (e.g. interface) not on concretions (e.g. class).</p>
-<h1>How do I do this???</h1>
-<p>Solution: split your code! (into interfaces or classes)</p>
-]]></content>
-      <categories>
-        <category>SNU</category>
-        <category>1-2</category>
-        <category>컴퓨터프로그래밍</category>
       </categories>
   </entry>
   <entry>
@@ -1249,130 +1249,6 @@ A. 그건 투쟁이 아니라 그냥 스윽 밀어내고 스윽 밀려난겨(??)
       </categories>
   </entry>
   <entry>
-    <title>제5강 반란을 제압한 제우스</title>
-    <url>/posts/19/</url>
-    <content><![CDATA[<h1>무사 여신들</h1>
-<p>알렉산드로스 대왕(너무 업적이 커서 왕 대신 대왕이라고 부름)은 이집트에 자신의 이름을 딴 도시 알렉산드리아를 세우고 그곳에 세상의 모든 지식을 담아내는 도서관과 박물관을 지으라고 했음.</p>
-<p>이 도서관 겸 박물관은 '무사 여신의 신전'이라는 이름으로 Mousaion이라고 불림 (영어로는 뮤지엄, Museum)</p>
-<p>무사 여신들은 므네모쉬네와 제우스의 딸들인데, 므네모쉬네는 기억의 여신이라 제우스가 시간에 지워지지 않고 영원히 기억되기 위해서 결혼했다고 함<br>
-그래서 무사 여신들이 제우스의 영광을 영원히 기억하도록 노래를 만들게 됨;;;;</p>
-<p>여기서 영원히 기억되어야 할 것들을 보관하는 박물관이라는 단어 Museum이 나온 것</p>
-<p>참고) Music은 무사 여신의 기술이라는 뜻인 무시케(Mousike)에서 나온 말임.</p>
-<h1>내부의 불협화음</h1>
-<h2 id="포세이돈의-불만">포세이돈의 불만</h2>
-<p>티타노마키아의 승리 이후 제우스, 포세이돈, 하데스는 제비뽑기를 통해 각각 하늘과 바다와 지하세계를 나누어 다스림.</p>
-<p>하데스는 올륌포스를 떠나 지하세계를 충실하게 지킨 반면 (아예 안 온건 아니고 가끔 옴), 포세이돈은 계속 올륌포스에 머무르며 권력의 야심을 키워 나감.<br>
-그러면서 제우스가 하늘을 차지하고 전체 통제권을 쥐고 최고의 권력을 누리는 것에 불만을 가지고 계속 제우스를 감시함.</p>
-<h3 id="포세이돈의-반란">포세이돈의 반란</h3>
-<p>네레우스의 딸 테티스를 놓고 결국 포세이돈과 제우스가 경쟁함.<br>
-지혜, 미모, 덕성을 가진 흠이 없는 신이라고 함 ㄷㄷㄷ</p>
-<p><s>근데 나중에 테티스의 아들이 아버지의 권력을 능가할 것이라는 신탁을 듣게 되자 포세이돈과 제우스한테 버려짐....</s></p>
-<p>포세이돈은 제우스한테 불만을 품고 있는 세력을 규합하기로 함.</p>
-<ul>
-<li>헤라는 제우스가 너무 아내가 많아서 불만이 있었음</li>
-<li>아테나는 제우스가 자기 어머니인 메티스를 집어삼켜서 불만이 있었음 <s>정작 제우스는 아테나를 제일 잘 챙겨줬음...</s></li>
-<li>아폴론은 제우스가 자기 아들인 의학/의술의 신 아스클레피오스가 죽은 사람도 살린다고(사실 하데스가 제우스한테 따지기도 함) 번개로 죽여버려서 불만이 있었음 (나중에 제우스가 화해하면서 살려냄)</li>
-</ul>
-<p>이 네 신들이 서로 힘을 합쳐서 제우스의 번개를 빼돌리고 제우스를 굵은 사슬로 꽁꽁 묶어버림<br>
-테티스가 이걸 보고 깜짝 놀라서 지하세계를 관리하던 헤카톤케이르 3형제 중 가장 강력한 브리아레오스에게 도움을 요청함<br>
-티타노마키아에서 도움을 받았던 브리아레오스는 제우스한테 좋은 감정이 있어 제우스를 묶어버린 사슬을 전부 풀어줌</p>
-<h3 id="종살이-하는-포세이돈과-아폴론">종살이 하는 포세이돈과 아폴론</h3>
-<p>제우스는 아폴론과 포세이돈을 지하의 어두컴컴한 암흑의 호수 속으로 던져 버리려고 했으나, 아폴론의 엄마인 레토의 간청으로 포세이돈과 아폴론을 트로이아의 왕 라오메돈 아래 종살이를 하게 함. (신이 인간의 종이 되는 것은 굉장히 굴욕적인 일임!)<br>
-포세이돈은 트로이아 도성을 쌓는 일을, 아폴론은 라오메돈의 소떼를 돌보는 일을 함.</p>
-<p>불경하고 오만한 라오메돈은 일 년 뒤, 두 신에게 노동에 약속한 보상을 하지 않고 두 신을 결박해 노예로 팔아버리겠다는 둥, 청동으로 귀를 잘라 버리겠다는 둥 협박을 가하면서 막 나감.</p>
-<p>개빡친 포세이돈은 트로이아에 바다괴물을 보내고, 아폴론은 역병을 보내 징계함. (아폴론은 병을 고치는 의술의 신이기도 하지만 병을 주기도 하는 신이기도 함)<br>
-라오메돈은 GG치고 어떻게 하면 좋겠냐고 물어보니 딸 헤시오네를 제물로 바치라는 신탁을 받게되고, 그대로 함 <s>진짜 쓰레기다</s><br>
-결국 라오메돈은 바다괴물에게 딸 헤시오네를 바쳐버리지만, 다행히 지나가던 헤라클레스가 헤시오네를 구하게 됨</p>
-<h1>기간토마키아</h1>
-<h2 id="가이아의-불만">가이아의 불만</h2>
-<p>티타노마키아에서 승리한 뒤 제우스는 티탄신족들을 타르타로스에 감금하고 헤카톤케이르 3형제를 감독관으로 임명함.<br>
-다같이 잘 사는 평화로운 사회를 원했던 가이아는 가이아의 자식들을 또다시 가둬버리는 제우스의 통치에 불만을 품게 됨.</p>
-<p>가이아는 제우스를 무너뜨리려고 기가스들을(Gigantes) 동원함.<br>
-Recall) 우라노스가 거세될 때 흘린 정액과 피가 땅에 닿아서 태어난 거신족들임.</p>
-<h2 id="기간토마키아">기간토마키아</h2>
-<p>기가스들은 거대한 크기와 무시무시한 모습을 가지고 있었는데 머리와 턱에 깊은 터럭을 가지고 다리에는 뱀이 꿈틀거렸다고 함.<br>
-얘들은 올륌포스를 향해 바위와 불 붙은 참나무를 던지면서 공격함.</p>
-<p>포르퓌리온과 알퀴오네우스가 대표적인 기가스고, 특히 알퀴오네우스는 고향 땅에서 싸우는 한 불사의 존재였음.<br>
-근데 심지어 알퀴오네우스만 그런게 아니라 대부분 기가스가 땅에 발을 붙이고 싸우는 한 불사의 존재였음;;;</p>
-<p>고전하던 올륌포스 신들에게 &quot;거신들은 신들의 공격으로는 절대 죽지 않고, 오직 필멸의 인간이 동맹자로 싸워야만 승리할 수 있다&quot;는 신탁이 내려짐. 가장 지혜로운 여신인 아테나가 이 인간이 헤라클레스라는 것을 알아냄.</p>
-<p>올륌포스의 신들이 중심이 되어 많은 신들이 힘을 합치고, 인간 헤라클레스가 동맹군으로 참여하여 대규모 전쟁을 치르게 됨.<br>
-기가스들과 올륌포스 신들과의 전쟁을 기간토마키아라고 함.<br>
-제우스의 두 번째 큰 고비로, 이전에는 신들끼리 계속 싸웠지만 외부 세력이 들어오자 신들이 올륌포스 12신 체계를 지키기 위해 단합하는 모습을 보여줌</p>
-<h3 id="페르가몬의-제단">페르가몬의 제단</h3>
-<p>여러 신전에 기간토마키아의 장면들이 새겨져 있다고 함!<br>
-특히 페르가몬의 제단이 있는데 고고학자들이 발굴한 후 보존해야겠다는 마음을 먹고 전부 뜯어온 뒤 재현했다고 함;;;<br>
-이 제단을 바탕으로 만든 박물관이 페르가몬 박물관임</p>
-<ul>
-<li>알키오네오스를 아테나와 헤라클레스가 칼과 화살로 죽이는 장면</li>
-<li>포르퓌리온을 제우스가 헤라를 이용해 미인계를 사용하여 죽이는 장면 (헤라한테 한눈에 반한 포르퓌리온이 숨은 헤라를 따라가면 숨어있던 제우스와 헤라클레스가 죽여버림)</li>
-<li>헤카테와 아르테미스가 기가스를 죽이는 장면</li>
-<li>레토가 기가스를 찌르는 장면</li>
-<li>아폴론이 기가스를 발로 제압하는 장면</li>
-<li>아프로디테와 미인계로 기가스를 죽이는 장면 (마찬가지로 아프로디테가 동굴로 숨어버리고 따라온 기가스를 숨어있던 헤라클레스가 죽여버림)</li>
-<li>아프로디테와 에로스가 직접 기가스를 발로 제압하는 장면 (미인계가 아님!!)</li>
-<li>디오네(아프로디테 판데모스의 어머니라고 알려져있는 신)가 싸우는 장면</li>
-<li>디오뉘소스가 솔방울 모양의 지팡이인 튀르소스를 휘두르며 싸우는 장면</li>
-<li>레아가 사자를 타고 다니며 싸우는 장면</li>
-</ul>
-<p>등등 여러 장면이 생생하게 부조에 남아있음</p>
-<h2 id="기간토마키아의-승리">기간토마키아의 승리</h2>
-<ul>
-<li>제우스는 포르퓌리온과 나머지 기가스들을 번개로 물리침</li>
-<li>아테나는 알퀴오네우스를 무찌른 뒤, 에켈라도스에게 시켈리아 섬을 던져서 잡음</li>
-<li>아폴론과 헤라클레스는 에피알테스를 화살로 잡음</li>
-<li>디오뉘소스는 튀르소스로 에뤼토스를 잡음</li>
-<li>헤카테가 횃불로 클뤼티오스를 잡음</li>
-<li>헤파이스토스가 모루로 미마스를 잡음</li>
-<li>포세이돈은 폴뤼보테스를 코스섬으로 유도한 뒤 코스섬을 던져서 잡음</li>
-<li>헤르메스는 휩폴뤼토스를 잡음</li>
-<li>아르테미스는 그라티온을 잡음</li>
-<li>모이라는 청동의 곤봉으로 아그리오스와 토온을 잡음</li>
-</ul>
-<p>여러 신들이 활약하며 기간토마키아는 제우스의 승리로 끝남!<br>
-하지만 가이아는 이 결과에 만족하지 않는데....</p>
-<h1>튀포노마키아</h1>
-<h2 id="튀폰의-탄생">튀폰의 탄생</h2>
-<p>기간토마키아에서 기가스들의 패배에 충격을 받은 가이아는 타르타로스와 결합하여 지금까지의 모든 존재들보다 가장 위협적이고 거대한 튀폰을 낳음. (튀폰은 나중에 typhoon, 태풍이 됨)</p>
-<p>아폴로도로스의 &lt;비블리오테케&gt;, 헤시오도스의 &lt;신들의 계보&gt; 등에서 묘사되었는데, 머리가 하늘에 닿고, 양팔과 양손이 세상에 닿고, 백 개나 되는 용의 머리가 양팔 위에 솟아 있고, 넓적다리 아래에는 거대한 뱀들이 꿈틀거리고(여담으로 기가스는 뱀이 한 마리만 있었음), 온몸에는 날개가 달렸고, 입에선 불을 뿜어낸다고 함.</p>
-<p>이건 못 이긴다고 보고 올륌포스의 신들은 짐승으로 변신해 아이귑토스(현재 이집트)로 피신함;;</p>
-<h2 id="튀폰과-제우스의-대결">튀폰과 제우스의 대결</h2>
-<p>제우스는 유일하게 도망가지 않고 튀폰과 싸웠는데, <s>사실 좆밥일줄 알고 그냥 무지성 정면대결 한거임</s><br>
-제우스의 번개는 튀폰에게 큰 상처를 입혔지만 튀폰이 제우스를 손으로 잡아버리고 다른 손으로 사지의 힘줄을 끊어버림;<br>
-튀폰은 사지가 끊긴 제우스를 칼리키아의 코리코스 동굴에 가둬버리고 잘라낸 힘줄을 곰의 가죽으로 싸서 아무도 모르는 곳에 숨겨놨다고 함.</p>
-<p>이렇게 튀폰이 승리한 것으로 보였으나...</p>
-<h2 id="제우스의-승리">제우스의 승리</h2>
-<p>제우스의 최측근인 헤르메스가 숨겨져있던 제우스의 힘줄을 찾아내고, 제우스를 찾아가 힘줄을 다시 연결시켜 제우스를 다시 되살림.<br>
-냅다 도망친 제우스는 튀폰과 정면대결하면 안 된다는 것을 깨닫고 번개를 던지고 빠지는 것만 반복함.<br>
-제우스는 약이 오른 튀폰을 시칠리아 섬 쪽으로 유인한 뒤 근처에 있던 에트나 화산으로 묻어버림<br>
-<s>근데 세상보다 크다는데 화산으로 덮힘?</s> <s>그냥 그런갑다 하세요</s></p>
-<p>여담으로 에트나 화산이 활발한 활화산인 이유가 깔린 튀폰이 화나서 으아 하고 외쳐서 그런거라고 함;;</p>
-<p>이렇게 기간토마키아와 튀포노마키아를 승리로 이끈 제우스는 자신의 권력을 영원히 지켜나가게 됨.</p>
-<h2 id="튀폰과-에키드나의-자식들">튀폰과 에키드나의 자식들</h2>
-<p>튀폰은 에트나 화산에 깔리기 전에 에키드나 여신과 결합해 여러 자식들을 낳음.<br>
-에키드나는 기가스와 비슷한 모습인데, 튀폰과 함께 낳은 자식들이 다 괴물임...</p>
-<ul>
-<li>머리 둘 달린 오르트로스(게리온의 소떼 지킴이)와 셋 달린 케르베로스(저승의 입구 지킴이)</li>
-<li>네르나 호수에 사는 머리가 아홉인 히드라</li>
-<li>사자와 염소와 뱀이 결합된 키마이라</li>
-<li>네메이아 사자</li>
-<li>크롬뮈온의 식인 멧돼지 파이아</li>
-<li>카륍디스의 스퀼라</li>
-<li>카우카소스 산(프로메테우스가 형벌을 받게 되는 곳)의 독수리</li>
-<li>헤스페리데스의 과수원 황금사과를 지키는 용 라돈</li>
-<li>콜키스의 황금양털을 지키는 용</li>
-<li>스핑크스 등등</li>
-</ul>
-<p>이 괴물들이 인간들을 괴롭히게 되고, 인간들 중에서 나타난 영웅들이 괴물들을 물리침.<br>
-그리스 로마 신화의 앞 부분은 신들의 이야기, 그리스 로마 신화의 뒷 부분은 영웅들의 이야기라고 보면 됨!<br>
-스포) 사실 헤라클레스가 거의 다 함;;</p>
-]]></content>
-      <categories>
-        <category>SNU</category>
-        <category>4-0</category>
-        <category>그리스 로마 신화</category>
-      </categories>
-  </entry>
-  <entry>
     <title>제4강 올륌포스 12신 체제</title>
     <url>/posts/18/</url>
     <content><![CDATA[<h1>티타노마키아에 참여한 신들</h1>
@@ -1493,6 +1369,130 @@ but 개빡친 헤라가 디오뉘소스를 광기에 휩싸이게 만들어서 �
 <p>제우스의 신전은 아주 큰 규모로 올림피아에 있었음.<br>
 그 옆에 약간 조그맣게 헤라 신전이 있었고,<br>
 그 옆에 스타디온이라는 공터가 있었는데 여기서 제우스를 기리는 거대한 규모의 축제인 올림피아가 있었음. (추후에 올림픽이 됨)</p>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-0</category>
+        <category>그리스 로마 신화</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>제5강 반란을 제압한 제우스</title>
+    <url>/posts/19/</url>
+    <content><![CDATA[<h1>무사 여신들</h1>
+<p>알렉산드로스 대왕(너무 업적이 커서 왕 대신 대왕이라고 부름)은 이집트에 자신의 이름을 딴 도시 알렉산드리아를 세우고 그곳에 세상의 모든 지식을 담아내는 도서관과 박물관을 지으라고 했음.</p>
+<p>이 도서관 겸 박물관은 '무사 여신의 신전'이라는 이름으로 Mousaion이라고 불림 (영어로는 뮤지엄, Museum)</p>
+<p>무사 여신들은 므네모쉬네와 제우스의 딸들인데, 므네모쉬네는 기억의 여신이라 제우스가 시간에 지워지지 않고 영원히 기억되기 위해서 결혼했다고 함<br>
+그래서 무사 여신들이 제우스의 영광을 영원히 기억하도록 노래를 만들게 됨;;;;</p>
+<p>여기서 영원히 기억되어야 할 것들을 보관하는 박물관이라는 단어 Museum이 나온 것</p>
+<p>참고) Music은 무사 여신의 기술이라는 뜻인 무시케(Mousike)에서 나온 말임.</p>
+<h1>내부의 불협화음</h1>
+<h2 id="포세이돈의-불만">포세이돈의 불만</h2>
+<p>티타노마키아의 승리 이후 제우스, 포세이돈, 하데스는 제비뽑기를 통해 각각 하늘과 바다와 지하세계를 나누어 다스림.</p>
+<p>하데스는 올륌포스를 떠나 지하세계를 충실하게 지킨 반면 (아예 안 온건 아니고 가끔 옴), 포세이돈은 계속 올륌포스에 머무르며 권력의 야심을 키워 나감.<br>
+그러면서 제우스가 하늘을 차지하고 전체 통제권을 쥐고 최고의 권력을 누리는 것에 불만을 가지고 계속 제우스를 감시함.</p>
+<h3 id="포세이돈의-반란">포세이돈의 반란</h3>
+<p>네레우스의 딸 테티스를 놓고 결국 포세이돈과 제우스가 경쟁함.<br>
+지혜, 미모, 덕성을 가진 흠이 없는 신이라고 함 ㄷㄷㄷ</p>
+<p><s>근데 나중에 테티스의 아들이 아버지의 권력을 능가할 것이라는 신탁을 듣게 되자 포세이돈과 제우스한테 버려짐....</s></p>
+<p>포세이돈은 제우스한테 불만을 품고 있는 세력을 규합하기로 함.</p>
+<ul>
+<li>헤라는 제우스가 너무 아내가 많아서 불만이 있었음</li>
+<li>아테나는 제우스가 자기 어머니인 메티스를 집어삼켜서 불만이 있었음 <s>정작 제우스는 아테나를 제일 잘 챙겨줬음...</s></li>
+<li>아폴론은 제우스가 자기 아들인 의학/의술의 신 아스클레피오스가 죽은 사람도 살린다고(사실 하데스가 제우스한테 따지기도 함) 번개로 죽여버려서 불만이 있었음 (나중에 제우스가 화해하면서 살려냄)</li>
+</ul>
+<p>이 네 신들이 서로 힘을 합쳐서 제우스의 번개를 빼돌리고 제우스를 굵은 사슬로 꽁꽁 묶어버림<br>
+테티스가 이걸 보고 깜짝 놀라서 지하세계를 관리하던 헤카톤케이르 3형제 중 가장 강력한 브리아레오스에게 도움을 요청함<br>
+티타노마키아에서 도움을 받았던 브리아레오스는 제우스한테 좋은 감정이 있어 제우스를 묶어버린 사슬을 전부 풀어줌</p>
+<h3 id="종살이-하는-포세이돈과-아폴론">종살이 하는 포세이돈과 아폴론</h3>
+<p>제우스는 아폴론과 포세이돈을 지하의 어두컴컴한 암흑의 호수 속으로 던져 버리려고 했으나, 아폴론의 엄마인 레토의 간청으로 포세이돈과 아폴론을 트로이아의 왕 라오메돈 아래 종살이를 하게 함. (신이 인간의 종이 되는 것은 굉장히 굴욕적인 일임!)<br>
+포세이돈은 트로이아 도성을 쌓는 일을, 아폴론은 라오메돈의 소떼를 돌보는 일을 함.</p>
+<p>불경하고 오만한 라오메돈은 일 년 뒤, 두 신에게 노동에 약속한 보상을 하지 않고 두 신을 결박해 노예로 팔아버리겠다는 둥, 청동으로 귀를 잘라 버리겠다는 둥 협박을 가하면서 막 나감.</p>
+<p>개빡친 포세이돈은 트로이아에 바다괴물을 보내고, 아폴론은 역병을 보내 징계함. (아폴론은 병을 고치는 의술의 신이기도 하지만 병을 주기도 하는 신이기도 함)<br>
+라오메돈은 GG치고 어떻게 하면 좋겠냐고 물어보니 딸 헤시오네를 제물로 바치라는 신탁을 받게되고, 그대로 함 <s>진짜 쓰레기다</s><br>
+결국 라오메돈은 바다괴물에게 딸 헤시오네를 바쳐버리지만, 다행히 지나가던 헤라클레스가 헤시오네를 구하게 됨</p>
+<h1>기간토마키아</h1>
+<h2 id="가이아의-불만">가이아의 불만</h2>
+<p>티타노마키아에서 승리한 뒤 제우스는 티탄신족들을 타르타로스에 감금하고 헤카톤케이르 3형제를 감독관으로 임명함.<br>
+다같이 잘 사는 평화로운 사회를 원했던 가이아는 가이아의 자식들을 또다시 가둬버리는 제우스의 통치에 불만을 품게 됨.</p>
+<p>가이아는 제우스를 무너뜨리려고 기가스들을(Gigantes) 동원함.<br>
+Recall) 우라노스가 거세될 때 흘린 정액과 피가 땅에 닿아서 태어난 거신족들임.</p>
+<h2 id="기간토마키아">기간토마키아</h2>
+<p>기가스들은 거대한 크기와 무시무시한 모습을 가지고 있었는데 머리와 턱에 깊은 터럭을 가지고 다리에는 뱀이 꿈틀거렸다고 함.<br>
+얘들은 올륌포스를 향해 바위와 불 붙은 참나무를 던지면서 공격함.</p>
+<p>포르퓌리온과 알퀴오네우스가 대표적인 기가스고, 특히 알퀴오네우스는 고향 땅에서 싸우는 한 불사의 존재였음.<br>
+근데 심지어 알퀴오네우스만 그런게 아니라 대부분 기가스가 땅에 발을 붙이고 싸우는 한 불사의 존재였음;;;</p>
+<p>고전하던 올륌포스 신들에게 &quot;거신들은 신들의 공격으로는 절대 죽지 않고, 오직 필멸의 인간이 동맹자로 싸워야만 승리할 수 있다&quot;는 신탁이 내려짐. 가장 지혜로운 여신인 아테나가 이 인간이 헤라클레스라는 것을 알아냄.</p>
+<p>올륌포스의 신들이 중심이 되어 많은 신들이 힘을 합치고, 인간 헤라클레스가 동맹군으로 참여하여 대규모 전쟁을 치르게 됨.<br>
+기가스들과 올륌포스 신들과의 전쟁을 기간토마키아라고 함.<br>
+제우스의 두 번째 큰 고비로, 이전에는 신들끼리 계속 싸웠지만 외부 세력이 들어오자 신들이 올륌포스 12신 체계를 지키기 위해 단합하는 모습을 보여줌</p>
+<h3 id="페르가몬의-제단">페르가몬의 제단</h3>
+<p>여러 신전에 기간토마키아의 장면들이 새겨져 있다고 함!<br>
+특히 페르가몬의 제단이 있는데 고고학자들이 발굴한 후 보존해야겠다는 마음을 먹고 전부 뜯어온 뒤 재현했다고 함;;;<br>
+이 제단을 바탕으로 만든 박물관이 페르가몬 박물관임</p>
+<ul>
+<li>알키오네오스를 아테나와 헤라클레스가 칼과 화살로 죽이는 장면</li>
+<li>포르퓌리온을 제우스가 헤라를 이용해 미인계를 사용하여 죽이는 장면 (헤라한테 한눈에 반한 포르퓌리온이 숨은 헤라를 따라가면 숨어있던 제우스와 헤라클레스가 죽여버림)</li>
+<li>헤카테와 아르테미스가 기가스를 죽이는 장면</li>
+<li>레토가 기가스를 찌르는 장면</li>
+<li>아폴론이 기가스를 발로 제압하는 장면</li>
+<li>아프로디테와 미인계로 기가스를 죽이는 장면 (마찬가지로 아프로디테가 동굴로 숨어버리고 따라온 기가스를 숨어있던 헤라클레스가 죽여버림)</li>
+<li>아프로디테와 에로스가 직접 기가스를 발로 제압하는 장면 (미인계가 아님!!)</li>
+<li>디오네(아프로디테 판데모스의 어머니라고 알려져있는 신)가 싸우는 장면</li>
+<li>디오뉘소스가 솔방울 모양의 지팡이인 튀르소스를 휘두르며 싸우는 장면</li>
+<li>레아가 사자를 타고 다니며 싸우는 장면</li>
+</ul>
+<p>등등 여러 장면이 생생하게 부조에 남아있음</p>
+<h2 id="기간토마키아의-승리">기간토마키아의 승리</h2>
+<ul>
+<li>제우스는 포르퓌리온과 나머지 기가스들을 번개로 물리침</li>
+<li>아테나는 알퀴오네우스를 무찌른 뒤, 에켈라도스에게 시켈리아 섬을 던져서 잡음</li>
+<li>아폴론과 헤라클레스는 에피알테스를 화살로 잡음</li>
+<li>디오뉘소스는 튀르소스로 에뤼토스를 잡음</li>
+<li>헤카테가 횃불로 클뤼티오스를 잡음</li>
+<li>헤파이스토스가 모루로 미마스를 잡음</li>
+<li>포세이돈은 폴뤼보테스를 코스섬으로 유도한 뒤 코스섬을 던져서 잡음</li>
+<li>헤르메스는 휩폴뤼토스를 잡음</li>
+<li>아르테미스는 그라티온을 잡음</li>
+<li>모이라는 청동의 곤봉으로 아그리오스와 토온을 잡음</li>
+</ul>
+<p>여러 신들이 활약하며 기간토마키아는 제우스의 승리로 끝남!<br>
+하지만 가이아는 이 결과에 만족하지 않는데....</p>
+<h1>튀포노마키아</h1>
+<h2 id="튀폰의-탄생">튀폰의 탄생</h2>
+<p>기간토마키아에서 기가스들의 패배에 충격을 받은 가이아는 타르타로스와 결합하여 지금까지의 모든 존재들보다 가장 위협적이고 거대한 튀폰을 낳음. (튀폰은 나중에 typhoon, 태풍이 됨)</p>
+<p>아폴로도로스의 &lt;비블리오테케&gt;, 헤시오도스의 &lt;신들의 계보&gt; 등에서 묘사되었는데, 머리가 하늘에 닿고, 양팔과 양손이 세상에 닿고, 백 개나 되는 용의 머리가 양팔 위에 솟아 있고, 넓적다리 아래에는 거대한 뱀들이 꿈틀거리고(여담으로 기가스는 뱀이 한 마리만 있었음), 온몸에는 날개가 달렸고, 입에선 불을 뿜어낸다고 함.</p>
+<p>이건 못 이긴다고 보고 올륌포스의 신들은 짐승으로 변신해 아이귑토스(현재 이집트)로 피신함;;</p>
+<h2 id="튀폰과-제우스의-대결">튀폰과 제우스의 대결</h2>
+<p>제우스는 유일하게 도망가지 않고 튀폰과 싸웠는데, <s>사실 좆밥일줄 알고 그냥 무지성 정면대결 한거임</s><br>
+제우스의 번개는 튀폰에게 큰 상처를 입혔지만 튀폰이 제우스를 손으로 잡아버리고 다른 손으로 사지의 힘줄을 끊어버림;<br>
+튀폰은 사지가 끊긴 제우스를 칼리키아의 코리코스 동굴에 가둬버리고 잘라낸 힘줄을 곰의 가죽으로 싸서 아무도 모르는 곳에 숨겨놨다고 함.</p>
+<p>이렇게 튀폰이 승리한 것으로 보였으나...</p>
+<h2 id="제우스의-승리">제우스의 승리</h2>
+<p>제우스의 최측근인 헤르메스가 숨겨져있던 제우스의 힘줄을 찾아내고, 제우스를 찾아가 힘줄을 다시 연결시켜 제우스를 다시 되살림.<br>
+냅다 도망친 제우스는 튀폰과 정면대결하면 안 된다는 것을 깨닫고 번개를 던지고 빠지는 것만 반복함.<br>
+제우스는 약이 오른 튀폰을 시칠리아 섬 쪽으로 유인한 뒤 근처에 있던 에트나 화산으로 묻어버림<br>
+<s>근데 세상보다 크다는데 화산으로 덮힘?</s> <s>그냥 그런갑다 하세요</s></p>
+<p>여담으로 에트나 화산이 활발한 활화산인 이유가 깔린 튀폰이 화나서 으아 하고 외쳐서 그런거라고 함;;</p>
+<p>이렇게 기간토마키아와 튀포노마키아를 승리로 이끈 제우스는 자신의 권력을 영원히 지켜나가게 됨.</p>
+<h2 id="튀폰과-에키드나의-자식들">튀폰과 에키드나의 자식들</h2>
+<p>튀폰은 에트나 화산에 깔리기 전에 에키드나 여신과 결합해 여러 자식들을 낳음.<br>
+에키드나는 기가스와 비슷한 모습인데, 튀폰과 함께 낳은 자식들이 다 괴물임...</p>
+<ul>
+<li>머리 둘 달린 오르트로스(게리온의 소떼 지킴이)와 셋 달린 케르베로스(저승의 입구 지킴이)</li>
+<li>네르나 호수에 사는 머리가 아홉인 히드라</li>
+<li>사자와 염소와 뱀이 결합된 키마이라</li>
+<li>네메이아 사자</li>
+<li>크롬뮈온의 식인 멧돼지 파이아</li>
+<li>카륍디스의 스퀼라</li>
+<li>카우카소스 산(프로메테우스가 형벌을 받게 되는 곳)의 독수리</li>
+<li>헤스페리데스의 과수원 황금사과를 지키는 용 라돈</li>
+<li>콜키스의 황금양털을 지키는 용</li>
+<li>스핑크스 등등</li>
+</ul>
+<p>이 괴물들이 인간들을 괴롭히게 되고, 인간들 중에서 나타난 영웅들이 괴물들을 물리침.<br>
+그리스 로마 신화의 앞 부분은 신들의 이야기, 그리스 로마 신화의 뒷 부분은 영웅들의 이야기라고 보면 됨!<br>
+스포) 사실 헤라클레스가 거의 다 함;;</p>
 ]]></content>
       <categories>
         <category>SNU</category>
@@ -3211,101 +3211,6 @@ Everything is mixed - physics(optics), mathematics(mathematical optimization), H
       </categories>
   </entry>
   <entry>
-    <title>Introduction</title>
-    <url>/posts/34/</url>
-    <content><![CDATA[<h1>What is internet?</h1>
-<h2 id="Nuts-and-Bolts-view">Nuts and Bolts view</h2>
-<ul>
-<li>Billions of connected computing devices (hosts)</li>
-<li>Packet switches that forawrds packets (routers, switches)</li>
-<li>Communication links (fiber, copper, radio, satellite)</li>
-<li>Networks: Collection of devices, routers, links that is managed by an organization</li>
-</ul>
-<p>Internet is a network of networks - interconnected Internet Service Providers (ISPs)</p>
-<ul>
-<li>Protocols that defines format and order of the messages sent and received<br>
-e.g. HTTP, TCP, IP, Ethernet, etc.</li>
-<li>Internet standards
-<ul>
-<li>RFC: Request for Comments</li>
-<li>IETF: Internet Engineering Task Force</li>
-</ul>
-</li>
-</ul>
-<h2 id="Services-view">&quot;Services&quot; view</h2>
-<p>Internet is an infrastructure that provides services to applications.<br>
-e.g. web, streaming video, email, games, etc.</p>
-<p>Internet provides programming interface to distributed applications.</p>
-<h1>A closer look at Internet</h1>
-<ul>
-<li>Network edge: an end of network<br>
-Also called hosts: clients and servers</li>
-<li>Access networks, physical media: communication links, either wired or wireless</li>
-<li>Network core: interconnected routers<br>
-This makes network of networks!</li>
-</ul>
-<h2 id="Access-networks">Access networks</h2>
-<p>Wired: uses cable, actually sometimes use telephone line<br>
-Usually asymmetric! Download bandwidth is higher than upload bandwidth.</p>
-<p>Wireless: connects via access point (AP)<br>
-Wireless local area network (WLAN): Typically within building (Wi-Fi)<br>
-Wide-area cellular access networks: Provided by mobile, cellular network operator (4G/5G)</p>
-<p>There are some specialized networks like enterprise networks and data center networks!</p>
-<h2 id="Packets">Packets</h2>
-<p>Hosts send application message in packets.<br>
-Packets has fixed length - L bits.<br>
-Host transmits packet into access network at transmission rate R. (Also called link transmission rate, link capacity, and link bandwith.)</p>
-<h2 id="Links">Links</h2>
-<ul>
-<li>Guided media: signals propagate in solid media such as copper, fiber, and coax.</li>
-<li>Unguided media: signals propagate freely e.g. radio.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>SNU</category>
-        <category>4-1</category>
-        <category>컴퓨터네트워크</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Introduction</title>
-    <url>/posts/31/</url>
-    <content><![CDATA[<h1>왜 왔냐요</h1>
-<p>과목명이 멋져요 <s>과목명을 바꿔야겠다</s></p>
-<h1>Real introduction</h1>
-<p>How can we run AI (in GPU) efficiently?</p>
-<ul>
-<li>What is AI accelerator chip?</li>
-<li>How can we design AI accelerator chip?</li>
-<li>How can we run neural networks on the AI accelerator chip (or GPU)?</li>
-<li>How can we run CNN/LLM on the AI accelerator chip (or GPU)?</li>
-<li>(If possible) why HBM is more important?</li>
-</ul>
-<h1>Lecture goal</h1>
-<p>Understanding hardware/software system design issues/methods with a real system design example</p>
-<h2 id="Hardware-design">Hardware design</h2>
-<p>Matrix-matrix (MM) multiplication accelerator</p>
-<p>Previously we used Verilog, but these days we have python-based hardware description language, Amaranth!</p>
-<h2 id="Software-design">Software design</h2>
-<p>Neural network code running on CPU</p>
-<p>It should communicate with hardware MM accelerator.</p>
-<h2 id="Optimizing-software-hardware-design">Optimizing software/hardware design</h2>
-<ul>
-<li>Tiling a.k.a. blocking</li>
-<li>Reduced precision (e.g. 8-bit computation)</li>
-<li>Zero skipping in matrix-matrix multiplication</li>
-</ul>
-<p>Optimization includes runtime optimization and energy optimization.</p>
-<p>Q. How do we optimize power with Amaranth(simulation)?<br>
-A. Even Verilog uses power estimation. We estimate power usage for each step in design process.</p>
-]]></content>
-      <categories>
-        <category>SNU</category>
-        <category>4-1</category>
-        <category>하드웨어시스템설계</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Affine Geometry</title>
     <url>/posts/35/</url>
     <content><![CDATA[<h1>2D/3D Geometry Representation</h1>
@@ -3409,6 +3314,101 @@ u &amp;\coloneqq q - p_3 = \begin{bmatrix}v_1 &amp; v_2\end{bmatrix}\begin{bmatr
         <category>SNU</category>
         <category>4-1</category>
         <category>컴퓨터그래픽스</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Introduction</title>
+    <url>/posts/34/</url>
+    <content><![CDATA[<h1>What is internet?</h1>
+<h2 id="Nuts-and-Bolts-view">Nuts and Bolts view</h2>
+<ul>
+<li>Billions of connected computing devices (hosts)</li>
+<li>Packet switches that forawrds packets (routers, switches)</li>
+<li>Communication links (fiber, copper, radio, satellite)</li>
+<li>Networks: Collection of devices, routers, links that is managed by an organization</li>
+</ul>
+<p>Internet is a network of networks - interconnected Internet Service Providers (ISPs)</p>
+<ul>
+<li>Protocols that defines format and order of the messages sent and received<br>
+e.g. HTTP, TCP, IP, Ethernet, etc.</li>
+<li>Internet standards
+<ul>
+<li>RFC: Request for Comments</li>
+<li>IETF: Internet Engineering Task Force</li>
+</ul>
+</li>
+</ul>
+<h2 id="Services-view">&quot;Services&quot; view</h2>
+<p>Internet is an infrastructure that provides services to applications.<br>
+e.g. web, streaming video, email, games, etc.</p>
+<p>Internet provides programming interface to distributed applications.</p>
+<h1>A closer look at Internet</h1>
+<ul>
+<li>Network edge: an end of network<br>
+Also called hosts: clients and servers</li>
+<li>Access networks, physical media: communication links, either wired or wireless</li>
+<li>Network core: interconnected routers<br>
+This makes network of networks!</li>
+</ul>
+<h2 id="Access-networks">Access networks</h2>
+<p>Wired: uses cable, actually sometimes use telephone line<br>
+Usually asymmetric! Download bandwidth is higher than upload bandwidth.</p>
+<p>Wireless: connects via access point (AP)<br>
+Wireless local area network (WLAN): Typically within building (Wi-Fi)<br>
+Wide-area cellular access networks: Provided by mobile, cellular network operator (4G/5G)</p>
+<p>There are some specialized networks like enterprise networks and data center networks!</p>
+<h2 id="Packets">Packets</h2>
+<p>Hosts send application message in packets.<br>
+Packets has fixed length - L bits.<br>
+Host transmits packet into access network at transmission rate R. (Also called link transmission rate, link capacity, and link bandwith.)</p>
+<h2 id="Links">Links</h2>
+<ul>
+<li>Guided media: signals propagate in solid media such as copper, fiber, and coax.</li>
+<li>Unguided media: signals propagate freely e.g. radio.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>컴퓨터네트워크</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Introduction</title>
+    <url>/posts/31/</url>
+    <content><![CDATA[<h1>왜 왔냐요</h1>
+<p>과목명이 멋져요 <s>과목명을 바꿔야겠다</s></p>
+<h1>Real introduction</h1>
+<p>How can we run AI (in GPU) efficiently?</p>
+<ul>
+<li>What is AI accelerator chip?</li>
+<li>How can we design AI accelerator chip?</li>
+<li>How can we run neural networks on the AI accelerator chip (or GPU)?</li>
+<li>How can we run CNN/LLM on the AI accelerator chip (or GPU)?</li>
+<li>(If possible) why HBM is more important?</li>
+</ul>
+<h1>Lecture goal</h1>
+<p>Understanding hardware/software system design issues/methods with a real system design example</p>
+<h2 id="Hardware-design">Hardware design</h2>
+<p>Matrix-matrix (MM) multiplication accelerator</p>
+<p>Previously we used Verilog, but these days we have python-based hardware description language, Amaranth!</p>
+<h2 id="Software-design">Software design</h2>
+<p>Neural network code running on CPU</p>
+<p>It should communicate with hardware MM accelerator.</p>
+<h2 id="Optimizing-software-hardware-design">Optimizing software/hardware design</h2>
+<ul>
+<li>Tiling a.k.a. blocking</li>
+<li>Reduced precision (e.g. 8-bit computation)</li>
+<li>Zero skipping in matrix-matrix multiplication</li>
+</ul>
+<p>Optimization includes runtime optimization and energy optimization.</p>
+<p>Q. How do we optimize power with Amaranth(simulation)?<br>
+A. Even Verilog uses power estimation. We estimate power usage for each step in design process.</p>
+]]></content>
+      <categories>
+        <category>SNU</category>
+        <category>4-1</category>
+        <category>하드웨어시스템설계</category>
       </categories>
   </entry>
 </search>
