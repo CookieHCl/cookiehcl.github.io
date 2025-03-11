@@ -4,7 +4,6 @@ categories:
   - SNU
   - 4-1
   - 컴퓨터그래픽스
-abbrlink: 35
 date: 2025-03-06 11:02:21
 tags:
 ---
@@ -70,16 +69,16 @@ Point multiplied by any other scalar is **undefined**.
 
 Linear combination of vector.
 
-$$ v = \sum_{i=0}^{N} c_iv_i $$
+$$\mathbf{v} = \sum_{i=0}^{N} c_i\mathbf{v}_i$$
 
 ## Affine combination
 
 Linear combination of points????  
 It is even possible??
 
-$$ \sum_{i=0}^{N} c_ip_i = \left(\sum_{i=0}^{N} c_i\right)p_0 + \sum_{i=0}^{N} c_i(p_i-p_0) $$
+$$\sum_{i=0}^{N} c_i\mathbf{p}_i = \left(\sum_{i=0}^{N} c_i\right)\mathbf{p}_0 + \sum_{i=0}^{N} c_i(\mathbf{p}_i-\mathbf{p}_0)$$
 
-$\sum_{i=0}^{N} c_i(p_i-p_0)$ is actually a vector.  
+$\sum_{i=0}^{N} c_i(\mathbf{p}_i-\mathbf{p}_0)$ is actually a vector.  
 If $\sum_{i=0}^{N} c_i$ is 0, this is just a linear combination of vectors.  
 If $\sum_{i=0}^{N} c_i$ is 1, this is a point, and we call this an **affine combination**.  
 Otherwise, this is undefined.
@@ -88,8 +87,8 @@ Otherwise, this is undefined.
 
 A frame is defined as a basis of a vector space and a point o (called *origin*).
 
-Any point p can be written as $p = o + c_1v_1 + \cdots + c_Nv_N$.  
-Any vector v can be written as $v = c_1v_1 + \cdots + c_Nv_N$.
+Any point p can be written as $\mathbf{p} = \mathbf{o} + c_1\mathbf{v}_1 + \cdots + c_N\mathbf{v}_N$.  
+Any vector v can be written as $\mathbf{v} = c_1\mathbf{v}_1 + \cdots + c_N\mathbf{v}_N$.
 
 Recall) A coordinate in a vector space is defined as a coefficients of linear combination on given basis.
 
@@ -112,25 +111,25 @@ A simplex is a *simplest* shape in given dimension.
 In 2D space, it is a triangle.  
 In 3D space, it is a tetrahedron.
 
-For example, let $p_1, p_2, p_3$ is points of a triangle.  
-Then any point $q$ can be represented as
+For example, let $\mathbf{p}_1, \mathbf{p}_2, \mathbf{p}_3$ is points of a triangle.  
+Then any point q can be represented as
 
 $$\begin{align*}
-q &= p_3 + c_1(p_1 - p_3) + c_2(p_2 - p_3) \\
-&= c_1p_1 + c_2p_2 + (1 - c_1 - c_2)p_3 \\
-&= w_1p_1 + w_2p_2 + w_3p_3
+\mathbf{q} &= \mathbf{p}_3 + c_1(\mathbf{p}_1 - \mathbf{p}_3) + c_2(\mathbf{p}_2 - \mathbf{p}_3) \\
+&= c_1\mathbf{p}_1 + c_2\mathbf{p}_2 + (1 - c_1 - c_2)\mathbf{p}_3 \\
+&= w_1\mathbf{p}_1 + w_2\mathbf{p}_2 + w_3\mathbf{p}_3
 \end{align*}$$
 
 Barycentric coordinates must satisfy $\sum_{i=1}^{N} w_i = 1$!  
-If and only if $\forall w_i, 0 \leq w_i \leq 1$, $q$ is located inside given simplex.  
-c.f. $q = \sum_{i=1}^{N} w_ip_i$ is called a convex combination if $\forall w_i, 0 \leq w_i \leq 1$.
+If and only if $\forall w_i, 0 \leq w_i \leq 1$, q is located inside given simplex.  
+c.f. $\mathbf{q} = \sum_{i=1}^{N} w_i\mathbf{p}_i$ is called a convex combination if $\forall w_i, 0 \leq w_i \leq 1$.
 
 Barycentric coordinates can be computed!
 
 $$\begin{align*}
-q &= w_1p_1 + w_2p_2 + (1 - w_1 - w_2)p_3 \\
-&= p_3 + w_1(p_1 - p_3) + w_2(p_2 - p_3) \\
-&= p_3 + w_1v_1 + w_2v_2 \\
-u &\coloneqq q - p_3 = \begin{bmatrix}v_1 & v_2\end{bmatrix}\begin{bmatrix}w_1 \\ w_2\end{bmatrix} \\
-\therefore \begin{bmatrix}w_1 \\ w_2\end{bmatrix} &= \begin{bmatrix}v_1 & v_2\end{bmatrix}^{-1}u
+\mathbf{q} &= w_1\mathbf{p}_1 + w_2\mathbf{p}_2 + (1 - w_1 - w_2)\mathbf{p}_3 \\
+&= \mathbf{p}_3 + w_1(\mathbf{p}_1 - \mathbf{p}_3) + w_2(\mathbf{p}_2 - \mathbf{p}_3) \\
+&= \mathbf{p}_3 + w_1\mathbf{v}_1 + w_2\mathbf{v}_2 \\
+\mathbf{u} &\coloneqq q - \mathbf{p}_3 = \begin{bmatrix}\mathbf{v}_1 & \mathbf{v}_2\end{bmatrix}\begin{bmatrix}w_1 \\ w_2\end{bmatrix} \\
+\therefore \begin{bmatrix}w_1 \\ w_2\end{bmatrix} &= \begin{bmatrix}\mathbf{v}_1 & \mathbf{v}_2\end{bmatrix}^{-1}\mathbf{u}
 \end{align*}$$
