@@ -135,9 +135,6 @@ markdown:
   images:
     prependRoot: true
     postAsset: true
-## https://github.com/wayou/hexo-image-caption
-image_caption:
-  enable: true
 ## https://theme-next.js.org/docs/theme-settings/custom-pages.html
 tag_generator:
   enable_index_page: false
