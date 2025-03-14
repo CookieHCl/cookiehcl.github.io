@@ -6,7 +6,7 @@
     {
       "label": "Create new post",
       "type": "shell",
-      "command": "npx hexo new --path '${input:path}' '${input:title}' && rmdir 'source/_posts/${input:path}' && code 'source/_posts/${input:path}.md'",
+      "command": "node create_new_post.js '${input:dir}' '${input:title}'",
       "problemMatcher": [],
       "presentation": {
         "reveal": "silent",
@@ -55,9 +55,9 @@
   ],
   "inputs": [
     {
-      "id": "path",
+      "id": "dir",
       "type": "promptString",
-      "description": "Enter the path to the post",
+      "description": "Enter the directory of the post",
     },
     {
       "id": "title",
