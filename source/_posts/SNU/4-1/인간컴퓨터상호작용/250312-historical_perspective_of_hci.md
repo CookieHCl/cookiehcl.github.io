@@ -207,6 +207,6 @@ Example of an early research topic: breadth vs. depth in menu design
 - Two-finger gestures (1978) -> Apple iPhone (2007)
 - Acceleration-sensing (1998) -> Nintendo Wiimote (2005)
 - Wheel mouse (1993) -> Microsoft Intellimouse (1996)
-- Single-stroke text input (1993) -> Palm’s Graffiti (1995)
+- Single-stroke text input (1993) -> Palm's Graffiti (1995)
 
 There are lots of other examples: HyperText, Text Editing, Mouse, Windows, Gesture Recognition etc.
