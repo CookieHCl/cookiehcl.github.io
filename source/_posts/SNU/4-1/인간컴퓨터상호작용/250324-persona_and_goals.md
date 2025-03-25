@@ -1,5 +1,10 @@
 ---
 title: Persona and Goals
+abbrlink: 48
+categories:
+  - SNU
+  - 4-1
+  - 인간컴퓨터상호작용
 date: 2025-03-24 14:04:20
 tags:
 ---
