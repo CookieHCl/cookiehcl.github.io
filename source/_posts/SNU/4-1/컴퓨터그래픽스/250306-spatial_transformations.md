@@ -185,5 +185,5 @@ XYZ, XYX, XZY, XZX, YZX, YZY, YXZ, YXY, ZXY, ZXZ, ZYX, ZYZ
 
 ### Problems of Euler angles
 
-Gimble Lock: In certain alignments of the axes, we lose degree of freedom.  
+Gimbal Lock: In certain alignments of the axes, we lose degree of freedom.  
 Not unique: Two different euler angles can represent the same rotation.

@@ -120,11 +120,15 @@ We can use these criteria to test and measure usability!
 
 Affection is about emotional deisgn; How can we *persuade* people?
 
-Design of objects are perceived on three levels:
+Levels of Cognitive Processing (Perception of Design): Design of objects are perceived on three levels!
 
 - Visceral: First Impressions & Instincts
+  - React to visual (sensory) aspects e.g. good, bad, safe, dangerous.
 - Behavioral: Usability & Functionality
+  - Simple everyday behaviors
+  - Majority of human behaviors
 - Reflective levels: Meaning & Personal Connection
+  - Conscious consideration and reflection on past experiences
 
 #### Measuring affection???
 
