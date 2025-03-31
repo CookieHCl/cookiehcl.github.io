@@ -513,7 +513,7 @@
   </url>
   
   <url>
-    <loc>https://cookiehcl.github.io/categories/BOOK/%EC%86%8C%EC%84%A4/</loc>
+    <loc>https://cookiehcl.github.io/categories/BOOK/%EC%9E%90%EA%B8%B0%EA%B3%84%EB%B0%9C/</loc>
     <lastmod>2025-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -527,7 +527,14 @@
   </url>
   
   <url>
-    <loc>https://cookiehcl.github.io/categories/BOOK/%EC%9E%90%EA%B8%B0%EA%B3%84%EB%B0%9C/</loc>
+    <loc>https://cookiehcl.github.io/categories/BOOK/%EC%9D%B8%EB%AC%B8/</loc>
+    <lastmod>2025-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/BOOK/%EC%86%8C%EC%84%A4/</loc>
     <lastmod>2025-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -542,13 +549,6 @@
   
   <url>
     <loc>https://cookiehcl.github.io/categories/SNU/</loc>
-    <lastmod>2025-03-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cookiehcl.github.io/categories/BOOK/%EC%9D%B8%EB%AC%B8/</loc>
     <lastmod>2025-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
