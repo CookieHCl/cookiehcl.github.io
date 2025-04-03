@@ -33,6 +33,6 @@
     "katex": "^0.16.21"
   },
   "devDependencies": {
-    "browser-sync": "^3.0.3"
+    "browser-sync": "^3.0.4"
   }
 }
