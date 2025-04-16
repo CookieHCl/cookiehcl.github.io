@@ -1,5 +1,9 @@
 ---
 title: Multiplexing & UDP
+categories:
+  - SNU
+  - 4-1
+  - 컴퓨터네트워크
 date: 2025-03-31 16:19:54
 tags:
 ---
@@ -66,7 +70,7 @@ UDP are used in:
 - HTTP/3 (HTTP-over-QUIC) (but reliable transfer is needed - application layer has congestion control)
   - Actually Google wanted to make new protocol, but because of backward compatibility, it used UDP + congestion control
 
-### UDP segment hader
+### UDP segment header
 
 - source port number
 - destination port number

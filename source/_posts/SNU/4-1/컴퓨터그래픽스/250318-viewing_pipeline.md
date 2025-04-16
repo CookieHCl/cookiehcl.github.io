@@ -42,9 +42,11 @@ R^T\mathbf{q}_{wc} - R^Tp &= \mathbf{q}_{vc} \\
 But usually we only use a look-at direction or a reference position in the scene.  
 This can reduce number of parameters so we don't have to send the whole rotation matrix.
 
-$$\mathbf{z}_{vc} = -\frac{\mathbf{w}}{|\mathbf{w}|} \text{ or } \mathbf{z}_{vc}=\frac{\mathbf{p}-\mathbf{p}_{ref}}{|\mathbf{p}-\mathbf{p}_{ref}|} \\
-\mathbf{x}_{vc} = \frac{\mathbf{v}_{up} \times \mathbf{z}_{vc}}{|\mathbf{v}_{up}|} \\
-\mathbf{y}_{vc} = \mathbf{z}_{vc} \times \mathbf{x}_{vc}
+$$\begin{align*}
+\mathbf{z}_{vc} = -\frac{\mathbf{w}}{|\mathbf{w}|} \text{ or } \mathbf{z}_{vc} &= \frac{\mathbf{p}-\mathbf{p}_{ref}}{|\mathbf{p}-\mathbf{p}_{ref}|} \\
+\mathbf{x}_{vc} &= \frac{\mathbf{v}_{up} \times \mathbf{z}_{vc}}{|\mathbf{v}_{up}|} \\
+\mathbf{y}_{vc} &= \mathbf{z}_{vc} \times \mathbf{x}_{vc}
+\end{align*}
 $$
 
 $\mathbf{v}_{up}$ can be any vector other than one parellel to $\mathbf{z}_{vc}$, usually chosen as (0,1,0).

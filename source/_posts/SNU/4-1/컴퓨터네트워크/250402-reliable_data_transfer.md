@@ -1,5 +1,9 @@
 ---
 title: Reliable Data Transfer
+categories:
+  - SNU
+  - 4-1
+  - 컴퓨터네트워크
 date: 2025-04-02 16:34:36
 tags:
 ---
@@ -21,7 +25,7 @@ i.e. data <-> packet is reliable
 - `deliver_data()`: Called by rdt to deliver data to application.
 
 We consider only unidirectional data transfer, but control info will flow in both directions.  
-We use FSMs specify sender and receiver.
+We use FSMs to specify sender and receiver.
 
 ## rdt1.0: reliable transfer over a reliable channel
 
@@ -30,17 +34,19 @@ We have reliable channel, do nothing!
 ### Sender
 
 ```c
-rdt_send(data)
-packet = make_pkt(data)
-udt_send(packet)
+void rdt_send(data) {
+  packet = make_pkt(data)
+  udt_send(packet)
+}
 ```
 
 ### Receiver
 
 ```c
-packet = rdt_rcv()
-extract(packet)
-deliver_data(data)
+void rdt_rcv(packet) {
+  data = extract(packet)
+  deliver_data(data)
+}
 ```
 
 ## rdt2.0: channel with bit errors
@@ -72,7 +78,7 @@ We use sequence number!
 
 - Sender adds sequence number to each packet.  
 - Receiver checks sequence number and discard duplicate packet.  
-- Sender retransmits current packet if NAK or ACK/NAK is corrupted.  
+- Sender retransmits current packet if ACK/NAK is corrupted.  
 - Receiver **should send ACK** when duplicate packet arrive.
 
 Still use stop and wait method - sender sends one packet, then waits for receiver response.
@@ -162,3 +168,6 @@ We can't increase number infinitely!
 
 Go-Back-N use at least N + 1 sequence numbers.  
 Selective repeat use at least 2N sequence numbers.
+
+In reality, packets can sent and received out of order.  
+Specification says that MSL (Maximum Segment Lifetime) should be 120s ~ 3 min.

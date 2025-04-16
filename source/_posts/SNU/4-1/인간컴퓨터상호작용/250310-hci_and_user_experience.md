@@ -11,10 +11,9 @@ tags:
 
 # Moore's law
 
-컴퓨터의 능력은 2배씩 증가하고 있음  
-하지만 사람의 능력은 거의 제자리...
+Computer abilities are doubled each 2 years. But human abilities are almost in place...
 
-현재 AI는 Human-performance를 거의 따라잡았다
+AI has nearly caught up with human performance!
 
 # HCI
 
@@ -60,8 +59,6 @@ e.g. focus on children, seniors, animals???
   - Ambient (Much bigger and more complicated technology)
 
 # Terms of HCI Research
-
-{% asset_img hci_terms.png This is an example image %}
 
 ![HCI Terms](hci_terms.png)
 

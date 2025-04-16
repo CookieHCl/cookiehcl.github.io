@@ -1,5 +1,9 @@
 ---
 title: Image Recognition Neural Network
+categories:
+  - SNU
+  - 4-1
+  - 하드웨어시스템설계
 date: 2025-03-25 09:28:01
 tags:
 ---
