@@ -1,5 +1,10 @@
 ---
 title: Sampling and Reconstruction
+abbrlink: 65
+categories:
+  - SNU
+  - 4-1
+  - 컴퓨터그래픽스
 date: 2025-04-17 11:06:47
 tags:
 ---

@@ -1,5 +1,10 @@
 ---
 title: Predictive Models
+abbrlink: 66
+categories:
+  - SNU
+  - 4-1
+  - 인간컴퓨터상호작용
 date: 2025-04-21 14:01:16
 tags:
 ---
