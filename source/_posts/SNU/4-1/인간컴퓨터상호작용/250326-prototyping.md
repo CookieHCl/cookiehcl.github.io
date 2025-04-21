@@ -81,7 +81,7 @@ Paper/plastic-based interface simulation...
 - Trigger user reactions: Help uncover user expectations and issues
 
 - Might be inaccurate: Does not reflect actual system speed or responsiveness
-- Human error: Human-as-computer may unintentionally interfere with the user’s experience
+- Human error: Human-as-computer may unintentionally interfere with the user's experience
 - Design changes are cumbersome: repetitive earsing and drawing
 - Doesn't scale well: Humans struggle to manually keep up with fast transitions across hundreds of screens
 
@@ -125,7 +125,7 @@ Sketching can help you:
 
 ### Wizard of OZ (originally OZ Paradigm)
 
-Experimeter (the wizard) simulates the behavior of a theoreticla intelligent computer application in a laboratory without the system actually being built.
+Experimenter (the wizard) simulates the behavior of a theoreticla intelligent computer application in a laboratory without the system actually being built.
 
 We can test a system that does not exist!  
 Users don't know that someone is faking all the responses.  
@@ -154,7 +154,7 @@ Use prototyping tools! (e.g. Figma, Sketch, Javascript)
   - Management or stakeholders might mistake the prototype for the final product
 - Stay focused on function over form
   - Do not get distracted by too small detail
-  - e.g. Don’t waste time debating fonts or colors at this stage
+  - e.g. Don't waste time debating fonts or colors at this stage
 
 ## High-Fidelity Prototypes
 

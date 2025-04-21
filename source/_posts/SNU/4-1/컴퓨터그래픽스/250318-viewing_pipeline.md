@@ -26,17 +26,17 @@ R & \mathbf{p} \\
 \mathbf{0} & 1
 \end{bmatrix}\mathbf{q}_{vc}$ where $R$ is camera's rotation matrix and $\mathbf{p}$ is camera's position.
 
-$$ \therefore \mathbf{q}_{vc} = \begin{bmatrix}
+$$\begin{align*}
+\therefore \mathbf{q}_{vc} = \begin{bmatrix}
 R & \mathbf{p} \\
 \mathbf{0} & 1
-\end{bmatrix}^{-1}\mathbf{q}_{wc} = \begin{bmatrix}
+\end{bmatrix}^{-1}\mathbf{q}_{wc} &= \begin{bmatrix}
 R^T & -R^T\mathbf{p} \\
 \mathbf{0} & 1
-\end{bmatrix}^{-1}\mathbf{q}_{wc}\\
-\begin{align*}
-\because  \mathbf{q}_{wc} &= R\mathbf{q}_{vc} + p \\
-\mathbf{q}_{wc} - p &= R\mathbf{q}_{vc} \\
-R^T\mathbf{q}_{wc} - R^Tp &= \mathbf{q}_{vc} \\
+\end{bmatrix}\mathbf{q}_{wc}\\
+\because  \mathbf{q}_{wc} &= R\mathbf{q}_{vc} + \mathbf{p} \\
+\mathbf{q}_{wc} - \mathbf{p} &= R\mathbf{q}_{vc} \\
+R^T\mathbf{q}_{wc} - R^T\mathbf{p} &= \mathbf{q}_{vc} \\
 \end{align*}$$
 
 But usually we only use a look-at direction or a reference position in the scene.  

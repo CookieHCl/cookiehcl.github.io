@@ -83,7 +83,7 @@ Scan path is used in user behaviour research (e.g. reading patterns) or marketin
 Sound is a cyclic fluctuations of pressure in a medium, such as air.  
 Sound is created when physical objects are moved or vibrated.
 
-Physical properties of sound (frequency, intensity) create subjective properties of hearing. (pitch loudness)
+Physical properties of sound (frequency, intensity) create subjective properties of hearing. (pitch, loudness)
 
 But there are other properties of sounds: timbre and attack!
 
@@ -149,7 +149,7 @@ As a controller, the eye is called upon to do double duty:
 
 e.g. Eye Typing - use eye tracker to type on on-screen keyboard
 
-Human Factors Model can be modified? 이거도 시험에 나온다?
+Human Factors Model can be modified?
 
 ![Modified Human Factors Model](modified_human_factors_model.png)
 

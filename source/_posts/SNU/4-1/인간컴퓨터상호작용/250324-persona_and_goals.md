@@ -73,8 +73,8 @@ Within the design team, personas help:
 
 - Provide a shared understanding of the target user
 - Encourage empathy-driven design decisions
-- Define who the product is for and who it isn’t for
-- Determine what the product should and shouldn’t do
+- Define who the product is for and who it isn't for
+- Determine what the product should and shouldn't do
 - Provide a stable reference point throughout the design process
 - Sserve as a stand-in for real users
 - Test design via walkthroughs
@@ -97,7 +97,7 @@ Within the design team, personas help:
 
 - Tap into universal patterns that users recognize instinctively (unconsciously)
 - Guide branding & product identity through emotional association
-- Help users quickly understand the product’s personality & values
+- Help users quickly understand the product's personality & values
 - Strengthen user engagement by aligning with familiar narratives
 
 ## Steps for Constructing Personas
@@ -105,7 +105,7 @@ Within the design team, personas help:
 - Identify behavioral variables
   - Consider activity, attitude, aptitude, motivation, and skills
 - Map interview subjects to behavioral variables
-  - Use character mapping techniques (e.g., from The Designer’s Stance)
+  - Use character mapping techniques (e.g., from The Designer's Stance)
 - Identify significant behavior patterns
   - Recognize key roles and recurring user behaviors
 - Synthesize characteristics and relevant goals
@@ -151,8 +151,8 @@ e.g. young people using a general user interface
 
 ### Secondary persona
 
-Secondary persona is mostly satisfied with the primary persona’s interface.  
-It has specific additional needs that can be accommodated without upsetting the product’s ability to serve the primary persona.
+Secondary persona is mostly satisfied with the primary persona's interface.  
+It has specific additional needs that can be accommodated without upsetting the product's ability to serve the primary persona.
 
 Designers should design for the primary, and then adjust the design to accommodate the secondary.
 

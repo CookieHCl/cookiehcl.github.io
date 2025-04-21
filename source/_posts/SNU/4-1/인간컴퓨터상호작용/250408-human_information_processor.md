@@ -139,7 +139,7 @@ Recall is much higher in the partial report procedure!
 
 ### Variable Perceptual Processor Rate Principle
 
-Cycle Time of Perceptual Processor: $\tau_P$ = 100ms (이거 시험에 나옴)  
+Cycle Time of Perceptual Processor: $\tau_P$ = 100ms  
 Time that takes before human claims to see it after impulse (unit impulse response)
 
 But it may vary according to stimulus intensity.  
