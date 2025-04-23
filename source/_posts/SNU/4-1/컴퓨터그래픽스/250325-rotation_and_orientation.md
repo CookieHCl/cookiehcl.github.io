@@ -45,6 +45,7 @@ In fact, it's actually $e^{i\theta} = \cos\theta + i \sin\theta$.
 We can't use complex number for rotation;  
 We have to distinguish between 1 full turn and 2 full turns.
 
+We'll just use angle to represent 2D rotations. (as we've been doing)  
 Unlike point and vectors, we have to choose different representation for rotation and orientation.
 
 # 3D Rotation
@@ -95,8 +96,9 @@ $$\begin{align*}
 \end{align*}$$
 $$ (w, x, y, z)^{-1} = (w, -x, -y, -z) = (-w, x, y, z) $$
 
+We use euler parameters as a quaternion. Rotating $\theta$ along axis $\hat{\mathbf{v}}$ is represented as $(\cos\frac{\theta}{2}, \hat{\mathbf{v}}\sin\frac{\theta}{2})$.  
 We represent 3D vectors $(x, y, z)$ as a pure imaginary Quaternions $(0, x, y, z)$.  
-Then rotating $\mathbf{x}$ about $\mathbf{q}$ is represented as $\mathbf{x}' = \mathbf{q}\mathbf{x}\mathbf{q}^{-1}$.
+Then rotating vector $\mathbf{x}$ about rotation $\mathbf{q}$ is represented as $\mathbf{x}' = \mathbf{q}\mathbf{x}\mathbf{q}^{-1}$.
 
 ## Antipodal Equivalence
 
@@ -128,7 +130,7 @@ q_0^2 + q_x^2 - q_y^2 - q_z^2 & 2q_xq_y - 2q_0q_z & 2q_xq_z + 2q_0q_y & 0 \\
 Tangent space of a point $\mathbf{q}$ on $S^3$ is three-dimensional space of quaternions, $T_{\mathbf{q}} S^3$.
 
 If a point $\mathbf{q}$ is given, we apply $\mathbf{q}^{-1}$ and use tangent space $T_I S^3$. ($I = (1,0,0,0)$)  
-Every vector in $T_I S^3$ is purely imaginary vector - i.e. real part should be 0 such as (0, x, y, z).  
+Every vector in $T_I S^3$ is purely imaginary quaternion - i.e. real part should be 0 such as (0, x, y, z).  
 We call tangent vector $\dot{\mathbf{q}}$ is a vector from I to the projection of $\mathbf{q}$ onto $T_I S^3$.  
 $\dot{\mathbf{q}}$ isn't related to velocity, but it is related to angular velocity. $\omega = 2\mathbf{q}^{-1}\dot{\mathbf{q}}$
 
@@ -137,10 +139,12 @@ $\dot{\mathbf{q}}$ isn't related to velocity, but it is related to angular veloc
 We define log as a map from $\mathbf{q}$ to $\dot{\mathbf{q}}$, and exp as a map from to $\dot{\mathbf{q}}$ to $\mathbf{q}$.  
 i.e. log is a map from $S^3$ to $T_I S^3$, following the shortest path on the sphere, a.k.a. the great arc.
 
-Exp maps 3D vector (in form of purely imaginary vector) to quaternion.  
+Exp maps 3D vector (in form of purely imaginary quaternion) to quaternion.  
 i.e. it maps 3D rotation vector to a corresponding rotation quaternion.
 
-$$\exp(\mathbf{v}) = \exp(\theta\hat{\mathbf{v}}) = (\cos\theta, \hat{\mathbf{v}}\sin\theta)$$
+$$\exp(\mathbf{v}) = \exp(\theta\hat{\mathbf{v}}) \coloneqq (\cos\theta, \hat{\mathbf{v}}\sin\theta)$$
+
+Note that rotation quaternion of rotation vector $\theta\hat{\mathbf{v}}$ is $\exp(\frac{\theta}{2}\hat{\mathbf{v}})$!!!
 
 ## Rotation Vector
 

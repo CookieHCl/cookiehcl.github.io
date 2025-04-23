@@ -64,7 +64,7 @@ If an error rate is $O(n^2)$, it means that if a sampling interval is reduced to
 
 Adaptive sampling can be also used!
 
-Maximum order of polynomials is 4, higher order doesn't reduce error rate.
+Only polynomials up to the fourth order are used, higher order don't reduce the error rate.
 
 ### Computing inverse
 
@@ -74,7 +74,7 @@ We can formulate as a root finding problem.
 
 $$f(u) = s - \text{LENGTH}(u, u_0) = 0$$
 
-Bisection algorithm may be used, but Newton-Raphson iteration is faster.
+Bisection algorithm may be used, (since s(u) is monotonically increasing) but Newton-Raphson iteration is faster.
 
 ## Simulating mass point on a spline
 
@@ -144,8 +144,7 @@ Just treat unit quaternions as 4D vectors, then project the affine combination t
 $$\mathbf{q} = \frac{w_0 \mathbf{q}_0 + \cdots + w_n \mathbf{q}_n}{\| w_0 \mathbf{q}_0 + \cdots + w_n \mathbf{q}_n \|}$$
 
 Pros: simple, efficient  
-Cons: Linear precision doesn't holds.  
-Affine combination of $f(x)$ is not $f$ of affine combination.
+Cons: Linear precision doesn't holds. i.e. Re-normalization of $f(\mathbf{q}_i)$ is not $f(\mathbf{q}_i)$ for linear function $f$.
 
 ### Multi-Linear Method
 

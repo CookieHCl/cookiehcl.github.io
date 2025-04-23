@@ -59,8 +59,9 @@ $$\mathbf{a}_1 = \bm{A}\begin{bmatrix}
 0 \\ 0 \\ 1
 \end{bmatrix}$$
 
-Instead of viewing linear transformation as transforming vector, we can view as changing basis.  
-e.g. Instead of thinking as shearing, we can view as moving x-axis.
+![Change of basis](change_of_basis.png)
+
+Instead of viewing linear transformation as transforming vector, we can view as changing basis.
 
 $$\begin{align*}
 x\mathbf{v}_0 + y\mathbf{v}_1 &= x'\mathbf{v}'_0 + y'\mathbf{v}'_1 \\

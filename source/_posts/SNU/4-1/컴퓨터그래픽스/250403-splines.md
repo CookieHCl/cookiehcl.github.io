@@ -336,7 +336,7 @@ $$\begin{align*}
 B_0(t) &= \frac{1}{6}(1-t)^3 \\
 B_1(t) &= \frac{1}{6}(3t^3 - 6t^2 + 4) \\
 B_2(t) &= \frac{1}{6}(-3t^3 + 3t^2 + 3t + 1) \\
-B_3(t) &= \frac{1}{t} t^3 \\
+B_3(t) &= \frac{1}{6} t^3 \\
 P(t) &= \begin{bmatrix}
 \mathbf{p}_0 & \mathbf{p}_1 & \mathbf{p}_2 & \mathbf{p}_3
 \end{bmatrix}
@@ -355,6 +355,9 @@ t^3
 \end{bmatrix}
 \end{align*}$$
 
+Curve segment is changed when $t$ becomes an integer.  
+Since curve segment is changed uniformly, (i.e. knots are equally spaced) this spline is called uniform cubic B-spline.
+
 ### Properties of B-splines
 
 - Convex hull
@@ -372,6 +375,9 @@ P(t) &= G_{Bezier} \cdot B_{Bezier} \cdot M(t) \\
 \therefore G_{Bspline} &= G_{Bezier} \cdot B_{Bezier} \cdot B_{Bspline}^{-1}
 \end{align*}$$
 
+We can compute control points of the B-spline curve from control points of the Bezier curve.  
+Parametrization is different, but curves are same!
+
 ## NURBS (Non-Uniform Rational B-Spline)
 
 $$\mathbf{p}(t) = \frac{\sum w_j\mathbf{p}_jB_j(t)}{\sum w_jB_j(t)}$$
@@ -379,7 +385,7 @@ $$\mathbf{p}(t) = \frac{\sum w_j\mathbf{p}_jB_j(t)}{\sum w_jB_j(t)}$$
 Generalized version of B-Splines!  
 We use rational polynomial to represent conics (circle, ellipses, hyperbolics).
 Rational polynomial is invariant under projective transformation.  
-Non-uniform means we can use non-uniform location of control points.
+Non-uniform means we can use non-uniform location of knots.
 
 # Surfaces
 

@@ -31,7 +31,7 @@ Vector space consists of
   - vector addition
   - scalar multiplication
 
-TMI) Vector space + metric (norm, etc.) = Euclidean space
+c.f. Vector space + metric (norm, etc.) = Euclidean space
 
 ## Affine space
 

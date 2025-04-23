@@ -18,7 +18,7 @@ An object contains transformation, geometry, material, and lighting.
 
 Pros:
 
-- Description can be very compace
+- Description can be very compact
 - Easy to determine if a point is inside or outside
 - Other queries may also be easy (e.g. distance to surface)
 - Simple shapes have exact description and no sampling error

@@ -45,7 +45,10 @@ This can reduce number of parameters so we don't have to send the whole rotation
 $$\begin{align*}
 \mathbf{z}_{vc} = -\frac{\mathbf{w}}{|\mathbf{w}|} \text{ or } \mathbf{z}_{vc} &= \frac{\mathbf{p}-\mathbf{p}_{ref}}{|\mathbf{p}-\mathbf{p}_{ref}|} \\
 \mathbf{x}_{vc} &= \frac{\mathbf{v}_{up} \times \mathbf{z}_{vc}}{|\mathbf{v}_{up}|} \\
-\mathbf{y}_{vc} &= \mathbf{z}_{vc} \times \mathbf{x}_{vc}
+\mathbf{y}_{vc} &= \mathbf{z}_{vc} \times \mathbf{x}_{vc} \\
+\therefore R & = \begin{bmatrix}
+\mathbf{x}_{vc} & \mathbf{y}_{vc} & \mathbf{z}_{vc}
+\end{bmatrix}
 \end{align*}
 $$
 
