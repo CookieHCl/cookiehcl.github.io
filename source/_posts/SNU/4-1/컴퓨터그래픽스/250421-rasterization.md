@@ -4,6 +4,7 @@ categories:
   - SNU
   - 4-1
   - 컴퓨터그래픽스
+abbrlink: 68
 date: 2025-04-21 11:42:37
 tags:
 ---
