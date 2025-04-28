@@ -437,8 +437,8 @@ always @(posedge clk)
    if (reset)    qout <= {N{1'b0}};  // synchronous reset
    else if (eup) qout <= qout + 1;   // up counter
    else if (edn) qout <= qout - 1;   // down counter
-assign #1 cout = (&qout)& eup;       // generate carry out
-assign #1 bout = (~|qout)& edn;      // generate borrow out
+assign #1 cout = (&qout) & eup;      // generate carry out
+assign #1 bout = (~|qout) & edn;     // generate borrow out
 ```
 
 ## Finite-State Machines (FSMs)

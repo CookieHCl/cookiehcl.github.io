@@ -94,7 +94,8 @@ After new ACK is received, switch to congestion avoidance.
 
 ![Implementation of AIMD](tcp_aimd_implementation.png)
 
-To double *cwnd* in the slow start state, we increase *cwnd* by 1 MSS for each new ACK.
+To double *cwnd* in the slow start state, we increase *cwnd* by 1 MSS for each new ACK.  
+For every RTT, cwnd / MSS packets are ACKed, so *cwnd* will be increased by *cwnd*. (i.e. doubled)
 
 But we need to increase *cwnd* linearly in the congestion avoidance state. To do this, we increase *cwnd* by (MSS * MSS /cwnd) for each new ACK.  
 For every RTT, cwnd / MSS packets are ACKed, so *cwnd* will be increased by 1 MSS.
