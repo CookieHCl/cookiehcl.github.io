@@ -95,10 +95,10 @@ After new ACK is received, switch to congestion avoidance.
 ![Implementation of AIMD](tcp_aimd_implementation.png)
 
 To double *cwnd* in the slow start state, we increase *cwnd* by 1 MSS for each new ACK.  
-For every RTT, cwnd / MSS packets are ACKed, so *cwnd* will be increased by *cwnd*. (i.e. doubled)
+For every RTT, $\frac{\text{cwnd}}{\text{MSS}}$ packets are ACKed, so *cwnd* will be increased by *cwnd*. (i.e. doubled)
 
-But we need to increase *cwnd* linearly in the congestion avoidance state. To do this, we increase *cwnd* by (MSS * MSS /cwnd) for each new ACK.  
-For every RTT, cwnd / MSS packets are ACKed, so *cwnd* will be increased by 1 MSS.
+But we need to increase *cwnd* linearly in the congestion avoidance state. To do this, we increase *cwnd* by (MSS * MSS / cwnd) for each new ACK.  
+For every RTT, $\frac{\text{cwnd}}{\text{MSS}}$ packets are ACKed, so *cwnd* will be increased by 1 MSS.
 
 Since the internet is fast enough, we use inital *cwnd* as 10 MSS instead of 1 MSS.  
 Also, we use scale factor to scale the initial *sshthresh*, so we can use (64K << scale factor) as the initial *sshthresh*.
