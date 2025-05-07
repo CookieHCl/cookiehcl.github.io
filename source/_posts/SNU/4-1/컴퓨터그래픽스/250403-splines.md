@@ -294,7 +294,8 @@ First and last tangents are set to be zero, and other tangents are set to differ
 
 $$\mathbf{p}'_0 = \mathbf{p}'_n = 0, \mathbf{p}'_i = \frac{\mathbf{p}_{i+1} - \mathbf{p}_{i - 1}}{2}$$
 
-Only points are needed to create $C^1$ continuous curve that passes through them!
+Only points are needed to create $C^1$ continuous curve that passes through them!  
+We can either position control points and draw a Bezier spline, or draw a Hermite spline directly.
 
 ## Natural Cubic Splines
 

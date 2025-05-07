@@ -83,7 +83,7 @@ In practice, slow start and fast recovery is used.
 When connection begins, *cwnd* is set to 1 MSS, then *cwnd* is doubled every RTT.  
 If *cwnd* reaches threshold *ssthresh*, switch to congestion avoidance. (Additive Increase)
 
-When timeout is detected, *cwnd* is set to 1 MSS. (TCP Tahoe)  
+When timeout is detected, *cwnd* is set to 1 MSS, and *ssthresh* is set to half of current *cwnd*. (TCP Tahoe)  
 Like slow start, *cwnd* is doubled until it reaches threshold.
 
 Fast recovery is used when triple duplicate ACK is detected. (TCP Reno)  
@@ -165,7 +165,7 @@ AI gives slope of 1, and MD decreases throughput proportionally, thus moving tow
 
 ## Unfair network apps
 
-Multimedia apps often se UDP, and send audio/video at constant rate, tolerating packet loss.  
+Multimedia apps often use UDP, and send audio/video at constant rate, tolerating packet loss.  
 This bypass TCP congestion control!
 
 Web browsers usually open multiple parallel connections between two hosts.  
@@ -174,10 +174,10 @@ HTTP/2 uses one connection, but it's not forced.
 # Evolving transport-layer functionality
 
 In 1983/1/1, ARPANET was able to change every internet protocol from NCP to the TCP/IP.  
-Nowdays, internet is too big, so it's nearly impossible to change protocol from TCP, UDP. (ossification)
-
-There were many different flavors of TCP developed for specific scenarios.  
+Nowdays, internet is too big, so it's nearly impossible to change protocol from TCP, UDP. (ossification)  
 HTTP/3 moved to UDP because tweaking TCP was not enough.
+
+There were many different flavors of TCP developed for specific scenarios.
 
 - Long, fat pipes (Large data transfers): Many packets are in flight, loss can shutdown pipeline
 - Wireless networks: Loss due to noisy wireless links, mobility

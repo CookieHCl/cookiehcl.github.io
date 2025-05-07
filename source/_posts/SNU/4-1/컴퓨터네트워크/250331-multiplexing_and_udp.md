@@ -90,6 +90,10 @@ Theorically, checksum can be correct even if error happens in content (or even i
 But these days bit flip rarely happens, and checksum is useful!  
 Also, it is simple so it can be implemented in hardware!
 
+Unfortunately, UDP checksum is optional...  
+If checksum field is 0, it means checksum is not used.  
+If an actual checksum is 0, we shoule set checksum field to all 1s.
+
 ### Is UDP faster?
 
 Actually, TCP can be faster!
