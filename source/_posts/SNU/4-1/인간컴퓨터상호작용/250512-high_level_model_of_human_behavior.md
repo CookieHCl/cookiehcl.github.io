@@ -1,5 +1,10 @@
 ---
 title: High Level Model of Human Behavior
+abbrlink: 74
+categories:
+  - SNU
+  - 4-1
+  - 인간컴퓨터상호작용
 date: 2025-05-12 13:57:49
 tags:
 ---
