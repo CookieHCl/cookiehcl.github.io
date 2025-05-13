@@ -60,7 +60,7 @@ With attention scores and encoder RNN's hidden state, attention vector is obtain
 - Key: Used to calculate attention scores
 - Value: Encoder's hidden state
 
-$$\text{Attention}(Q,K,V) = \text{softmax}\left( \frac{QK^T}{\sqrt{d_k}} \right) V$$
+$$\text{Attention}(Q,K,V) = \operatorname{softmax}\left( \frac{QK^T}{\sqrt{d_k}} \right) V$$
 
 ## BERT (Bi-directional Encoder Representation from Transformers)
 

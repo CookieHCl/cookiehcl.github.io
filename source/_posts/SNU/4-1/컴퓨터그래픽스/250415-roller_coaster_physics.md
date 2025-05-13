@@ -34,7 +34,7 @@ Arc-length $s(u)$ is the distance from the initial position along the curve.
 We need to reparameterization to arc-length.
 
 $$\begin{align*}
-s &= \text{LENGTH}(u, u_0) \\
+s &= \operatorname{LENGTH}(u, u_0) \\
 &= \int_{u_0}^{u} \sqrt{ \left( \frac{dx(\tilde{u})}{d\tilde{u}} \right)^2 + \left( \frac{dy(\tilde{u})}{d\tilde{u}} \right)^2 + \left( \frac{dz(\tilde{u})}{d\tilde{u}} \right)^2 } d\tilde{u}
 \end{align*}$$
 
@@ -72,7 +72,7 @@ Given arc-length $s$, determine the original parameter $u$.
 Since $s(u)$ is monotonically increasing, so is $u(s)$.  
 We can formulate as a root finding problem.
 
-$$f(u) = s - \text{LENGTH}(u, u_0) = 0$$
+$$f(u) = s - \operatorname{LENGTH}(u, u_0) = 0$$
 
 Bisection algorithm may be used, (since s(u) is monotonically increasing) but Newton-Raphson iteration is faster.
 
@@ -150,14 +150,14 @@ Cons: Linear precision doesn't holds. i.e. Re-normalization of $f(\mathbf{q}_i)$
 
 Evaluate n-point weight sum as a sequence of slerps.  
 Recall) $
-\text{slerp}_t(q_1, q_2) = q_1\exp(t \cdot \log (q_1^{-1}q_2))$
+\operatorname{slerp}_t(q_1, q_2) = q_1\exp(t \cdot \log (q_1^{-1}q_2))$
 
 e.g. Let's calculate $\mathbf{c} = \frac{1}{2}\mathbf{p}_1 + \frac{1}{4}\mathbf{p}_2 + \frac{1}{4}\mathbf{p}_3$.
 
 $$\begin{align*}
 \mathbf{c} &= \frac{1}{2}\mathbf{p}_1 + \frac{1}{4}\mathbf{p}_2 + \frac{1}{4}\mathbf{p}_3 \\
 &= \frac{3}{4} \left( \frac{2}{3}\mathbf{p}_1 + \frac{1}{3}\mathbf{p}_2 \right) + \frac{1}{4}\mathbf{p}_3 \\
-&= \text{slerp}_\frac{1}{4}\left( \text{slerp}_\frac{1}{3}(\mathbf{p}_1, \mathbf{p}_2), \mathbf{p}_3 \right)
+&= \operatorname{slerp}_\frac{1}{4}\left( \operatorname{slerp}_\frac{1}{3}(\mathbf{p}_1, \mathbf{p}_2), \mathbf{p}_3 \right)
 \end{align*}$$
 
 #### Quaternion Bezier Curve
@@ -188,7 +188,7 @@ To minimize $e(\overline{\mathbf{p}})$, $\frac{d}{d\overline{\mathbf{p}}} e(\ove
 
 $$\therefore \overline{\mathbf{p}} = w_1 \mathbf{p}_1 + w_2 \mathbf{p}_2 + \cdots + w_n \mathbf{p}_n$$
 
-In unit quaternion space, we use spherical (geodesic) distance $\text{dist}(\mathbf{q}_1, \mathbf{q}_2) = \| \log(\mathbf{q}_1^{-1} \mathbf{q}_2) \|$
+In unit quaternion space, we use spherical (geodesic) distance $\operatorname{dist}(\mathbf{q}_1, \mathbf{q}_2) = \| \log(\mathbf{q}_1^{-1} \mathbf{q}_2) \|$
 
 $$f(\overline{\mathbf{q}}) = \frac{1}{2} \sum_i w_i \| \log(\overline{\mathbf{q}}^{-1} \mathbf{q}_i) \|^2$$
 

@@ -222,6 +222,6 @@ But... We don't actually use arccos.
 
 Solution: use sin and cos values!
 
-- Use atan2: $\theta = \text{atan2} (|A \times B|, A \cdot B)$
+- Use atan2: $\theta = \operatorname{atan2} (|A \times B|, A \cdot B)$
   - atan2's input is not limited, and it has better numerical stability - e.g. can avoid division by zero
 - Construct rotation matrix directly from sin and cos values

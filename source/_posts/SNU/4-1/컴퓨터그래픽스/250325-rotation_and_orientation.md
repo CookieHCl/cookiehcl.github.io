@@ -180,7 +180,7 @@ Regarding radians, we can think of this as an interpolation of angle.
 ![SLERP](slerp.png)
 
 $$\begin{align*}
-\text{slerp}_t(q_1, q_2) &= q_1\exp(t \cdot \log (q_1^{-1}q_2)) \\
+\operatorname{slerp}_t(q_1, q_2) &= q_1\exp(t \cdot \log (q_1^{-1}q_2)) \\
 &= q_1(q_1^{-1}q_2)^t
 \end{align*}$$
 

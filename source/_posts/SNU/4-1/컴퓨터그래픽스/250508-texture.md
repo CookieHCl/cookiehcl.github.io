@@ -205,9 +205,9 @@ In 2D, interpolating random value is hard. Instead, we assign a random gradient 
 
 Instead of using one noise, we can use a mixture of noise with different scales. (i.e. frequency) A scale is also called an **octave**.
 
-- $\sum_f \frac{1}{f^k} \mathrm{PNoise}(f,x,y)$ looks like cloud
-- $\sin \left( ax + by + \sum_f \frac{1}{f^k} \left| \mathrm{PNoise}(f,x,y) \right| \right)$ looks like marble
-- $\sin \left( a \left| x^2 + y^2 \right| + \sum_f \frac{1}{f^k} \left| \mathrm{PNoise}(f,x,y) \right| \right)$ looks like wood
+- $\sum_f \frac{1}{f^k} \operatorname{PNoise}(f,x,y)$ looks like cloud
+- $\sin \left( ax + by + \sum_f \frac{1}{f^k} \left| \operatorname{PNoise}(f,x,y) \right| \right)$ looks like marble
+- $\sin \left( a \left| x^2 + y^2 \right| + \sum_f \frac{1}{f^k} \left| \operatorname{PNoise}(f,x,y) \right| \right)$ looks like wood
 
 Why? Nobody knows... These are just experimental values.
 

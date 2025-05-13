@@ -47,7 +47,7 @@ e.g. Wagon Wheel Effect: If sampling rate is same as rotation speed, it appears 
 
 # Nyquist-Shannon Theorem
 
-If a signal is band-limited signal, i.e. it has no frequencies above some threshold $\omega$, the signal can be perfectly reconstructed if sample with frequency $2\omega$, and if interpolation is performed using $\text{sinc}(x) = \frac{1}{\pi x}\sin(\pi x) $
+If a signal is band-limited signal, i.e. it has no frequencies above some threshold $\omega$, the signal can be perfectly reconstructed if sample with frequency $2\omega$, and if interpolation is performed using $\operatorname{sinc}(x) = \frac{1}{\pi x}\sin(\pi x) $
 
 But why sinc?? Fourier transform of sinc is rectangular function.  
 Convolution with sinc (i.e. multiplying rectangular function) limits frequency of sampled signal.
