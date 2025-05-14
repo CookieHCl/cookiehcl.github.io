@@ -223,6 +223,15 @@ We find point on the 2D reference texture, then use corresponding point on the 2
 
 # Shadows
 
+Shadows are essential for rendering photorealistic images.  
+There are many things to consider:
+
+- Umbra and penumbra (How many light sources are watching a point?)
+- Soft shadows and hard shadows (point light source at a distance vs. area light source nearby)
+- Object-to-object shadows
+
+Point light sources make sharp boundaries. Probably we should use sth like Gaussian blur?
+
 ## Planar Projection Shadows
 
 Project object to the ground plane, and just draw black object at ground plane.
