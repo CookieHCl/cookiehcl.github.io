@@ -1,5 +1,10 @@
 ---
 title: Conceptual Frameworks
+abbrlink: 76
+categories:
+  - SNU
+  - 4-1
+  - 인간컴퓨터상호작용
 date: 2025-05-14 14:18:12
 tags:
 ---
