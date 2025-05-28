@@ -21,7 +21,7 @@ Conceptual frameworks help us:
 To design effective interfaces, we must align three models:
 
 - Design Model (Conceptual model): The system concept as intended by the designer
-- User’s Model (Mental model): The user’s mental understanding of the system
+- User's Model (Mental model): The user's mental understanding of the system
 - System Image: What the system presents to the user
 through interface and behavior
 
@@ -175,7 +175,7 @@ The user chooses an action (or task) first, then specifies the object.
 
 Metaphor is using one kind of (familiar) object or idea in place of another (unfamiliar) one to suggest a likeness or analogy between them, creating a mental bridge between the two.
 
-- Leverages users’ prior knowledge of familiar, concrete real-world objects/experiences
+- Leverages users' prior knowledge of familiar, concrete real-world objects/experiences
 - Transfer this knowledge to abstract computer and task concepts
 - Reduces the learning curve and improves usability
 
@@ -196,7 +196,7 @@ Paintbrush in a painting program is a metaphor of real-world art.
 ## Metaphors Caveats
 
 - Too limited: The metaphor restricts interface possibility
-- Too powerful: The metaphor makes believe that the system can do things it can’t
+- Too powerful: The metaphor makes believe that the system can do things it can't
 - Too literal or cute: Overly detailed metaphors can be tedious, confusing, or gimmicky
-- Mismatched: The metaphor doesn’t align with the task or user mental model, leading to confusion
+- Mismatched: The metaphor doesn't align with the task or user mental model, leading to confusion
 - WYSIAYG (What You See Is All You Get): limits access to hidden or abstract capabilities, can discourage exploration beyond visible options

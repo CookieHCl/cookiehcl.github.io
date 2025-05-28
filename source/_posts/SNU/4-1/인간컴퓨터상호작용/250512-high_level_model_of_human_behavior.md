@@ -29,7 +29,7 @@ In programmers view, goal is a funtion name, method is a body of a function, sel
 
 ### Top-level goal
 
-Edit manuscript, or, more specifically, move “quick brown” to before “fox”
+Edit manuscript, or, more specifically, move "quick brown" to before "fox"
 
 ### Subgoal
 
