@@ -1,5 +1,9 @@
 ---
 title: Evaluation without users
+categories:
+  - SNU
+  - 4-1
+  - 인간컴퓨터상호작용
 date: 2025-05-26 14:09:58
 tags:
 ---

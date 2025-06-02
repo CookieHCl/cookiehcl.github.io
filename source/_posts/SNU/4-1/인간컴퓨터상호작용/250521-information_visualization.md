@@ -1,5 +1,9 @@
 ---
 title: Information VIsualization
+categories:
+  - SNU
+  - 4-1
+  - 인간컴퓨터상호작용
 date: 2025-05-21 14:08:10
 tags:
 ---

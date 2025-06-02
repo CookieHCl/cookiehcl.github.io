@@ -1,5 +1,9 @@
 ---
 title: Graphic Design
+categories:
+  - SNU
+  - 4-1
+  - 인간컴퓨터상호작용
 date: 2025-05-19 14:04:11
 tags:
 ---
