@@ -1,5 +1,10 @@
 ---
 title: Quantitative Evaluation
+abbrlink: 87
+categories:
+  - SNU
+  - 4-1
+  - 인간컴퓨터상호작용
 date: 2025-06-04 14:03:39
 tags:
 ---
