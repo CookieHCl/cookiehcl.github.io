@@ -1,5 +1,10 @@
 ---
 title: Animation
+abbrlink: 90
+categories:
+  - SNU
+  - 4-1
+  - 컴퓨터그래픽스
 date: 2025-06-05 11:04:22
 tags:
 ---

@@ -4,6 +4,7 @@ categories:
   - SNU
   - 4-1
   - 하드웨어시스템설계
+abbrlink: 88
 date: 2025-05-07 14:12:30
 tags:
 ---

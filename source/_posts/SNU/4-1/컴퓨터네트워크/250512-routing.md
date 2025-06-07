@@ -4,6 +4,7 @@ categories:
   - SNU
   - 4-1
   - 컴퓨터네트워크
+abbrlink: 89
 date: 2025-05-12 16:27:15
 tags:
 ---
