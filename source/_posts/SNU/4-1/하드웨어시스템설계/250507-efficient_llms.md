@@ -209,7 +209,7 @@ Quantized error makes $r$ and $r'$ have a rounding error.
 
 ### Straight-Through Estimator (STE)
 
-!(straight_through_estimator.png)
+![Straight-Through Estimator](straight_through_estimator.png)
 
 Problem: Derivative of round is either 0 or infinity.  
 Solution: When back-propagating, STE approximate round function to identity function. i.e. STE uses 1 as the gradient.
@@ -420,7 +420,7 @@ We also need IO between CPU and NPU.
 
 ## Memory Hierarchy
 
-Mordern GPU have memory hierarchy: Register - L1 cache/Shared memory - L2 cache
+Modern GPU have memory hierarchy: Register - L1 cache/Shared memory - L2 cache
 
 Tensor Core can use two-level tiling to exploit the fastest memory.  
 Each input tile pair is first fetched from main memory to shared memory.  
@@ -521,6 +521,8 @@ Microsoft only used these three training data!
 
 ## LongLoRA
 
+![LongLoRA](longlora.png)
+
 Reasoning needs longer input sequence and more token generations because of chain of thought.
 
 LongLoRA consider local attention (only recent ones) and shift it to consider every input token.  
@@ -530,6 +532,8 @@ In practice, we use global attention (use every input sequence) in some heads, a
 e.g. Gemma 3 repeats 1 global attention layer and 5 local attention layer.
 
 ## MInference
+
+![MInference](minference.png)
 
 Microsoft categorized attention patterns into three categories. (A shape head, Vertical-slash head, Block-sparse head)
 
@@ -678,8 +682,11 @@ However, this constraint is too strict due to the floating point error.
 We use Cayley SGD to solve this problem!  
 $\Delta R(Y)$ is Cayley transform, which transforms skew-symmetric Y into rotation matrix.
 
+Let G is the gradient of quantization error.  
+Then we can update rotation matrix like this.
+
 $$\begin{align*}
-G &= \nabla_R \mathcal{L}_Q(R|W, X) \quad \text{(gradient of quantization error)} \\
+G &= \nabla_R \mathcal{L}_Q(R|W, X) \\
 \hat{G} &= GR^T - \frac{1}{2}RR^TGR^T \\
 Y &= \hat{G} - \hat{G}^T \\
 R' &= \Delta R(Y)R = \left( I - \frac{\alpha}{2}Y \right)^{-1} \left( I + \frac{\alpha}{2}Y \right)R

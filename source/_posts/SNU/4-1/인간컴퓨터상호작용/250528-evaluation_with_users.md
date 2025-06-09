@@ -266,7 +266,7 @@ Easy, but we get no insight into the user's decision process or attitude.
     - Surface mail
       - including a pre-addressed reply envelope gives far better response
   - Design the questionnaire
-    - Don’t forget to debug it!
+    - Don't forget to debug it!
   - Deliver
   - Collect and analyze the data
   - Establish the main finding

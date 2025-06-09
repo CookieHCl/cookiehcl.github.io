@@ -90,8 +90,8 @@ It can be:
   - There are always unexpected problem!
   - When the experiment has started you cannot change
 - Use a check-list so that all subjects follow the same steps (i.e. specific protocol)
-- Don’t forget the informed consent form
-- Don’t forget to debrief each subject
+- Don't forget the informed consent form
+- Don't forget to debrief each subject
 
 Always ask these questions:
 
@@ -199,7 +199,12 @@ Analysis of variance is the most widely used statistical test for hypothesis tes
 Goal: Determine if an independent variable has a significant effect on a dependent variable.  
 e.g. Is the time to complete a task less using method A than using method B?
 
-The mean task completion time were 4.5 s for Method A and 5.5 s for Method B.
+#### ANOVA example
+
+The mean task completion time for Method A was 4.5s. This was 20.1% less than the mean of 5.5s observed for Method B. The difference was statistically significant (F1,9 = 9.80, p < .05)
+
+The mean task completion time were 4.5s for Method A and 5.5s for Method B.
 As there was substantial variation in the observations across participants,
-the difference was not statistically significant as revealed in an analysis of variance (F1,9 = 0.626, ns)  
-(ns means not significant, i.e. p < 0.05)
+the difference was not statistically significant as revealed in an analysis of variance (F1,9 = 0.626, ns)
+
+ns means not significant. Use **ns** if F < 1.0, or use **p > .05** if F > 1.0.

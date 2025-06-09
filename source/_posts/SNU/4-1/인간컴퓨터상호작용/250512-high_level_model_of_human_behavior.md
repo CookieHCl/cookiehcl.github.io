@@ -69,9 +69,9 @@ KLM is a simplified version of CNM-GOMS.
 KLM doesn't have selection rules, and have only 5 operators:
 
 - K: Key/Button press/release, $t_K = 0.2s$
-- P: Pointing with mouse, $t_P = 0.2s$
-- H: Homing between devices (e.g. from keyboard to mouse), $t_H = 0.2s$
-- M: Mental preparation, $t_M = 0.2s$
+- P: Pointing with mouse, $t_P = 1.1s$
+- H: Homing between devices (e.g. from keyboard to mouse), $t_H = 0.4s$
+- M: Mental preparation, $t_M = 1.35s$
 - R(t): System response time, $t_R = t$
 
 Operator time can be debated, but it is a measurement from the user. We can change the operator time as we wish.
