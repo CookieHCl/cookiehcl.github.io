@@ -47,7 +47,7 @@ Cost of direct link can be defined as 1, inverse of bandwidth, or rate of conges
 1. Loop until $N' = V$
     1. Find w not in $N'$ such that $D(w)$ is a minimum
     1. Add w to $N'$
-    1. For all nodes v adjacent to u and not in N',
+    1. For all nodes v adjacent to w and not in N',
         - If $D(v) > D(w) + c_{w,v}$, update $D(v)$ and $p(v) = w$
 
 ### Discussion of Dijkstra's link-state algorithm
@@ -191,7 +191,7 @@ Gateway routers are directly connected, so we can use TCP connection.
 
 BGP is policy-based routing!  
 AS receiving route advertisement uses import policy to accept/decline path.  
-If AS received multiple paths to destination, it can choose any sp
+If AS received multiple paths to destination, it can choose any specific path.  
 AS can also determine whether to advertise received path to other neighboring ASes.
 
 c.f. Why wouldn't AS help each other?  

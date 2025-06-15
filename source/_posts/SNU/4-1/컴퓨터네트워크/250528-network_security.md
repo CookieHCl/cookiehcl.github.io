@@ -114,7 +114,7 @@ Then, they use symmetric key cryptography to actually send the data.
 - To encrypt message $m < n$, compute $c = m^e \bmod n$.
 - To decrypt ciphertext $c$, compute $m = c^d \bmod n$.
 
-Euler's Theorem states that if $\gcd(x, n) = 1$, then $x^z \equiv 1 \mod n$.  
+Euler's Theorem states that if $\gcd(x, n) = 1$, then $x^z \equiv 1 \pmod n$.  
 Recall) $n = pq, z = (p-1)(q-1)$.
 
 Therefore, $\forall x,y, x^y \bmod n = x^{y \bmod z} \bmod n$ if $\gcd(x, n) = 1$.
@@ -232,8 +232,6 @@ Receiver can verify certificate with CA's public key to get E's public key. $K_{
 
 Problem: How do we even believe CA?? + How do we get CA's public key in the first place?  
 Solution: Browsers hardcode known CA's public keys...
-
-solutions: CA public key는 browser에 있음
 
 # Secure message
 
