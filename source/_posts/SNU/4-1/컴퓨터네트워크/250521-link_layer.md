@@ -62,7 +62,7 @@ We want to choose R such that `<D, R>` is divisble by G.
 Since `<D, R>` is divisible by G, $D \cdot 2^r \oplus R = nG$. Equivalently, $D \cdot 2^r = nG \oplus R$.  
 Therefore, R should be the remainder of $D \cdot 2^r \div G$. (Real implementation doesn't use division.)
 
-By choosing good G, we can detect all burst errors up to r bits, and any odd bits errors.  
+By choosing good G, we can detect all burst errors less than r+1 bits, and any odd bits errors.  
 We can also detect burst errors greater than r+1 bits with probability of $1 - 2^{-r}$.
 e.g. 32bit CRC uses G=100000100110000010001110110110111
 
