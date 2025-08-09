@@ -4,6 +4,7 @@ categories:
   - PAPER
   - AI
   - LLM
+abbrlink: 98
 date: 2025-07-21 23:01:56
 tags:
 ---
