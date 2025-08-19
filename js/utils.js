@@ -3,11 +3,9 @@ HTMLElement.prototype.wrap=function(e){this.parentNode.insertBefore(e,this),this
 // https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings
 t.href=decodeURIComponent(atob(e.dataset.url).split("").map((e=>"%"+("00"+e.charCodeAt(0).toString(16)).slice(-2))).join("")),t.rel="noopener external nofollow noreferrer",t.target="_blank",t.className=e.className,t.title=e.title,t.innerHTML=e.innerHTML,e.parentNode.replaceChild(t,e)}))},registerCopyButton(e,t,n=""){
 // One-click copy code support.
-e.insertAdjacentHTML("beforeend",'<div class="copy-btn"><i class="fa fa-copy fa-fw"></i></div>');const o=e.querySelector(".copy-btn");o.addEventListener("click",(()=>{if(!n){const e=t.querySelector(".code")||t.querySelector("code");n=e.innerText}if(navigator.clipboard)
+e.insertAdjacentHTML("beforeend",'<div class="copy-btn"><i class="fa fa-copy fa-fw"></i></div>');const o=e.querySelector(".copy-btn");o.addEventListener("click",(async()=>{if(!n){const e=t.querySelector(".code")||t.querySelector("code");n=e.innerText}if(navigator.clipboard)
 // https://caniuse.com/mdn-api_clipboard_writetext
-navigator.clipboard.writeText(n).then((()=>{o.querySelector("i").className="fa fa-check-circle fa-fw"}),(()=>{o.querySelector("i").className="fa fa-times-circle fa-fw"}));else{const e=document.createElement("textarea");e.style.top=window.scrollY+"px",// Prevent page scrolling
-e.style.position="absolute",e.style.opacity="0",e.readOnly=!0,e.value=n,document.body.append(e),e.select(),e.setSelectionRange(0,n.length),e.readOnly=!1;const t=document.execCommand("copy");o.querySelector("i").className=t?"fa fa-check-circle fa-fw":"fa fa-times-circle fa-fw",e.blur(),// For iOS
-o.blur(),document.body.removeChild(e)}})),
+try{await navigator.clipboard.writeText(n),o.querySelector("i").className="fa fa-check-circle fa-fw"}catch{o.querySelector("i").className="fa fa-times-circle fa-fw"}else o.querySelector("i").className="fa fa-times-circle fa-fw"})),
 // If copycode.style is not mac, element is larger than target
 // So we need to accept both of them as parameters
 t.addEventListener("mouseleave",(()=>{setTimeout((()=>{o.querySelector("i").className="fa fa-copy fa-fw"}),300)}))},registerCodeblock(e){const t=!!e;let n;n=CONFIG.hljswrap?(t?e:document).querySelectorAll("figure.highlight"):document.querySelectorAll("pre"),n.forEach((e=>{
