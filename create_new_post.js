@@ -23,6 +23,6 @@ const title = process.argv[3];
 const filename = `${getDateStr()}-${toSnakeCase(title)}`;
 const filePath = `${dir}/${filename}`;
 
-const command = `npx hexo new --path "${filePath}" "${title}" && rmdir "source/_posts/${filePath}" && code "source/_posts/${filePath}.md"`;
+const command = `npx hexo new --path "${filePath}" "${title}" && code "source/_posts/${filePath}.md" && rmdir "source/_posts/${filePath}"`;
 const output = execSync(command, { encoding: 'utf-8' });
 console.log(output);
