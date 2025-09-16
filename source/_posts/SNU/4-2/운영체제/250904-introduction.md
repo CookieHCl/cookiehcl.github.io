@@ -4,6 +4,7 @@ categories:
   - SNU
   - 4-2
   - 운영체제
+abbrlink: 100
 date: 2025-09-04 09:33:36
 tags:
 ---
