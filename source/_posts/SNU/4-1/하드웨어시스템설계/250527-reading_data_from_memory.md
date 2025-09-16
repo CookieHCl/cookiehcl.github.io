@@ -32,7 +32,7 @@ e.g. 10-bit L1 index, 10-bit L2 index, 12-bit offset
 
 Address translation is very expensive!  
 Hierarchical page table makes it worse, 2-level page table need 3 memory accesses for each physical memory access.
-c.f.) This happens whenever we access hardware components!!
+c.f. This happens whenever we access hardware components!!
 
 We cache translations in TLB. If TLB hits, only single memory access is needed!  
 Usually we have seperate TLB for instruction and data.
