@@ -1,0 +1,30 @@
+{
+	"Proof": {
+		"scope": "markdown",
+		"prefix": "\\proof",
+		"body": [
+			"{% note no-icon Proof %}",
+			"$0",
+			"{% endnote %}"
+		],
+		"description": "Insert a proof container"
+	},
+	"Align": {
+		"scope": "markdown",
+		"prefix": "\\align",
+		"body": [
+			"$$\\begin{align*}",
+			"$0",
+			"\\end{align*}$$"
+		],
+		"description": "Insert an align environment"
+	},
+	"Advantage": {
+		"scope": "markdown",
+		"prefix": "\\adv",
+		"body": [
+			"Adv_{\\mathcal{E}}(\\mathcal{A})$0"
+		],
+		"description": "Insert an advantage of the adversary"
+	}
+}
