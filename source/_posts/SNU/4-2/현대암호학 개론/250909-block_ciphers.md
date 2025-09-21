@@ -4,6 +4,7 @@ categories:
   - SNU
   - 4-2
   - 현대암호학 개론
+abbrlink: 105
 date: 2025-09-09 14:47:49
 tags:
 ---
