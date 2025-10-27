@@ -161,7 +161,7 @@ $$\begin{align*}
 \end{align*}$$
 {% endnote %}
 
-c.f.) Why do we want to prove indistinguishability? Actually we want to prove semantic security.  
+c.f. Why do we want to prove indistinguishability? Actually we want to prove semantic security.  
 A scheme is semantically secure if any efficient adversary that is given the ciphertext and the message's length cannot determine any partial information on the message with probability non-negligibly higher than all other efficient adversary that is only given the message's length.  
 But directly proving sematic security is really hard... Instead, we prove that a scheme is semantically secure if and only if a scheme has indistinguishable encryption, then we prove that a scheme has indistinguishable encryption.
 
