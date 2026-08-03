@@ -1062,13 +1062,6 @@
   </url>
   
   <url>
-    <loc>https://cookiehcl.github.io/categories/SNU/1-2/</loc>
-    <lastmod>2026-08-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cookiehcl.github.io/categories/SNU/4-0/</loc>
     <lastmod>2026-08-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -1097,14 +1090,7 @@
   </url>
   
   <url>
-    <loc>https://cookiehcl.github.io/categories/SNU/1-2/%EC%BB%B4%ED%93%A8%ED%84%B0%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</loc>
-    <lastmod>2026-08-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cookiehcl.github.io/categories/SNU/4-2/</loc>
+    <loc>https://cookiehcl.github.io/categories/SNU/1-2/</loc>
     <lastmod>2026-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1112,6 +1098,13 @@
   
   <url>
     <loc>https://cookiehcl.github.io/categories/SNU/4-0/%EA%B7%B8%EB%A6%AC%EC%8A%A4-%EB%A1%9C%EB%A7%88-%EC%8B%A0%ED%99%94/</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/SNU/4-2/</loc>
     <lastmod>2026-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1126,6 +1119,13 @@
   
   <url>
     <loc>https://cookiehcl.github.io/categories/SNU/4-1/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B7%B8%EB%9E%98%ED%94%BD%EC%8A%A4/</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cookiehcl.github.io/categories/SNU/1-2/%EC%BB%B4%ED%93%A8%ED%84%B0%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</loc>
     <lastmod>2026-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
