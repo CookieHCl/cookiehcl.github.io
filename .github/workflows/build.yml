@@ -5,10 +5,13 @@ on:
     branches: [ main ] # Adjust branches as needed
   pull_request:
     branches: [ main ] # Adjust branches as needed
+  workflow_dispatch: # allow manual re-deploys from the Actions tab
 
+# Supersede queued PR runs, but never cancel a main run: cancelling mid-deploy
+# can leave the site half-published.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -23,12 +26,15 @@ jobs:
 
       - name: Setup nub
         uses: nubjs/setup-nub@v0
+        with:
+          # https://github.com/nubjs/nub/issues/804
+          nub-version: "0.7"
 
       - name: Install dependencies
         run: nub ci
 
       - name: Run Astro Check
-        run: nubx astro check
+        run: nub run check
 
   build:
     runs-on: ubuntu-latest
@@ -39,9 +45,36 @@ jobs:
 
       - name: Setup nub
         uses: nubjs/setup-nub@v0
+        with:
+          # https://github.com/nubjs/nub/issues/804
+          nub-version: "0.7.5"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
 
       - name: Install dependencies
         run: nub ci
 
       - name: Run Astro Build
-        run: nubx astro build
+        run: nub run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    name: Deploy
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
